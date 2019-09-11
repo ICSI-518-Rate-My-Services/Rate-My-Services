@@ -1,0 +1,11 @@
+{% if pUsers %}
+	<ul>
+	{% for p in pUsers %}
+		<li>
+			<a href="{% url 'RateMyServices:user_profile' p.id gUser.id %}">{{p.first_name}} {{p.last_name}}</a>
+		</li>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>No polls are available.<p>
+{% endif %}

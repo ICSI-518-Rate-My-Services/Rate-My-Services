@@ -1,0 +1,46 @@
+<h1>{{ pUser.first_name }} {{ pUser.last_name }}</h1>
+
+{% if error_message %}
+<p>
+	<strong>
+		{{ error_message }}
+	</strong>
+</p>
+{% endif %}
+
+<ul>
+	<li>Email: {{ pUser.email }}</li>
+	<li>Title: {{ pUser.title }}</li>
+	<li>Description: {{ pUser.description }}</li>
+	<li>State: {{ pUser.state.state }}</li>
+	<li>City: {{ pUser.city.city }}</li>
+	<li>Zip: {{ pUser.zips.zips }}</li>
+	<li>Street: {{ pUser.street }}</li>
+	<li>Phone: {{ pUser.phone }}</li>
+	<li>Company: {{ pUser.vendor.vendor }}</li>
+</ul>
+<h2>Ratings</h2>
+<ul>
+	{% for rating in pUser.rating_set.all %}
+	<p>By {{ rating.rater.first_name }} {{ rating.rater.last_name }}</p>
+	<li>{{ rating.rating }}: {{ rating.description}}</li>
+	{% endfor %}
+</ul>
+
+<form action="{% url 'RateMyServices:rate' pUser.id gUser.id%}" method="post">
+	Leave a Rating:
+	{% csrf_token %}
+	<input type="radio" name="rating" id="rating1" value="1">
+	<label for="rating1">1</label>
+	<input type="radio" name="rating" id="rating2" value="2">
+	<label for="rating2">2</label>
+	<input type="radio" name="rating" id="rating3" value="3">
+	<label for="rating3">3</label>
+	<input type="radio" name="rating" id="rating4" value="4">
+	<label for="rating4">4</label>
+	<input type="radio" name="rating" id="rating5" value="5">
+	<label for="rating5">5</label>
+	<br>
+	Description:<br>
+	<input type="text" name="description"><br>
+	<input type="submit" value="Rating">
