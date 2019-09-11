@@ -7,7 +7,7 @@ class State(models.Model):
 		return self.state
 
 class City(models.Model):
-	city = models.CharField(max_length=30)
+	city = models.CharField(max_length=3)
 	state = models.ForeignKey(State, on_delete=models.CASCADE)	
 	def __str__(self):
 		return self.city + ", " + self.state.state
@@ -69,4 +69,4 @@ class Rating(models.Model):
 	rating = models.IntegerField()
 	description = models.CharField(max_length=100)
 	def __str__(self):
-		return self.rater.first_name + ", " + self.provider.first_name + ", " + self.rating
+		return self.rater.first_name + ", " + self.provider.first_name + ", " + str(self.rating)
