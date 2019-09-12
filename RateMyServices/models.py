@@ -51,13 +51,8 @@ class GeneralUser(models.Model):
 	def __str__(self):
 		return self.first_name + ", " + self.last_name + ", " + self.email
 
-class ServiceType(models.Model):
-	service_type = models.CharField(max_length=30)
-	def __str__(self):
-		return self.service_type
-
 class Service(models.Model):
-	service_type = models.ForeignKey(ServiceType, on_delete=models.CASCADE)
+	service_type = models.CharField(max_length=30)
 	provider = models.ForeignKey(ProfessinalUser, on_delete=models.CASCADE)
 	rate = models.CharField(max_length=6)
 	def __str__(self):

@@ -1,3 +1,7 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/style.css' %}">
+
 {% if pUsers %}
 	<ul>
 	{% for p in pUsers %}
