@@ -1,0 +1,15 @@
+{% if services %}
+	<ul>
+	{% for s in services %}
+		<li>
+			{{s.service}}:<br>
+			<a href="{% url 'RateMyServices:user_profile' s.provider.id gUser.id %}">
+				{{s.provider.generalUserID.first_name}} {{s.provider.generalUserID.last_name}}
+			</a>
+			Rate: {{s.rate}}
+		</li>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>That Services does not seem to be avialable<p>
+{% endif %}

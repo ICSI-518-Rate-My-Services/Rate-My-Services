@@ -2,7 +2,8 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/style.css' %}">
 
-<form action="{% url 'RateMyServices:search' %}" method="post">
+<form action="{% url 'RateMyServices:search' gUser.id%}" method="post">
+	{% csrf_token %}
     <input type="text" placeholder="Search.." name="search">
     <button type="submit">Search</button>
 </form>

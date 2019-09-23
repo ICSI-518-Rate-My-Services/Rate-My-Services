@@ -26,9 +26,11 @@ def index(request):
 	}
 	return render(request, 'RateMyServices/index.html', context)
 
-def search(request):
-	services = get_object_or404(Services.objects.get(service=request.POST['search']))
+def search(request, generaluser_id):
+	services = Service.objects.all().filter(service=request.POST['search'])
+	gUser = get_object_or_404(GeneralUser, id=generaluser_id)
 	context = {
-		'services': services
+		'services': services,
+		'gUser': gUser
 	}
-	return render(request, 'RateMyServices/result_page.html', context)
+	return render(request, 'RateMyServices/results.html', context)

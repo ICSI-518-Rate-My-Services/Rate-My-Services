@@ -26,7 +26,7 @@ class Service(models.Model):
 	provider = models.ForeignKey(ProfessionalUser, on_delete=models.CASCADE)
 	rate = models.CharField(max_length=6)
 	def __str__(self):
-		return self.service + ", " + self.provider.generalUserID.first_name + ", " + self.rate
+		return self.service + ": " + self.provider.generalUserID.first_name + " " + self.provider.generalUserID.last_name + ", " + self.rate
 
 class Rating(models.Model):
 	rater = models.ForeignKey(GeneralUser, on_delete=models.CASCADE)
