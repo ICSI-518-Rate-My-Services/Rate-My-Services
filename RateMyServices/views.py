@@ -6,22 +6,29 @@ from django.urls import *
 from django.views import *
 
 # Create your views here.
-def user_profile(request, professinaluser_id, generaluser_id):
-	pUser = get_object_or_404(ProfessinalUser, id=professinaluser_id)
+def user_profile(request, professionaluser_id, generaluser_id):
+	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
 	gUser = get_object_or_404(GeneralUser, id=generaluser_id)
 	return render(request, 'RateMyServices/user_profile.html', {'pUser': pUser, 'gUser': gUser})
 
-def rate(request, professinaluser_id, generaluser_id):
-	pUser = get_object_or_404(ProfessinalUser, id=professinaluser_id)
+def rate(request, professionaluser_id, generaluser_id):
+	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
 	gUser = get_object_or_404(GeneralUser, id=generaluser_id)
 	selected_rating = pUser.rating_set.create(rater=gUser, provider=pUser, rating=int(request.POST['rating']), description=request.POST['description'])
 	return HttpResponseRedirect(reverse('RateMyServices:index'))
 
 def index(request):
-	pUsers = ProfessinalUser.objects.all()
+	pUsers = ProfessionalUser.objects.all()
 	gUser = GeneralUser.objects.get(id=2) #for testing purposes
 	context = {
 		'pUsers': pUsers,
 		'gUser': gUser
 	}
 	return render(request, 'RateMyServices/index.html', context)
+
+def search(request):
+	services = get_object_or404(Services.objects.get(service=request.POST['search']))
+	context = {
+		'services': services
+	}
+	return render(request, 'RateMyServices/result_page.html', context)

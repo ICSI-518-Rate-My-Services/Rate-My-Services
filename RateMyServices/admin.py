@@ -5,17 +5,10 @@ from .models import *
 class ServiceInline(admin.TabularInline):
 	model = Service
 
-class ProfessinalUserAdmin(admin.ModelAdmin):
+class ProfessionalUserAdmin(admin.ModelAdmin):
 	inlines = [ServiceInline]
-	list_display = ('first_name', 'last_name', 'email')
-	search_fields = ['first_name', 'Last_name', 'email']
 
-
-admin.site.register(State)
-admin.site.register(City)
-admin.site.register(Zip)
-admin.site.register(Vendor)
-admin.site.register(ProfessinalUser, ProfessinalUserAdmin)
 admin.site.register(GeneralUser)
+admin.site.register(ProfessionalUser, ProfessionalUserAdmin)
 admin.site.register(Service)
 admin.site.register(Rating)

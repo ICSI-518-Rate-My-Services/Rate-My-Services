@@ -2,14 +2,19 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/style.css' %}">
 
+<form action="{% url 'RateMyServices:search' %}" method="post">
+    <input type="text" placeholder="Search.." name="search">
+    <button type="submit">Search</button>
+</form>
+
 {% if pUsers %}
 	<ul>
 	{% for p in pUsers %}
 		<li>
-			<a href="{% url 'RateMyServices:user_profile' p.id gUser.id %}">{{p.first_name}} {{p.last_name}}</a>
+			<a href="{% url 'RateMyServices:user_profile' p.id gUser.id %}">{{p.generalUserID.first_name}} {{p.generalUserID.last_name}}</a>
 		</li>
 	{% endfor %}
 	</ul>
 {% else %}
-	<p>No polls are available.<p>
+	<p>No users are available.<p>
 {% endif %}

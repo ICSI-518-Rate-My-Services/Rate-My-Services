@@ -1,4 +1,4 @@
-<h1>{{ pUser.first_name }} {{ pUser.last_name }}</h1>
+<h1>{{ pUser.generalUserID.first_name }} {{ pUser.generalUserID.last_name }}</h1>
 
 {% if error_message %}
 <p>
@@ -9,15 +9,14 @@
 {% endif %}
 
 <ul>
-	<li>Email: {{ pUser.email }}</li>
+	<li>Email: {{ pUser.generalUserID.email }}</li>
 	<li>Title: {{ pUser.title }}</li>
 	<li>Description: {{ pUser.description }}</li>
-	<li>State: {{ pUser.state.state }}</li>
-	<li>City: {{ pUser.city.city }}</li>
-	<li>Zip: {{ pUser.zips.zips }}</li>
-	<li>Street: {{ pUser.street }}</li>
-	<li>Phone: {{ pUser.phone }}</li>
-	<li>Company: {{ pUser.vendor.vendor }}</li>
+	<li>State: {{ pUser.generalUserID.state }}</li>
+	<li>City: {{ pUser.generalUserID.city }}</li>
+	<li>Zip: {{ pUser.generalUserID.zips }}</li>
+	<li>Street: {{ pUser.generalUserID.street }}</li>
+	<li>Phone: {{ pUser.generalUserID.phone }}</li>
 </ul>
 <h2>Ratings</h2>
 <ul>
