@@ -29,6 +29,20 @@ def index(request):
 def search(request, generaluser_id):
 	services = Service.objects.all().filter(service=request.POST['search'])
 	gUser = get_object_or_404(GeneralUser, id=generaluser_id)
+
+	if len(request.POST['state']) != 0:
+		filtered_services = list()
+		for service in services:
+			if service.provider.generalUserID.state == request.POST['state']:
+				if len(request.POST['city']) != 0:
+					if service.provider.generalUserID.city == request.POST['city']:
+						filtered_services.append(service)
+
+				else:
+					filtered_services.append(service)
+
+		services = filtered_services
+
 	context = {
 		'services': services,
 		'gUser': gUser
