@@ -27,21 +27,40 @@ def index(request):
 	return render(request, 'RateMyServices/index.html', context)
 
 def search(request, generaluser_id):
-	services = Service.objects.all().filter(service=request.POST['search'])
 	gUser = get_object_or_404(GeneralUser, id=generaluser_id)
+	services = Service.objects.all()
 
-	if len(request.POST['state']) != 0:
-		filtered_services = list()
-		for service in services:
-			if service.provider.generalUserID.state == request.POST['state']:
-				if len(request.POST['city']) != 0:
-					if service.provider.generalUserID.city == request.POST['city']:
+	if len(request.POST['search']) == 0:
+		if len(request.POST['state']) != 0:
+			filtered_services = list()
+			for service in services:
+				if service.provider.generalUserID.state == request.POST['state']:
+					if len(request.POST['city']) != 0:
+						if service.provider.generalUserID.city == request.POST['city']:
+							filtered_services.append(service)
+
+					else:
 						filtered_services.append(service)
 
-				else:
-					filtered_services.append(service)
+			services = filtered_services
 
-		services = filtered_services
+	
+
+	else:
+		services = services.filter(service=request.POST['search'])
+
+		if len(request.POST['state']) != 0:
+			filtered_services = list()
+			for service in services:
+				if service.provider.generalUserID.state == request.POST['state']:
+					if len(request.POST['city']) != 0:
+						if service.provider.generalUserID.city == request.POST['city']:
+							filtered_services.append(service)
+
+					else:
+						filtered_services.append(service)
+
+			services = filtered_services
 
 	context = {
 		'services': services,
