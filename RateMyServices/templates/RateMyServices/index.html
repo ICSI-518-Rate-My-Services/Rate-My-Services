@@ -1,21 +1,53 @@
-{% load static %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/style.css' %}">
-
-<form action="{% url 'RateMyServices:search' gUser.id%}" method="post">
-	{% csrf_token %}
-    <input type="text" placeholder="Search.." name="search">
-    <button type="submit">Search</button>
-</form>
-
-{% if pUsers %}
-	<ul>
-	{% for p in pUsers %}
-		<li>
-			<a href="{% url 'RateMyServices:user_profile' p.id gUser.id %}">{{p.generalUserID.first_name}} {{p.generalUserID.last_name}}</a>
-		</li>
-	{% endfor %}
-	</ul>
-{% else %}
-	<p>No users are available.<p>
-{% endif %}
+<html>
+	<head>
+		{% load static %}
+		<link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/css/customstyle.css' %}">
+		<title>RateMyServices</title>
+	</head>
+	
+	<body>
+		<header>
+			<div class="header-container">
+				<div class="users-login">
+					{% if request.user.first_name == None %}
+						<p>{{request.user.}}</p>
+						<a class='button' id="log-in-bttn" href="{% url 'RateMyServices:login' %}">Log in</a>
+						<a class='button' id="sign-up-bttn" href="{% url 'RateMyServices:signup' %}">Sign up</a>
+					{% else %}
+						<p>Hi! {{gUser.first_name}} {{gUser.last_name}} {{request.user.first_name}}</p>
+						<a class='button' href="{% url 'RateMyServices:submit_logout' %}">Log out</a>
+						<a class='button' >account settings</a>
+					{% endif %}
+				</div>
+				<div class="header-search">
+					<form action="{% url 'RateMyServices:search' gUser.id%}" method="post">
+						{% csrf_token %}
+						<input type="text" placeholder="Search.." name="search">
+						<button type="submit">Search</button>
+					</form>
+				</div>
+			</div>
+		</header>
+		
+		<div class="content">
+		{% if pUsers %}
+			{% for p in pUsers %}
+				<div class="match-card">
+					<a href="{% url 'RateMyServices:user_profile' p.id gUser.id %}">
+					<p>{{p.generalUserID.first_name}} {{p.generalUserID.last_name}}</p>
+					</a>
+					<h3>{{p.title}}</h3>
+					<p>{{p.generalUserID.phone}}</p>
+					<p>{{p.generalUserID.email}}</p>
+					<p>{{p.generalUserID.city}}, {{p.generalUserID.state}}</p>
+					<p>{{p.description}}</p>
+					<p>{{p.num_rating}}</p>
+				</div>
+			{% endfor %}
+			
+		{% else %}
+			<p>No users are available.<p>
+		{% endif %}
+		</div>
+	</body>
+</html>
