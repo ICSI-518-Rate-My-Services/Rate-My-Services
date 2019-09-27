@@ -4,6 +4,7 @@ from .models import *
 from django.template import *
 from django.urls import *
 from django.views import *
+from django.core import *
 
 # Create your views here.
 def user_profile(request, professionaluser_id, generaluser_id):
@@ -15,6 +16,14 @@ def rate(request, professionaluser_id, generaluser_id):
 	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
 	gUser = get_object_or_404(GeneralUser, id=generaluser_id)
 	selected_rating = pUser.rating_set.create(rater=gUser, provider=pUser, rating=int(request.POST['rating']), description=request.POST['description'])
+
+	if pUser.avg_rating == 0:
+		pUser.set(avg_rating=float(request.POST['rating']))
+
+	else:
+		new_rating = (pUser.avg_rating + float(request.POST['rating']))/2.0
+		pUser.set(avg_rating=new_rating)
+
 	return HttpResponseRedirect(reverse('RateMyServices:index'))
 
 def index(request):
@@ -61,6 +70,25 @@ def search(request, generaluser_id):
 						filtered_services.append(service)
 
 			services = filtered_services
+
+	json_services = serializers.serialize('json', services)
+
+	request.session['services'] = json_services
+
+	context = {
+		'services': services,
+		'gUser': gUser
+	}
+	return render(request, 'RateMyServices/results.html', context)
+
+def filter(request, generaluser_id):
+	gUser = get_object_or_404(GeneralUser, id=generaluser_id)
+	serialize_list = request.session.get('services', None)
+	deserialize_list = serializers.deserialize("json", serialize_list )
+	services = [item.object for item in deserialize_list]
+
+	#if 'rating' in request.POST:
+
 
 	context = {
 		'services': services,

@@ -18,6 +18,7 @@ class ProfessionalUser(models.Model):
 	generalUserID = models.ForeignKey(GeneralUser, on_delete=models.CASCADE)
 	title = models.CharField(max_length=30, default='')
 	description = models.CharField(max_length=200, default='')
+	avg_rating = models.FloatField(default=0.0)
 	def __str__(self):
 		return self.generalUserID.first_name + " " + self.generalUserID.last_name + ", " + self.generalUserID.email
 
