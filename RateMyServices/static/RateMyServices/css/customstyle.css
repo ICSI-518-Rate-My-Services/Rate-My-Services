@@ -17,19 +17,20 @@ header{
     background-color: gray;
     background-image: linear-gradient(to bottom, rgb(102, 102, 102), gray); 
     margin: 0;
+    height: 100%;
     padding: 2px;
     display: fixed;
-    grid-area: "header";
+    grid-area: header;
     align-items: center;
-    align-content: stretch;
 }
 
 div{
     margin: 0;
     padding: 0;
 }
+ /********* button section **********/
 
-.button, button{
+ .button, button{
     color: black;
     cursor: default;
     margin: 2px 5px;
@@ -57,7 +58,6 @@ button:active{
     color: white;
 }
 
-
 .btn-accent:hover{
     background-color: rgb(90, 219, 161);
     color: white;
@@ -78,8 +78,6 @@ button:active{
 }
 
 .btn-primary:active{
-    top: 2px;
-    left: 2px; 
     background-color:  rgb(90, 119, 103);
     transition: 0;
 }
@@ -101,11 +99,13 @@ button.autowidth{
     width: auto;
 }
 
+/********* end button section **********/
+
 input[type=text]{
     font-size: 17px;
 }
 .header-container{
-    margin: auto 0;
+    height: 100%;
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
     grid-template-areas: "users search-area logo";
@@ -116,17 +116,23 @@ input[type=text]{
 .content{
     margin: 0;
     padding: 8px 20px;
-    grid-area: "content";
+    grid-area: content;
     bottom: 0;
 }
 
 .users-login{
-    grid-area: "users";
+    grid-area: users;
     justify-self: center;
 }
 
+.users-login p{
+    font-family: sans-serif;
+    color: beige;
+    margin: 0 0 10px 5px;
+}
+
 .header-search{
-    grid-area: "search-area";
+    grid-area: search-area;
 
 }
 .header-search input[type=text]{
@@ -151,6 +157,7 @@ input[type=text]{
 }
 
 
+/********* match-card section **********/
 .match-card{
     cursor: default;
     font-family: sans-serif;
@@ -194,7 +201,6 @@ input[type=text]{
         "description description"
         "rates rating";
     align-items: center;
-    /*background-color: aqua; */
 }
 
 .profile-pic{
@@ -229,3 +235,4 @@ input[type=text]{
     grid-area: service;
     color: gray;
 }
+/********* end match-card section **********/

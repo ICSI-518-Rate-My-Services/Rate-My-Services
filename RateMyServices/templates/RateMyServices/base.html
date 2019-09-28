@@ -10,13 +10,12 @@
 			<div class="header-container">
 				<div class="users-login">
 					{% if request.user.first_name == None %}
-						<p>{{request.user.}}</p>
 						<a class='button btn-primary' id="log-in-bttn" >Log in</a>
 						<a class='button btn-secondary' id="sign-up-bttn" >Sign up</a>
 					{% else %}
 						<p>Hi! {{gUser.first_name}} {{gUser.last_name}} {{request.user.first_name}}</p>
-						<a class='button' >Log out</a>
-						<a class='button' >account settings</a>
+						<a class='button btn-secondary' >Log out</a>
+						<a class='button btn-primary' >account settings</a>
 					{% endif %}
 				</div>
 				<div class="header-search">
