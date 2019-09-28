@@ -21,14 +21,30 @@
 	</form>
 
 	{% if services %}
-		
-		{% for s in services %}
+		{% for p in services %}
+			
 			<div class="match-card">
-				<p>{{s.service}}:<br>
-				<a href="{% url 'RateMyServices:user_profile' s.provider.id gUser.id %}">
-					{{s.provider.generalUserID.first_name}} {{s.provider.generalUserID.last_name}}
-				</a></p>
-				<p>Rate: {{s.rate}}</p>
+				<div class="puser-container">
+					<img class="profile-pic">
+					<div class="puser-text">
+						<a href="{% url 'RateMyServices:user_profile' p.id gUser.id %}"><p>{{p.provider.generalUserID.first_name}} {{p.provider.generalUserID.last_name}}</p></a>
+						<h3>{{p.provider.title}}</h3>
+					</div>
+					<div class="puser-service">
+						<h4>{{p.service}}</h4>
+					</div>
+					<div class="contact-info">
+						<p>{{p.provider.generalUserID.city}}, {{p.provider.generalUserID.state}}</p>
+						<p>{{p.provider.generalUserID.phone}}</p>
+						<p>{{p.provider.generalUserID.email}}</p>
+					</div>
+					<div class="description">
+						<p>"{{p.provider.description}}"</p>
+					</div>
+					<div class="rating">
+						<p>Rate: {{p.rate}} | {{p.num_rating}}(# of reviews)</p>
+					</div>
+				</div>
 			<div>
 		{% endfor %}
 		

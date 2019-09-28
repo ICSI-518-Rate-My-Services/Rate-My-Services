@@ -11,8 +11,8 @@
 				<div class="users-login">
 					{% if request.user.first_name == None %}
 						<p>{{request.user.}}</p>
-						<a class='button' id="log-in-bttn" >Log in</a>
-						<a class='button' id="sign-up-bttn" >Sign up</a>
+						<a class='button btn-primary' id="log-in-bttn" >Log in</a>
+						<a class='button btn-secondary' id="sign-up-bttn" >Sign up</a>
 					{% else %}
 						<p>Hi! {{gUser.first_name}} {{gUser.last_name}} {{request.user.first_name}}</p>
 						<a class='button' >Log out</a>
@@ -25,7 +25,7 @@
 						<input class="left" type="text" placeholder="Search services or ..." name="search">
 						<input class="middle" type="text" placeholder="State" name="state">
 						<input class="middle" type="text" placeholder="City" name="city">
-						<button class="right" type="submit">GO!</button>
+						<button class="right btn-accent" type="submit">GO!</button>
 					</form>
 				</div>
 			</div>
