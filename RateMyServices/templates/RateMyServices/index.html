@@ -3,14 +3,22 @@
 {% block title %}Welcome to RateMyServices!!{% endblock %}
 
 {% block content %}
+	<h3>Some popular search:</h3>
 	{% if pUsers %}
-		<ul>
 		{% for p in pUsers %}
-			<li>
-				<a href="{% url 'RateMyServices:user_profile' p.id gUser.id %}">{{p.generalUserID.first_name}} {{p.generalUserID.last_name}}</a>
-			</li>
+			<div class="match-card">
+				<a href="{% url 'RateMyServices:user_profile' p.id gUser.id %}">
+				<p>{{p.generalUserID.first_name}} {{p.generalUserID.last_name}}</p>
+				</a>
+				<h3>{{p.title}}</h3>
+				<p>{{p.generalUserID.phone}}</p>
+				<p>{{p.generalUserID.email}}</p>
+				<p>{{p.generalUserID.city}}, {{p.generalUserID.state}}</p>
+				<p>{{p.description}}</p>
+				<p>{{p.num_rating}}</p>
+			</div>
 		{% endfor %}
-		</ul>
+		
 	{% else %}
 		<p>No users are available.<p>
 	{% endif %}

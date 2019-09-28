@@ -6,32 +6,32 @@
 	<form action="{% url 'RateMyServices:filter' gUser.id %}" method="post">
 		{%csrf_token%}
 		Filter By Rating:<br>
-		<button type="submit" name="rating" id="rating1" value="1">Rating of 1+</button>
-		<button type="submit" name="rating" id="rating2" value="2">Rating of 2+</button>
-		<button type="submit" name="rating" id="rating3" value="3">Rating of 3+</button>
-		<button type="submit" name="rating" id="rating4" value="4">Rating of 4+</button>
-		<button type="submit" name="rating" id="rating5" value="5">Rating of 5</button>
+		<button class="autowidth" type="submit" name="rating" id="rating1" value="1">Rating of 1+</button>
+		<button class="autowidth" type="submit" name="rating" id="rating2" value="2">Rating of 2+</button>
+		<button class="autowidth" type="submit" name="rating" id="rating3" value="3">Rating of 3+</button>
+		<button class="autowidth" type="submit" name="rating" id="rating4" value="4">Rating of 4+</button>
+		<button class="autowidth" type="submit" name="rating" id="rating5" value="5">Rating of 5</button>
 		<br>
 		Filter By Rate:<br>
-		<button type="submit" name="rate" id="rate1" value="10">Rate < $10/hour</button>
-		<button type="submit" name="rate" id="rate2" value="20">Rate < $20/hour</button>
-		<button type="submit" name="rate" id="rate3" value="30">Rate < $30/hour</button>
-		<button type="submit" name="rate" id="rate4" value="40">Rate < $40/hour</button>
-		<button type="submit" name="rate" id="rate5" value="50">Rate < $50/hour</button>
+		<button class="autowidth" type="submit" name="rate" id="rate1" value="10">Rate < $10/hour</button>
+		<button class="autowidth" type="submit" name="rate" id="rate2" value="20">Rate < $20/hour</button>
+		<button class="autowidth" type="submit" name="rate" id="rate3" value="30">Rate < $30/hour</button>
+		<button class="autowidth" type="submit" name="rate" id="rate4" value="40">Rate < $40/hour</button>
+		<button class="autowidth" type="submit" name="rate" id="rate5" value="50">Rate < $50/hour</button>
 	</form>
 
 	{% if services %}
-		<ul>
+		
 		{% for s in services %}
-			<li>
-				{{s.service}}:<br>
+			<div class="match-card">
+				<p>{{s.service}}:<br>
 				<a href="{% url 'RateMyServices:user_profile' s.provider.id gUser.id %}">
 					{{s.provider.generalUserID.first_name}} {{s.provider.generalUserID.last_name}}
-				</a>
-				Rate: {{s.rate}}
-			</li>
+				</a></p>
+				<p>Rate: {{s.rate}}</p>
+			<div>
 		{% endfor %}
-		</ul>
+		
 	{% else %}
 		<p>No Services Avialable<p>
 	{% endif %}
