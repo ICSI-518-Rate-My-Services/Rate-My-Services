@@ -18,11 +18,13 @@ def rate(request, professionaluser_id, generaluser_id):
 	selected_rating = pUser.rating_set.create(rater=gUser, provider=pUser, rating=int(request.POST['rating']), description=request.POST['description'])
 
 	if pUser.avg_rating == 0:
-		pUser.set(avg_rating=float(request.POST['rating']))
+		pUser.avg_rating = float(request.POST['rating'])
+		pUser.save()
 
 	else:
 		new_rating = (pUser.avg_rating + float(request.POST['rating']))/2.0
-		pUser.set(avg_rating=new_rating)
+		pUser.avg_rating = new_rating
+		pUser.save()
 
 	return HttpResponseRedirect(reverse('RateMyServices:index'))
 
