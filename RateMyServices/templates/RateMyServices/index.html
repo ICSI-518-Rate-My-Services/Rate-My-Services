@@ -10,7 +10,7 @@
 				<div class="puser-container">
 					<img class="profile-pic">
 					<div class="puser-text">
-						<a href="{% url 'RateMyServices:user_profile' p.id gUser.id %}"><p>{{p.generalUserID.first_name}} {{p.generalUserID.last_name}}</p></a>
+						<a href="{% url 'RateMyServices:professional_profile' p.id %}"><p>{{p.generalUserID.first_name}} {{p.generalUserID.last_name}}</p></a>
 						<h3>{{p.title}}</h3>
 					</div>
 				
