@@ -5,3 +5,45 @@ li a {
 body {
 	background: white url("images/background.gif") no-repeat;
 }
+
+
+/* Font size */
+.size-12{
+	font-size: 12px;
+}
+
+.size-14{
+	font-size: 14px;
+}
+
+.size-16{
+	font-size: 16px;
+}
+
+.size-18{
+	font-size: 18px;
+}
+
+.size20{
+	font-size: 20px;
+}
+
+.size-22{
+	font-size: 22px;
+}
+
+.size-24{
+	font-size: 24px;
+}
+
+.size-26{
+	font-size: 26px;
+}
+
+.size-28{
+	font-size: 28px;
+}
+
+.size-30{
+	font-size: 30px;
+}

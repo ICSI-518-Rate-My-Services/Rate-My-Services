@@ -95,3 +95,12 @@ def filter(request, generaluser_id):
 		'gUser': gUser
 	}
 	return render(request, 'RateMyServices/results.html', context)
+
+def general_profile(request, generaluser_id):
+	gUser = get_object_or_404(GeneralUser, id=generaluser_id)
+
+	return render(request, 'RateMyServices/general_profile.html', {'gUser': gUser})
+
+def professional_profile(request, professionaluser_id):
+	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
+	return render(request, 'RateMyServices/professional_profile.html', {'pUser': pUser})
