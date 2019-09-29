@@ -28,9 +28,9 @@ def rate(request, professionaluser_id, generaluser_id):
 
 	return HttpResponseRedirect(reverse('RateMyServices:index'))
 
-def index(request):
+def index(request): 
 	pUsers = ProfessionalUser.objects.all()
-	gUser = GeneralUser.objects.get(id=2) #for testing purposes
+	gUser = GeneralUser.objects.get(id= 2) #id = 2 : for testing purposes
 	context = {
 		'pUsers': pUsers,
 		'gUser': gUser
@@ -97,3 +97,18 @@ def filter(request, generaluser_id):
 		'gUser': gUser
 	}
 	return render(request, 'RateMyServices/results.html', context)
+
+def signup(request):
+	return render(request, 'RateMyServices/signuppage.html')
+
+def login(request):
+	return render(request, 'RateMyServices/loginpage.html')
+
+def general_profile(request, generaluser_id):
+	gUser = get_object_or_404(GeneralUser, id=generaluser_id)
+
+	return render(request, 'RateMyServices/general_profile.html', {'gUser': gUser})
+
+def professional_profile(request, professionaluser_id):
+	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
+	return render(request, 'RateMyServices/professional_profile.html', {'pUser': pUser})

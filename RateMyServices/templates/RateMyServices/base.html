@@ -3,19 +3,34 @@
 	<head>
 		{% load static %}
 		<title>{% block title %}{% endblock %}</title>
-		<link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/css/style.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/css/customstyle.css' %}">
 	</head>
 	<body>
-		<form action="{% url 'RateMyServices:search' gUser.id%}" method="post">
-			{% csrf_token %}
-			<input type="text" placeholder="Search.." name="search">
-			<br>
-			<input type="text" placeholder="State.." name="state">
-			<input type="text" placeholder="City.." name="city">
-			<br>
-			<button type="submit">GO!</button>
-		</form>
-		<div>
+		<header>
+			<div class="header-container">
+				<div class="users-login">
+					{% if request.user.first_name == None %}
+						<a class='button btn-primary' id="log-in-bttn" >Log in</a>
+						<a class='button btn-secondary' id="sign-up-bttn" >Sign up</a>
+					{% else %}
+						<p>Hi! {{gUser.first_name}} {{gUser.last_name}} {{request.user.first_name}}</p>
+						<a class='button btn-secondary' >Log out</a>
+						<a class='button btn-primary' >account settings</a>
+					{% endif %}
+				</div>
+				<div class="header-search">
+					<form action="{% url 'RateMyServices:search' gUser.id%}" method="post">
+						{% csrf_token %}
+						<input class="left" type="text" placeholder="Search services or ..." name="search">
+						<input class="middle" type="text" placeholder="State" name="state">
+						<input class="middle" type="text" placeholder="City" name="city">
+						<button class="right btn-accent" type="submit">GO!</button>
+					</form>
+				</div>
+			</div>
+		</header>
+		
+		<div class="content">
 			{% block content%}
 			{% endblock%}
 		</div>

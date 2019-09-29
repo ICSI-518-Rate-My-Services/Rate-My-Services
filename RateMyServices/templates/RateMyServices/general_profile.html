@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% load static %}
+		<title>{% block title %}{% endblock %}</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+		<script src="https://use.fontawesome.com/c2ffd95238.js"></script>  
+        <link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/css/style.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/css/general_profile.css' %}">
+		
+	</head>
+	<body>
+		{% if error_message %}
+		<p>
+			<strong>
+				{{ error_message }}
+			</strong>
+		</p>
+		{% endif %}
+
+		<!--Profile Picture and Username-->
+		<div class="jumbotron jumbotron-fluid text-center">
+			<div>
+				<i class="fa fa-user-circle fa-5x"></i>
+			</div> 
+			<h1>{{ gUser.first_name }} {{ gUser.last_name }}</h1>
+			<p>{{ gUser.city }}, {{ gUser.state }}</p> 
+		</div>
+		<div style="align-content: center">
+			
+			<table cellspacing="20" align="center" style="font-size: 20px">
+				<tr style="padding: 30px">
+				  <th>Email</th>
+				  <th>{{ gUser.email }}</th>
+				</tr>
+				<tr style="padding: 30px">
+					<th style="padding-right: 60px">State</th>
+					<th>{{ gUser.state }}</th>
+				</tr>
+				<tr style="padding: 30px">
+					<th>City</th>
+					<th>{{ gUser.city }}</th>
+				</tr>
+				<tr style="padding: 30px">
+					<th>Street</th>
+					<th>{{ gUser.street }}</th>
+				</tr>
+				<tr style="padding: 30px">
+						<th>Zip</th>
+						<th>{{ gUser.zips }}</th>
+				</tr>
+
+				 
+			</table>
+		</div>
+	</body>
+</html>
