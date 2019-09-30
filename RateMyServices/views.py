@@ -6,6 +6,10 @@ from django.urls import *
 from django.views import *
 from django.core import *
 
+from django.contrib import admin
+from django.contrib.auth import views as auth_views
+from django.conf.urls import url
+
 # Create your views here.
 def user_profile(request, professionaluser_id, generaluser_id):
 	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
@@ -101,8 +105,15 @@ def filter(request, generaluser_id):
 def signup(request):
 	return render(request, 'RateMyServices/signuppage.html')
 
-def login(request):
-	return render(request, 'RateMyServices/loginpage.html')
+#def login(request):
+#	return render(request, 'RateMyServices/login.html')
+
+
+urlpatterns = [
+    url(r'^login/$', auth_views.LoginView, name='login'),
+	url(r'^logout/$', auth_views.LogoutView, {'next_page': '/RateMyServices'}, name='logout'),
+    url(r'^admin/', admin.site.urls),
+]
 
 def general_profile(request, generaluser_id):
 	gUser = get_object_or_404(GeneralUser, id=generaluser_id)
