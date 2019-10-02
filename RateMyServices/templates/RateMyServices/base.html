@@ -10,14 +10,14 @@
 			<div class="header-container">
 				<div class="users-login">
 					{% if request.user.first_name == None %}
-                        <form action="{% url 'login' %}" method="post">
+                        <form action="{% url 'RateMyServices:login' %}" method="post">
                             {% csrf_token %}
 						    <button class="right btn-accent" type="submit">Log in</button>
                         </form>
 						<a class='button btn-secondary' id="sign-up-bttn" >Sign up</a>
 					{% else %}
                         <p>Hi! {{gUser.first_name}} {{gUser.last_name}} {{request.user.first_name}}</p>
-                        <form action="{% url 'logout' %}" method="post">
+                        <form action="{% url 'RateMyServices:logout' %}" method="post">
                             {% csrf_token %}
                             <button class="right btn-accent" type="submit">Log out!</button>
                         </form>
