@@ -6,6 +6,10 @@ from django.urls import *
 from django.views import *
 from django.core import *
 
+# for signup
+from django.contrib.auth.forms import UserCreationForm
+from django.views import generic
+
 # Create your views here.
 def user_profile(request, professionaluser_id, generaluser_id):
 	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
@@ -98,11 +102,17 @@ def filter(request, generaluser_id):
 	}
 	return render(request, 'RateMyServices/results.html', context)
 
+# Unused for now
+'''
 def signup(request):
 	return render(request, 'RateMyServices/signuppage.html')
+'''
 
+# Unused for now
+'''
 def login(request):
-	return render(request, 'RateMyServices/loginpage.html')
+	return render(request, 'registration/login.html')
+'''
 
 def general_profile(request, generaluser_id):
 	gUser = get_object_or_404(GeneralUser, id=generaluser_id)
@@ -112,3 +122,8 @@ def general_profile(request, generaluser_id):
 def professional_profile(request, professionaluser_id):
 	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
 	return render(request, 'RateMyServices/professional_profile.html', {'pUser': pUser})
+
+class SignUp(generic.CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('RateMyServices:login')
+    template_name = 'registration/signup.html'
