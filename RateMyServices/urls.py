@@ -16,8 +16,8 @@ urlpatterns = [
 	###
 	path('login', auth_views.LoginView.as_view(), name='login'),
 	path('logout', auth_views.LogoutView.as_view(), name='logout'),
+	path('signup', views.SignUp.as_view(), name='signup'),
 	###
-	path('signup', views.signup, name='signup'),
 	path('general_profile/<int:generaluser_id>/', views.general_profile, name='general_profile'),
 	path('professional_profile/<int:professionaluser_id>/', views.professional_profile, name='professional_profile'),
 ]
