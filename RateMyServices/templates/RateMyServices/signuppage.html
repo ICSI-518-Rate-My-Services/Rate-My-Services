@@ -3,5 +3,9 @@
 <head></head>
 <body>
     <p>sign up page</p>
+    <form action="" method="POST"> {% csrf_token %}
+        {{ form.as_p}}
+        <input type="submit" value="Signup">
+    </form>
 </body>
 </html>

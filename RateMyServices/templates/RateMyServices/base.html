@@ -14,7 +14,7 @@
                             {% csrf_token %}
 						    <button class="right btn-accent" type="submit">Log in</button>
                         </form>
-                        <form action="{% url 'RateMyServices:signup' %}" method="post">
+                        <form action="{% url 'RateMyServices:signup_view' %}" method="post">
                             {% csrf_token %}
 						    <button class="right btn-accent" type="submit">Sign up</button>
                         </form>

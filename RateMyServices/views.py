@@ -10,6 +10,9 @@ from django.core import *
 from django.contrib.auth.forms import UserCreationForm
 from django.views import generic
 
+# new signup forms
+from .forms import GeneralUserCreationForm
+
 # Create your views here.
 def user_profile(request, professionaluser_id, generaluser_id):
 	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
@@ -102,11 +105,6 @@ def filter(request, generaluser_id):
 	}
 	return render(request, 'RateMyServices/results.html', context)
 
-# Unused for now
-'''
-def signup(request):
-	return render(request, 'RateMyServices/signuppage.html')
-'''
 
 # Unused for now
 '''
@@ -123,7 +121,27 @@ def professional_profile(request, professionaluser_id):
 	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
 	return render(request, 'RateMyServices/professional_profile.html', {'pUser': pUser})
 
+# Old signup
+'''
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('RateMyServices:login')
     template_name = 'registration/signup.html'
+'''
+
+# New signup
+def signup_view(request):
+	#next = request.GET.get('next')
+	form = GeneralUserCreationForm(request.POST or None)
+	if form.is_valid():
+		GeneralUser.objects.create(**form.cleaned_data)
+		# password = form.cleaned_data.get('password')
+		# user.set_password(password)
+		# user.save()
+		# user = authenticate(email=email, password=password)
+		# login(request,user)
+	
+	context = {
+		'form': form,
+	}
+	return render(request, 'RateMyServices/signuppage.html', context)
