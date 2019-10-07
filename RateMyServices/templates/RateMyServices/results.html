@@ -3,23 +3,37 @@
 {% block title %}Welcome to RateMyServices!!{% endblock %}
 
 {% block content%}
-	<form action="{% url 'RateMyServices:filter' gUser.id %}" method="post">
+	<form class="p-3" action="{% url 'RateMyServices:filter' gUser.id %}" method="post">
 		{%csrf_token%}
-		Filter By Rating:<br>
-		<div class="btn-group btn-group-toggle" data-toggle="buttons">
-			<button class="btn btn-secondary" type="submit" name="rating" id="rating1" value="1">Rating of 1+</button>
-			<button class="btn btn-secondary" type="submit" name="rating" id="rating2" value="2">Rating of 2+</button>
-			<button class="btn btn-secondary" type="submit" name="rating" id="rating3" value="3">Rating of 3+</button>
-			<button class="btn btn-secondary" type="submit" name="rating" id="rating4" value="4">Rating of 4+</button>
-			<button class="btn btn-secondary" type="submit" name="rating" id="rating5" value="5">Rating of 5</button>
+		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Filter By Rating</span>
+			</div>
+			<div class="btn-group btn-group-toggle" data-toggle="buttons">
+				<button class="rounded-0 btn btn-outline-secondary" type="submit" name="rating" id="rating1" value="1">1+</button>
+				<button class="btn btn-outline-secondary" type="submit" name="rating" id="rating2" value="2">2+</button>
+				<button class="btn btn-outline-secondary" type="submit" name="rating" id="rating3" value="3">3+</button>
+				<button class="btn btn-outline-secondary" type="submit" name="rating" id="rating4" value="4">4+</button>
+				<button class="btn btn-outline-secondary" type="submit" name="rating" id="rating5" value="5">5</button>
+			</div>
 		</div>
-		<br>
-		Filter By Rate:<br>
-		<button class="btn btn-secondary" type="submit" name="rate" id="rate1" value="10">Rate < $10/hour</button>
-		<button class="btn btn-secondary" type="submit" name="rate" id="rate2" value="20">Rate < $20/hour</button>
-		<button class="btn btn-secondary" type="submit" name="rate" id="rate3" value="30">Rate < $30/hour</button>
-		<button class="btn btn-secondary" type="submit" name="rate" id="rate4" value="40">Rate < $40/hour</button>
-		<button class="btn btn-secondary" type="submit" name="rate" id="rate5" value="50">Rate < $50/hour</button>
+		
+		<div class="mt-2 input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Filter By Rate </span>
+				<span class="input-group-text"> < </span>
+			</div>
+			<div class="btn-group">
+				<button class="rounded-0 btn btn-outline-secondary" type="submit" name="rate" id="rate1" value="10">$10</button>
+				<button class="btn btn-outline-secondary" type="submit" name="rate" id="rate2" value="20">$20</button>
+				<button class="btn btn-outline-secondary" type="submit" name="rate" id="rate3" value="30">$30</button>
+				<button class="btn btn-outline-secondary" type="submit" name="rate" id="rate4" value="40">$40</button>
+				<button class="rounded-0 btn btn-outline-secondary" type="submit" name="rate" id="rate5" value="50">$50</button>
+			</div>
+			<div class="input-group-append">
+					<span class="input-group-text">/hour </span>
+				</div>
+		</div>
 	</form>
 
 	{% if services %}
