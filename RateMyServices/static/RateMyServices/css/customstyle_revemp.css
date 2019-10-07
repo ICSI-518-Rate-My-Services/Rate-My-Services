@@ -9,6 +9,19 @@ img.logo {
     height: 35px;
     width: auto;
 }
+
+.logo-section {
+    justify-self: end;
+}
+
+.logo-section h4 {
+    color: #6AB524;
+}
+
+.logo-section h4:hover{
+    color: #5EA120;
+}
+
 .match-card{
     cursor: default;
     font-family: sans-serif;
