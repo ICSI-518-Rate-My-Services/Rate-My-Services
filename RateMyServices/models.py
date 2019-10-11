@@ -30,7 +30,7 @@ class Service(models.Model):
 	avg_rating = models.FloatField(default=0.0)
 	description = models.CharField(max_length=200, default='')
 	def __str__(self):
-		return self.service + ": " + self.provider.generalUserID.first_name + " " + self.provider.generalUserID.last_name + ", " + self.rate
+		return self.service + ": " + self.provider.generalUserID.first_name + " " + self.provider.generalUserID.last_name + ", " + str(self.rate)
 
 class Rating(models.Model):
 	rater = models.ForeignKey(GeneralUser, on_delete=models.CASCADE)
