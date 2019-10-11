@@ -26,7 +26,7 @@ class ProfessionalUser(models.Model):
 class Service(models.Model):
 	service = models.CharField(max_length=30)
 	provider = models.ForeignKey(ProfessionalUser, on_delete=models.CASCADE)
-	rate = models.CharField(max_length=6)
+	rate = models.FloatField()
 	avg_rating = models.FloatField(default=0.0)
 	description = models.CharField(max_length=200, default='')
 	def __str__(self):
