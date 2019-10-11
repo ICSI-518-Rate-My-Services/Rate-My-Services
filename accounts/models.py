@@ -19,15 +19,15 @@ class UserManager(BaseUserManager):
             raise ValueError('Users must have an phone')
 
         user = self.model(
-            email=self.normalize_email(email),
-            first_name=first_name,
-            last_name=last_name,
-            city=city,
-            street=street,
-            phone=phone,
-            zips=zips,
-            state=state,
-            password=password,
+            email       = self.normalize_email(email),
+            first_name  = first_name,
+            last_name   = last_name,
+            city        = city,
+            street      = street,
+            phone       = phone,
+            zips        = zips,
+            state       = state,
+            password    = password,
         )
         
         user.set_password(password)
@@ -40,14 +40,14 @@ class UserManager(BaseUserManager):
         """
         user = self.create_user(
             email,
-            first_name=first_name,
-            last_name=last_name,
-            city=city,
-            street=street,
-            phone=phone,
-            zips=zips,
-            state=state,
-            password=password,
+            first_name  = first_name,
+            last_name   = last_name,
+            city        = city,
+            street      = street,
+            phone       = phone,
+            zips        = zips,
+            state       = state,
+            password    = password,
         )
         user.staff = True
         user.save(using=self._db)
@@ -59,14 +59,14 @@ class UserManager(BaseUserManager):
         """
         user = self.create_user(
             email,
-            first_name=first_name,
-            last_name=last_name,
-            city=city,
-            street=street,
-            phone=phone,
-            zips=zips,
-            state=state,
-            password=password,
+            first_name  = first_name,
+            last_name   = last_name,
+            city        = city,
+            street      = street,
+            phone       = phone,
+            zips        = zips,
+            state       = state,
+            password    = password,
         )
         user.staff = True
         user.admin = True
@@ -96,7 +96,7 @@ class User(AbstractBaseUser):
 
     def get_full_name(self):
         # The user is identified by their email address
-        full_name = self.first_name & " " & self.last_name
+        full_name = self.first_name + " " + self.last_name
         return full_name
 
     def get_short_name(self):

@@ -1,4 +1,5 @@
 from django.db import models
+from accounts.models import User
 
 # Create your models here.
 class GeneralUser(models.Model):
@@ -16,7 +17,7 @@ class GeneralUser(models.Model):
 		return self.first_name + " " + self.last_name + ", " + self.email
 
 class ProfessionalUser(models.Model):
-	generalUserID = models.ForeignKey(GeneralUser, on_delete=models.CASCADE)
+	generalUserID = models.ForeignKey(User, on_delete=models.CASCADE)
 	title = models.CharField(max_length=30, default='')
 	description = models.CharField(max_length=200, default='')
 	avg_rating = models.FloatField(default=0.0)
