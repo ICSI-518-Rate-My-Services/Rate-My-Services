@@ -150,6 +150,11 @@ def add_service(request, professionaluser_id):
 	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
 	pUser.serice_set.create(service=request.POST['service'], rate=request.POST['rate'], description=request.POST['description'])
 
+def become_pro_user(request, generaluser_id):
+	pUser = ProfessionalUser.objects.create(generalUserID=generaluser_id, title=request.POST['title'], description=request.POST['description'])
+
+	return render(request, 'RateMyServices/professional_profile.html', {'pUser': pUser})
+
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('RateMyServices:login')
