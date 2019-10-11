@@ -46,3 +46,11 @@ class Transactions(models.Model):
 	buyer = models.ForeignKey(GeneralUser, on_delete=models.CASCADE)
 	provider = models.ForeignKey(ProfessionalUser, on_delete=models.CASCADE)
 	service = models.ForeignKey(Service, on_delete=models.CASCADE)
+
+class Advertisment(models.Model):
+	provider = models.ForeignKey(ProfessionalUser, on_delete=models.CASCADE)
+	ad = models.ImageField(upload_to='static/images/ads')
+
+class UserImages(models.Model):
+	user = models.ForeignKey(GeneralUser, on_delete=models.CASCADE)
+	image = models.ImageField(upload_to='static/images/users')
