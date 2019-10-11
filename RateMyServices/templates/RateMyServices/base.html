@@ -2,39 +2,80 @@
 <html>
 	<head>
 		{% load static %}
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>{% block title %}{% endblock %}</title>
-		<link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/css/customstyle.css' %}">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/css/customstyle_revemp.css' %}">
+		<script src="https://use.fontawesome.com/c2ffd95238.js"></script>  
 	</head>
 	<body>
-		<header>
-			<div class="header-container">
-				<div class="users-login">
-					{% if request.user.first_name == None %}
-                        <form action="{% url 'RateMyServices:login' %}" method="post">
-                            {% csrf_token %}
-						    <button class="right btn-accent" type="submit">Log in</button>
-                        </form>
-                        <form action="{% url 'RateMyServices:signup_view' %}" method="post">
-                            {% csrf_token %}
-						    <button class="right btn-accent" type="submit">Sign up</button>
-                        </form>
-					{% else %}
-                        <p>Hi! {{gUser.first_name}} {{gUser.last_name}} {{request.user.first_name}}</p>
-                        <form action="{% url 'RateMyServices:logout' %}" method="post">
-                            {% csrf_token %}
-                            <button class="right btn-accent" type="submit">Log out!</button>
-                        </form>
-						<a class='button btn-primary' >account settings</a>
-					{% endif %}
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<header class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+			<div class="container-fluid header-container">
+				<div class="row align-items-center">
+					<div class="col users-login">
+						{% if request.user.first_name == None %}
+							<!-- <div class="form-row"> -->
+								<div class="btn-group">
+									<form class="d-inline" action="{% url 'RateMyServices:login' %}" method="post">
+										{% csrf_token %}
+										<button class="btn btn-success btn-sm" type="submit">Log in</button>
+									</form>
+									<form class="d-inline" action="{% url 'RateMyServices:signup_view' %}" method="post">
+										{% csrf_token %}
+										<button class="btn btn-outline-success btn-sm" type="submit">Sign up</button>
+									</form>
+								</div>
+							<!-- </div> -->
+						{% else %}
+							<p>Hi! {{gUser.first_name}} {{gUser.last_name}} {{request.user.first_name}}</p>
+							<form action="{% url 'RateMyServices:logout' %}" method="post">
+								{% csrf_token %}
+								<button class="right btn-accent" type="submit">Log out!</button>
+							</form>
+							<a class='button btn-primary' >account settings</a>
+						{% endif %}
+					</div>
+					<div class="d-none d-md-block w-50 header-search">
+						<form class="input-group" action="{% url 'RateMyServices:search' gUser.id%}" method="post">
+							{% csrf_token %}
+							
+							<input class="rounded-left form-control w-25" type="text" placeholder="Search services or ..." name="search">
+							<input class="middle form-control" type="text" placeholder="City" name="city">
+							<input class="middle form-control" type="text" placeholder="State" name="state">
+							<div class="input-group-append">
+								<button class="right btn btn-success" type="submit">GO!</button>
+							</div>
+						</form>
+					</div>
+					<div class="col logo-section">
+							<a class="text-decoration-none" href="{%url 'RateMyServices:index'%}">
+								<table align="center">
+									<tr>
+										<th><img class="logo" src='{% static "RateMyServices/images/logo_sm.svg"%}'></th>
+										<th><h4 class="ml-2">RateMyServices</h4></th>
+									</tr>
+								</table>			
+							</a>
+					</div>
 				</div>
-				<div class="header-search">
-					<form action="{% url 'RateMyServices:search' gUser.id%}" method="post">
-						{% csrf_token %}
-						<input class="left" type="text" placeholder="Search services or ..." name="search">
-						<input class="middle" type="text" placeholder="State" name="state">
-						<input class="middle" type="text" placeholder="City" name="city">
-						<button class="right btn-accent" type="submit">GO!</button>
-					</form>
+				<div class="row">
+						<div class="d-md-none col-12 header-search">
+								<form class="input-group" action="{% url 'RateMyServices:search' gUser.id%}" method="post">
+									{% csrf_token %}
+									
+									<input class="rounded-left form-control w-25" type="text" placeholder="Search services or ..." name="search">
+									<input class="middle form-control" type="text" placeholder="City" name="city">
+									<input class="middle form-control" type="text" placeholder="State" name="state">
+									<div class="input-group-append">
+										<button class="right btn btn-success" type="submit">GO!</button>
+									</div>
+								</form>
+							</div>
 				</div>
 			</div>
 		</header>
