@@ -6,12 +6,12 @@ from .models import User
 
 
 class RegisterForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
+    password1 = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ('email',)
+        fields = ('email','first_name','last_name','phone','city','street','state','zips')
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -27,6 +27,14 @@ class RegisterForm(forms.ModelForm):
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Passwords don't match")
         return password2
+    
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        user = super(RegisterForm, self).save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
 
 
 class UserAdminCreationForm(forms.ModelForm):

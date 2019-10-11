@@ -9,6 +9,8 @@ from django.core import *
 # for signup
 from django.contrib.auth.forms import UserCreationForm
 from django.views import generic
+from accounts.forms import RegisterForm
+from accounts.models import User
 
 # new signup forms
 from .forms import GeneralUserCreationForm
@@ -132,15 +134,24 @@ class SignUp(generic.CreateView):
 # New signup
 def signup_view(request):
 	#next = request.GET.get('next')
-	form = GeneralUserCreationForm(request.POST or None)
+	form = RegisterForm(request.POST or None)
 	if form.is_valid():
-		GeneralUser.objects.create(**form.cleaned_data)
+		# GeneralUser.objects.create(**form.cleaned_data)
 		# password = form.cleaned_data.get('password')
 		# user.set_password(password)
-		# user.save()
+		form.save()
 		# user = authenticate(email=email, password=password)
 		# login(request,user)
-	
+		# email		=form.cleaned_data.get('email'),
+		# password	=form.cleaned_data.get('password'),
+		# first_name	=form.cleaned_data.get('first_name'),
+		# last_name	=form.cleaned_data.get('last_name'),
+		# phone		=form.cleaned_data.get('phone'),
+		# city		=form.cleaned_data.get('city'),
+		# street		=form.cleaned_data.get('street'),
+		# state		=form.cleaned_data.get('state'),
+		# zips		=form.cleaned_data.get('zips'),
+		
 	context = {
 		'form': form,
 	}

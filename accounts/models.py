@@ -5,39 +5,67 @@ from django.contrib.auth.models import (
 
 # Create your models here.
 class UserManager(BaseUserManager):
-    def create_user(self, email, password=None):
+    def create_user(self, email, first_name, last_name, city, street, phone, zips, state, password=None):
         """
         Creates and saves a User with the given email and password.
         """
         if not email:
             raise ValueError('Users must have an email address')
+        if not first_name:
+            raise ValueError('Users must have an first name')
+        if not last_name:
+            raise ValueError('Users must have an last name')
+        if not phone:
+            raise ValueError('Users must have an phone')
 
         user = self.model(
             email=self.normalize_email(email),
+            first_name=first_name,
+            last_name=last_name,
+            city=city,
+            street=street,
+            phone=phone,
+            zips=zips,
+            state=state,
+            password=password,
         )
-
+        
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_staffuser(self, email, password):
+    def create_staffuser(self, email, first_name, last_name, city, street, phone, zips, state, password):
         """
         Creates and saves a staff user with the given email and password.
         """
         user = self.create_user(
             email,
+            first_name=first_name,
+            last_name=last_name,
+            city=city,
+            street=street,
+            phone=phone,
+            zips=zips,
+            state=state,
             password=password,
         )
         user.staff = True
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password):
+    def create_superuser(self, email, first_name, last_name, city, street, phone, zips, state, password):
         """
         Creates and saves a superuser with the given email and password.
         """
         user = self.create_user(
             email,
+            first_name=first_name,
+            last_name=last_name,
+            city=city,
+            street=street,
+            phone=phone,
+            zips=zips,
+            state=state,
             password=password,
         )
         user.staff = True
@@ -50,20 +78,30 @@ class User(AbstractBaseUser):
     active  = models.BooleanField(default=True)
     staff   = models.BooleanField(default=False) # a admin user; non super-user
     admin   = models.BooleanField(default=False) # a superuser
+    first_name  = models.CharField(max_length=30,null=True,blank=False)
+    last_name   = models.CharField(max_length=30,null=True,blank=False)
+    
+    state       = models.CharField(max_length=30,null=True,blank=False)
+    city        = models.CharField(max_length=30,null=True,blank=False)
+    zips        = models.CharField(max_length=5,null=True,blank=False)
+    street      = models.CharField(max_length=100,null=True,blank=False)
+    phone       = models.CharField(max_length=12,null=True,blank=False)
+
     # notice the absence of a "Password field", that's built in.
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = [] # Email & Password are required by default.
+    REQUIRED_FIELDS = ['first_name','last_name'] # Email & Password are required by default.
 
     objects = UserManager()
 
     def get_full_name(self):
         # The user is identified by their email address
-        return self.email
+        full_name = self.first_name & " " & self.last_name
+        return full_name
 
     def get_short_name(self):
         # The user is identified by their email address
-        return self.email
+        return self.first_name
 
     def __str__(self):              # __unicode__ on Python 2
         return self.email
