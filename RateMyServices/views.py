@@ -37,7 +37,7 @@ def rate(request, professionaluser_id, generaluser_id):
 
 def index(request): 
 	pUsers = ProfessionalUser.objects.all()
-	gUser = User.objects.get(id= 2) #id = 2 : for testing purposes
+	gUser = User.objects.get(id=1) #id = 2 : for testing purposes
 	context = {
 		'pUsers': pUsers,
 		'gUser': gUser

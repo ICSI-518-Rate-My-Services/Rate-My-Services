@@ -11,9 +11,14 @@ class ServiceAdmin(admin.ModelAdmin):
 	model = Service
 	list_display = ('provider','service','rate')
 
-# class GeneralUserAdmin(admin.ModelAdmin):
-# 	model = GeneralUser
-# 	list_display = ('first_name','last_name')
+class RatingAdmin(admin.ModelAdmin):
+	model = Rating
+
+	# def get_rater(self, obj):
+	# 	full_name = obj.rater.first_name + " " + obj.rater.last_name
+	# 	return full_name + " ( " + obj.rater.email + ")"
+	# get_rater.short_description = 'Rater'
+	list_display = ('provider', 'rater' ,'rating','description')
 
 class ProfessionalUserAdmin(admin.ModelAdmin):
 	model = ProfessionalUser
@@ -35,4 +40,4 @@ class ProfessionalUserAdmin(admin.ModelAdmin):
 # admin.site.register(GeneralUser, GeneralUserAdmin)
 admin.site.register(ProfessionalUser, ProfessionalUserAdmin)
 admin.site.register(Service, ServiceAdmin)
-admin.site.register(Rating)
+admin.site.register(Rating, RatingAdmin)

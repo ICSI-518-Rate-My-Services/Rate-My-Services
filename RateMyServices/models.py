@@ -27,7 +27,7 @@ class ProfessionalUser(models.Model):
 	description = models.CharField(max_length=200, default='')
 	avg_rating = models.FloatField(default=0.0)
 	def __str__(self):
-		return self.generalUserID.first_name + " " + self.generalUserID.last_name + ", " + self.generalUserID.email
+		return self.generalUserID.first_name + " " + self.generalUserID.last_name + " (" + self.generalUserID.email + ")"
 
 class Service(models.Model):
 	service = models.CharField(max_length=30)
