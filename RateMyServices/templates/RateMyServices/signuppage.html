@@ -1,6 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head></head>
+{% extends 'registration/base.html' %}
+{% block title %}Sign Up{% endblock %}
+
+{% block content%}
 <body>
     <p>sign up page</p>
     <form action="" method="POST"> {% csrf_token %}
@@ -28,4 +29,4 @@
         <button type="submit" class="btn btn-success">Sign up</button>
     </form>
 </body>
-</html>
+{% endblock%}
