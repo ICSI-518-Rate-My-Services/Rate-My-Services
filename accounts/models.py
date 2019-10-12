@@ -5,7 +5,7 @@ from django.contrib.auth.models import (
 
 # Create your models here.
 class UserManager(BaseUserManager):
-    def create_user(self, email, first_name, last_name, city, street, phone, zips, state, password=None):
+    def create_user(self, email, first_name, last_name, city=None, street=None, phone=None, zips=None, state=None, password=None):
         """
         Creates and saves a User with the given email and password.
         """
@@ -15,8 +15,6 @@ class UserManager(BaseUserManager):
             raise ValueError('Users must have an first name')
         if not last_name:
             raise ValueError('Users must have an last name')
-        if not phone:
-            raise ValueError('Users must have an phone')
 
         user = self.model(
             email       = self.normalize_email(email),
@@ -34,7 +32,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_staffuser(self, email, first_name, last_name, city, street, phone, zips, state, password):
+    def create_staffuser(self, email, first_name, last_name, city=None, street=None, phone=None, zips=None, state=None, password=None):
         """
         Creates and saves a staff user with the given email and password.
         """
@@ -53,7 +51,26 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, first_name, last_name, city, street, phone, zips, state, password):
+    def create_professionaluser(self, email, first_name, last_name, city=None, street=None, phone=None, zips=None, state=None, password=None):
+        """
+        Creates and saves a staff user with the given email and password.
+        """
+        user = self.create_user(
+            email,
+            first_name  = first_name,
+            last_name   = last_name,
+            city        = city,
+            street      = street,
+            phone       = phone,
+            zips        = zips,
+            state       = state,
+            password    = password,
+        )
+        user.professional = True
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, first_name, last_name, city=None, street=None, phone=None, zips=None, state=None, password=None):
         """
         Creates and saves a superuser with the given email and password.
         """
@@ -80,7 +97,7 @@ class User(AbstractBaseUser):
     admin   = models.BooleanField(default=False) # a superuser
     first_name  = models.CharField(max_length=30,null=True,blank=False)
     last_name   = models.CharField(max_length=30,null=True,blank=False)
-    
+    professional = models.BooleanField(default=False)
     state       = models.CharField(max_length=30,null=True,blank=False)
     city        = models.CharField(max_length=30,null=True,blank=False)
     zips        = models.CharField(max_length=5,null=True,blank=False)
@@ -125,6 +142,11 @@ class User(AbstractBaseUser):
     def is_admin(self):
         "Is the user a admin member?"
         return self.admin
+
+    @property
+    def is_professional(self):
+        "Is the user a professional user"
+        return self.professional
 
     @property
     def is_active(self):
