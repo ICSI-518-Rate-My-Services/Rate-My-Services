@@ -19,10 +19,18 @@ def user_profile(request, professionaluser_id, generaluser_id):
 	gUser = get_object_or_404(User, id=generaluser_id)
 	return render(request, 'RateMyServices/user_profile.html', {'pUser': pUser, 'gUser': gUser})
 
-def rate(request, professionaluser_id, generaluser_id):
+def rate(request, professionaluser_id, generaluser_id, service_id):
 	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
 	gUser = get_object_or_404(User, id=generaluser_id)
-	selected_rating = pUser.rating_set.create(rater=gUser, provider=pUser, rating=int(request.POST['rating']), description=request.POST['description'])
+	service = get_object_or_404(Service, id=service_id)
+
+	if Transactions.objects.filter(buyer=gUser, provider=pUser, service=search).count() == 0:
+		verified = False
+
+	else:
+		verified = True
+
+	pUser.rating_set.create(rater=gUser, provider=pUser, service=service, rating=int(request.POST['rating']), description=request.POST['description'], verified=verified)
 
 	if pUser.avg_rating == 0:
 		pUser.avg_rating = float(request.POST['rating'])
@@ -32,6 +40,15 @@ def rate(request, professionaluser_id, generaluser_id):
 		new_rating = (pUser.avg_rating + float(request.POST['rating']))/2.0
 		pUser.avg_rating = new_rating
 		pUser.save()
+
+	if service.avg_rating == 0:
+		service.avg_rating = float(request.POST['rating'])
+		service.save()
+	
+	else:
+		new_rating = (service.avg_rating + float(request.POST['rating']))/2.0
+		service.avg_rating = new_rating
+		service.save()
 
 	return HttpResponseRedirect(reverse('RateMyServices:index'))
 
@@ -119,6 +136,21 @@ def general_profile(request, generaluser_id):
 
 def professional_profile(request, professionaluser_id):
 	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
+	return render(request, 'RateMyServices/professional_profile.html', {'pUser': pUser})
+
+def hire_service(request, professionaluser_id, generaluser_id, service_id):
+	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
+	gUser = get_object_or_404(User, id=generaluser_id)
+	service = get_object_or_404(Service, id=service_id)
+	pUser.transaction_set.create(buyer=gUser, provider=pUser, service=service)
+
+def add_service(request, professionaluser_id):
+	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
+	pUser.serice_set.create(service=request.POST['service'], rate=request.POST['rate'], description=request.POST['description'])
+
+def become_pro_user(request, generaluser_id):
+	pUser = ProfessionalUser.objects.create(generalUserID=generaluser_id, title=request.POST['title'], description=request.POST['description'])
+
 	return render(request, 'RateMyServices/professional_profile.html', {'pUser': pUser})
 
 # Old signup
