@@ -39,6 +39,15 @@
 							</form>
 							<a class='button btn-primary' >account settings</a>
 						{% endif %}
+
+						{% load filter_count %}
+						{% if gUser|filter_count == 0 %}
+							<form action="{% url 'RateMyServices:becomeProUser' gUser.id %}" method="post">
+								{% csrf_token %}
+								<button class="right btn-accent" type="submit">Become a Service Provider</button>
+							</form>
+						{% endif %}
+
 					</div>
 					<div class="d-none d-md-block w-50 header-search">
 						<form class="input-group" action="{% url 'RateMyServices:search' gUser.id%}" method="post">
