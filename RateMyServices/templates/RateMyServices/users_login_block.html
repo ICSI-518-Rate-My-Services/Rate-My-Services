@@ -22,26 +22,26 @@
                     </div>
                     <div class="col-10">
                         <div class="p-0">{{request.user.get_full_name}}</div>
+                        <!-- <div class="p-0">pid {{request.user.professionaluser_set.all.0.id}} | uid {{request.user.id}}</div> -->
                         {% if request.user.is_professional %}
-                            <div class="badge badge-pill badge-warning m-0">professional user</div>
+                            <div class="badge badge-pill badge-warning m-0" style="font-size: 9px;">professional user</div>
                         {% else %}
-                            <div class="badge badge-pill badge-success m-0">general user</div>
+                            <div class="badge badge-pill badge-success m-0" style="font-size: 9px;">general user</div>
                         {% endif %}
                     </div>
                 </div>
             </div>
         </button>
-        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="sr-only">Toggle Dropdown</span>
         </button>
         <div class="dropdown-menu">
             <a class="dropdown-item" 
             {% if request.user.is_professional %}
-            href="{% url 'RateMyServices:professional_profile' request.user.professionalID %}"
+                href=" {% url 'RateMyServices:professional_profile' request.user.professionaluser_set.all.0.id %}"
             {% else %}
-            href="{% url 'RateMyServices:general_profile' request.user.id %}"
-            print(request.user.id)
-            {% endif %}> View My Profile</a>
+                href="{% url 'RateMyServices:general_profile' request.user.id %}"
+            {% endif %}> View My Profile </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{% url 'RateMyServices:logout' %}">Log out</a>
         </div>
