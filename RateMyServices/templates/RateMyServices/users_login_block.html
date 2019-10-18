@@ -1,0 +1,48 @@
+{% load static %}
+{% if request.user.first_name == None %}
+    <!-- <div class="form-row"> -->
+        <div class="btn-group">
+            <form class="d-inline" action="{% url 'RateMyServices:login' %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-success btn-sm" type="submit">Log in</button>
+            </form>
+            <form class="d-inline" action="{% url 'RateMyServices:signup_view' %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-outline-success btn-sm" type="submit">Sign up</button>
+            </form>
+        </div>
+    <!-- </div> -->
+{% else %}
+    <div class="btn-group">
+        <button type="button" class="btn btn-outline-secondary p-0">
+            <div class="container p-1">
+                <div class="row align-items-center p-0">
+                    <div class="col-2">
+                        <img class="rounded-circle" height="50px" width="50px" src="{% static 'RateMyServices/images/profile_dumy.jpg' %}" alt=""/>
+                    </div>
+                    <div class="col-10">
+                        <div class="p-0">{{request.user.get_full_name}}</div>
+                        {% if request.user.is_professional %}
+                            <div class="badge badge-pill badge-warning m-0">professional user</div>
+                        {% else %}
+                            <div class="badge badge-pill badge-success m-0">general user</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </button>
+        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">View My Profile</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'RateMyServices:logout' %}">Log out</a>
+        </div>
+    </div>
+    <!-- <form action="{% url 'RateMyServices:logout' %}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-accent" type="submit">Log out!</button>
+    </form>
+    <a class='button btn-primary' >account settings</a> -->
+{% endif %}
