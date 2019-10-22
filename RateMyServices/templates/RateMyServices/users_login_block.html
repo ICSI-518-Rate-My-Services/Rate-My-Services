@@ -21,7 +21,7 @@
                         <img class="rounded-circle" height="45px" width="45px" src="{% static 'RateMyServices/images/profile_dumy.jpg' %}" alt=""/>
                     </div>
                     <div class="col-10">
-                        <div class="p-0">{{request.user.get_full_name}}</div>
+                        <div class="p-0 text-nowrap overflow-hidden">{{request.user.get_full_name}}</div>
                         <!-- <div class="p-0">pid {{request.user.professionaluser_set.all.0.id}} | uid {{request.user.id}}</div> -->
                         {% if request.user.is_professional %}
                             <div class="badge badge-pill badge-warning m-0" style="font-size: 9px;">professional user</div>
