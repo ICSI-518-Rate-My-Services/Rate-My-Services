@@ -122,7 +122,7 @@ def filter(request, generaluser_id):
 	}
 	return render(request, 'RateMyServices/results.html', context)
 
-
+ 
 # Unused for now
 '''
 def login(request):
