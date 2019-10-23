@@ -147,11 +147,20 @@ def hire_service(request, professionaluser_id, generaluser_id, service_id):
 def add_service(request, professionaluser_id):
 	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
 	pUser.serice_set.create(service=request.POST['service'], rate=request.POST['rate'], description=request.POST['description'])
+	if request.POST['submit'].value is 'service':
+		return render(request,'RateMyServices/addServices.html', {'pUser': pUser})
+	else:
+		return render(request, 'RateMyServices/professional_profile.html', {'pUser': pUser})
 
-def become_pro_user(request, generaluser_id):
-	pUser = ProfessionalUser.objects.create(generalUserID=generaluser_id, title=request.POST['title'], description=request.POST['description'])
+def becomeProUser(request, generaluser_id):
+	gUser = get_object_or_404(GeneralUser, id=generaluser_id)
+	return render(request, 'RateMyServices/becomeProUser.html', {'gUser': gUser})
 
-	return render(request, 'RateMyServices/professional_profile.html', {'pUser': pUser})
+
+def addProUser(request, generaluser_id):
+	gUser = get_object_or_404(GeneralUser, id=generaluser_id)
+	pUser = ProfessionalUser.objects.create(generalUserID=gUser, title=request.POST['title'], description=request.POST['description'])
+	return render(request, 'RateMyServices/addServices.html', {'pUser': pUser})
 
 # Old signup
 '''
