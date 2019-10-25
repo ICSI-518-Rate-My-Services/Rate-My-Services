@@ -12,6 +12,11 @@ from django.views import generic
 from accounts.forms import RegisterForm
 from accounts.models import User
 
+#for Image Upload
+from django.shortcuts import render
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
 
 # Create your views here.
 def user_profile(request, professionaluser_id, generaluser_id):

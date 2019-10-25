@@ -41,3 +41,4 @@ class ProfessionalUserAdmin(admin.ModelAdmin):
 admin.site.register(ProfessionalUser, ProfessionalUserAdmin)
 admin.site.register(Service, ServiceAdmin)
 admin.site.register(Rating, RatingAdmin)
+admin.site.register(Post)

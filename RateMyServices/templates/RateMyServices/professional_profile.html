@@ -30,6 +30,13 @@
 			</div> 
 			<h1>{{ pUser.generalUserID.first_name }} {{ pUser.generalUserID.last_name }}</h1>
 			<p>{{ pUser.generalUserID.city }}, {{ pUser.generalUserID.state }}</p> 
+			<div>
+				<form method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					{{ form.as_p }}
+					<button type="submit">Upload</button>
+				  </form>
+			</div>
 		</div>
 		<div style="align-content: center">
 			
@@ -77,7 +84,7 @@
             </table>
 
             <!--HOW TO GET SERVICE FOR PARTICULAR PROFESSIONAL USER? HOW TO MAKE IF STATEMWNT TO?-->
-            <table cellspacing="20" align="center" style="font-size: 20px" *if >
+            <!-- <table cellspacing="20" align="center" style="font-size: 20px" *if >
                     <tr style="padding: 30px">
                       <th style="padding-right: 60px">Services Provided</th>
                       <th>{{ pUser.service }}</th>
@@ -90,7 +97,10 @@
                         <th>Rating</th>
                         <th>{{ pUser.rate }}</th>
                     </tr> 
-            </table>
+            </table> -->
         </div>
 	</body>
 </html>
+
+
+

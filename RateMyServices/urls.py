@@ -1,9 +1,11 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
 from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'RateMyServices'
 urlpatterns = [
@@ -22,5 +24,5 @@ urlpatterns = [
 	path('general_profile/<int:generaluser_id>/', views.general_profile, name='general_profile'),
 	path('professional_profile/<int:professionaluser_id>/', views.professional_profile, name='professional_profile'),
 	path('becomeProUser/<int:generaluser_id>/', views.becomeProUser, name='becomeProUser'),
-	path('addProUser/<int:generaluser_id>/', views.addProUser, name="addProUser")
+	path('addProUser/<int:generaluser_id>/', views.addProUser, name="addProUser"),
 ]

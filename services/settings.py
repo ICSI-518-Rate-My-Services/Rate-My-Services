@@ -123,3 +123,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/RateMyServices'
 LOGOUT_REDIRECT_URL = '/RateMyServices'
+
+# Post Picture
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

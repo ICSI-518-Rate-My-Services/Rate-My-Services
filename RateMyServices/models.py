@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import User
+from django.db import models
 
 # Create your models here.
 
@@ -60,3 +61,8 @@ class Advertisment(models.Model):
 class UserImages(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	image = models.ImageField(upload_to='static/images/users')
+
+# PostPicutre
+class Post(models.Model):
+    title = models.TextField()
+    cover = models.ImageField(upload_to='images/')
