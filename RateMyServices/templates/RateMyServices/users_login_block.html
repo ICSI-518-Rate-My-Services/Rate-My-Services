@@ -44,6 +44,12 @@
             {% endif %}> View My Profile </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{% url 'RateMyServices:logout' %}">Log out</a>
+            <div class="dropdown-divider"></div>
+            {% if request.user.is_professional %}
+                <a class="dropdown-item" href="{% url 'RateMyServices:addService' request.user.id %}">Add Services</a>
+            {% else %}
+                <a class="dropdown-item" href="{% url 'RateMyServices:becomeProUser' request.user.id %}">Become a Professional User</a>
+            {% endif %}
         </div>
     </div>
     <!-- <form action="{% url 'RateMyServices:logout' %}" method="post">
