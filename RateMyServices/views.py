@@ -156,7 +156,11 @@ def addServicePage(request, generaluser_id):
 def addService(request, generaluser_id):
 	gUser = get_object_or_404(User, id=generaluser_id)
 	pUser = get_object_or_404(ProfessionalUser, generalUserID=gUser)
-	pUser.service_set.create(service=request.POST['service'], rate=request.POST['rate'], description=request.POST['description'])
+	if request.POST['isHour'] == 'Yes':
+		pUser.service_set.create(service=request.POST['service'], rate=request.POST['rate'], description=request.POST['description'], isHour=True)
+	else:
+		pUser.service_set.create(service=request.POST['service'], rate=request.POST['rate'], description=request.POST['description'], isHour=False)
+		
 	if request.POST['submit'] == 'service':
 		return render(request,'RateMyServices/addServices.html', {'gUser': gUser})
 	else:
@@ -171,8 +175,8 @@ def addProUser(request, generaluser_id):
 	gUser = get_object_or_404(User, id=generaluser_id)
 	gUser.professional = True
 	gUser.save()
-	pUser = ProfessionalUser.objects.create(generalUserID=gUser, title=request.POST['title'], description=request.POST['description'])
-	return render(request, 'RateMyServices/addServices.html', {'pUser': pUser})
+	ProfessionalUser.objects.create(generalUserID=gUser, title=request.POST['title'], description=request.POST['description'])
+	return render(request, 'RateMyServices/addServices.html', {'gUser': gUser})
 
 # Old signup
 '''
