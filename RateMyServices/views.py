@@ -144,14 +144,18 @@ def hire_service(request, professionaluser_id, generaluser_id, service_id):
 	service = get_object_or_404(Service, id=service_id)
 	pUser.transaction_set.create(buyer=gUser, provider=pUser, service=service)
 
+def addServicePage(request, generaluser_id):
+	gUser = get_object_or_404(User, id=generaluser_id)
+	return render(request,'RateMyServices/addServices.html', {'gUser': gUser})
+
 def addService(request, generaluser_id):
 	gUser = get_object_or_404(User, id=generaluser_id)
 	pUser = get_object_or_404(ProfessionalUser, generalUserID=gUser)
 	pUser.service_set.create(service=request.POST['service'], rate=request.POST['rate'], description=request.POST['description'])
 	if request.POST['submit'] is 'service':
-		return render(request,'RateMyServices/addServices.html', {'pUser': pUser})
+		return render(request,'RateMyServices/addServices.html', {'gUser': gUser})
 	else:
-		return render(request, 'RateMyServices/professional_profile.html', {'pUser': pUser})
+		return render(request, 'RateMyServices/professional_profile.html', {'gUser': gUser})
 
 def becomeProUser(request, generaluser_id):
 	gUser = get_object_or_404(User, id=generaluser_id)

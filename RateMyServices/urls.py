@@ -23,5 +23,6 @@ urlpatterns = [
 	path('professional_profile/<int:professionaluser_id>/', views.professional_profile, name='professional_profile'),
 	path('becomeProUser/<int:generaluser_id>/', views.becomeProUser, name='becomeProUser'),
 	path('addProUser/<int:generaluser_id>/', views.addProUser, name="addProUser"),
-	path('addService/<int:generaluser_id>/', views.addService, name='addService')
+	path('addService/<int:generaluser_id>/', views.addService, name='addService'),
+	path('addServicePage/<int:generaluser_id>/', views.addServicePage, name='addServicePage')
 ]
