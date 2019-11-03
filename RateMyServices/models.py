@@ -36,6 +36,7 @@ class Service(models.Model):
 	rate = models.FloatField()
 	avg_rating = models.FloatField(default=0.0)
 	description = models.CharField(max_length=200, default='')
+	isHour = models.BooleanField(default=False)
 	def __str__(self):
 		return self.service + ": " + self.provider.generalUserID.first_name + " " + self.provider.generalUserID.last_name + ", " + str(self.rate)
 
