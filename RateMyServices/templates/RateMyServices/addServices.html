@@ -1,11 +1,26 @@
-<form action="{% url 'RateMyServices:addService' request.user.id %}" method="post">
-    {% csrf_token %}
-    <label for="title">Service</label>
-    <input type="text" name="service">
-    <label for="rate">Hourly Rate</label>
-    <input type="number" name="rate">
-    <label for="description">Description</label>
-    <input type="text" name="description">
-    <button type="submit" name="submit" value="service">Add Another Service</button>
-    <button type="submit" name="submit" value="done">Done</button>
-</form>
+{% extends "RateMyServices/base.html" %}
+
+{% block title %}Add a Service to Offer{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1> Add a Service to Offer </h1>
+    <form action="{% url 'RateMyServices:addService' request.user.id %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="service">Service</label>
+            <input type="text" class="form-control" name="service" placeholder="Enter the Service">    
+        </div>
+        <div class="form-group">
+            <label for="rate">Hourly Rate</label>
+            <input type="number" class="form-control" name="rate" placeholder="0.00">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" name="description" placeholder="Enter the Description of the service">
+        </div>
+        <button type="submit" class="btn btn-primary" name='submit' value='service'>Add Another Service</button>
+        <button type="submit" class="btn btn-primary" name='submit' value='done'>Done</button>
+    </form>
+</div>
+{% endblock %}
