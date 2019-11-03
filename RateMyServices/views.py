@@ -157,10 +157,10 @@ def addService(request, generaluser_id):
 	gUser = get_object_or_404(User, id=generaluser_id)
 	pUser = get_object_or_404(ProfessionalUser, generalUserID=gUser)
 	pUser.service_set.create(service=request.POST['service'], rate=request.POST['rate'], description=request.POST['description'])
-	if request.POST['submit'] is 'service':
+	if request.POST['submit'] == 'service':
 		return render(request,'RateMyServices/addServices.html', {'gUser': gUser})
 	else:
-		return render(request, 'RateMyServices/professional_profile.html', {'gUser': gUser})
+		return render(request, 'RateMyServices/professional_profile.html', {'pUser': pUser})
 
 def becomeProUser(request, generaluser_id):
 	gUser = get_object_or_404(User, id=generaluser_id)
