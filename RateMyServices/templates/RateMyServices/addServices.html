@@ -5,6 +5,7 @@
 {% block content %}
 <div class="container">
     <h1> Add a Service to Offer </h1>
+    <br>
     <form action="{% url 'RateMyServices:addService' request.user.id %}" method="post">
         {% csrf_token %}
         <div class="form-group">
