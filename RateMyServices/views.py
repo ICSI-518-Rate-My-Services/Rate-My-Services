@@ -8,6 +8,7 @@ from django.core import *
 
 # for signup
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, authenticate
 from django.views import generic
 from accounts.forms import RegisterForm
 from accounts.models import User
@@ -188,10 +189,14 @@ class SignUp(generic.CreateView):
 
 # New signup
 def signup_view(request):
-	#next = request.GET.get('next')
 	form = RegisterForm(request.POST or None)
 	if form.is_valid():
-		form.save()
+		new_user = form.save()
+		new_user = authenticate(username=form.cleaned_data['email'],
+								password=form.cleaned_data['password1'],
+								)
+		login(request, new_user)
+		return HttpResponseRedirect(reverse('RateMyServices:index'))
 		
 	context = {
 		'form': form,
