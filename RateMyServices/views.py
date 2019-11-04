@@ -119,13 +119,13 @@ def index(request):
 		},
 	]
 	dummy_premiumpuser=[
-		{	'Urls': 'https://tutoredify.edublogs.org/files/2015/11/Academic-English-1evwjnm.jpg',
+		{	'Urls': 'http://www.partnersinenglish.eu/uploads/1/2/0/0/120044573/skype-teaching_orig.jpeg',
 			'Service': 'Online English Tutoring',
 		},
 		{	'Urls': 'https://www.cuelogic.com/wp-content/uploads/2019/05/Custom-Software-Development.jpg',
 			'Service': 'Software Engineering',
 		},
-		{	'Urls': 'https://www.brwnpaperbag.com/wp-content/uploads/2018/08/freelance-illustraiton-1.jpg',
+		{	'Urls': 'https://www.creativeboom.com/uploads/articles/a4/a4dbaac1edf2d4dd8409afe8d6be9e3879d020d2_1100.jpg',
 			'Service': 'Freelance Illustration',
 		},
 	]
