@@ -4,26 +4,25 @@
 
 {% block content %}
 <!-- Premium ProUser Ads -->
-<div class="container-fluid" style="height: 500px;background-color: lightgray;">
+<div class="container-fluid px-0" style="height: 500px;background-color: lightgray;">
 	<div id="PremiumpuserAds" class="carousel slide" data-ride="carousel" style="height: 100%;">
 		<ol class="carousel-indicators btm-3">
 			<li data-target="#PremiumpuserAds" data-slide-to="0" class="active"></li>
-			<li data-target="#PremiumpuserAds" data-slide-to="1"></li>
-			<li data-target="#PremiumpuserAds" data-slide-to="2"></li>
+			{% for i in dummyPremiumList|slice:"1:" %}
+			<li data-target="#PremiumpuserAds" data-slide-to="{{forloop.counter}}"></li>
+			{% endfor %}
 		</ol>
 		<div class="carousel-inner">
-			<div class="carousel-item active">
-				<!-- <img src="..." class="d-block w-100" alt="..."> -->
-				<h1 class="text-center mt-4 text-secondary">Software Development</h1>
+			<div class="carousel-item active" style="background: url({{dummyPremiumList.0.Urls}}) no-repeat; height: 500px; background-size: cover;">
+				<!-- <img src="{{dummyPremiumList.0.Urls}}" class="d-block w-100" alt="..."> -->
+				<h1 class="text-center mt-4 text-secondary" style="height: 100%;">{{dummyPremiumList.0.Service}}</h1>
 			</div>
-			<div class="carousel-item">
-				<!-- <img src="..." class="d-block w-100" alt="..."> -->
-				<h1 class="text-center mt-4 text-secondary">Logo Design</h1>
+			{% for i in dummyPremiumList|slice:"1:" %}
+			<div class="carousel-item" style="background: url({{i.Urls}}) no-repeat; height: 500px; background-size: cover;">
+				<!-- <img src="i.Urls" class="d-block w-100" alt="..."> -->
+				<h1 class="text-center mt-4 text-secondary">{{i.Service}}</h1>
 			</div>
-			<div class="carousel-item">
-				<!-- <img src="..." class="d-block w-100" alt="..."> -->
-				<h1 class="text-center mt-4 text-secondary">Online English Tutor</h1>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 </div>	
@@ -56,8 +55,8 @@
 						<p class="card-text my-5">"{{i.description}}"</p>
 					</div>
 					<div class="d-flex justify-content-between">
-						<p>Rate: {{i.rate}} ({{i.numOfRate}})</p>
-						<p>Avg rates: ${{i.avgRates}}/hr</p>
+						<p><strong>Rate: </strong> {{i.rate}} ({{i.numOfRate}})</p>
+						<p><strong>Avg rates: </strong>${{i.avgRates}}/hr</p>
 					</div>
 					<a href="#" class="btn btn-success float-right">See details</a>
 				</div>

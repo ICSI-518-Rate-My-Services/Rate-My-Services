@@ -61,16 +61,16 @@ def rate(request, professionaluser_id, generaluser_id, service_id):
 def index(request): 
 	pUsers = ProfessionalUser.objects.all()
 	gUser = User.objects.get(id=1) #id = 2 : for testing purposes
-	dummy_normalprouser= [
-		{	'name': 'Jerrison Chang-Sundin',
-			'service': 'Logo Design',
-			'location': 'Troy, NY',
+	dummy_normalpuser= [
+		{	'name': 'Musa Aghayev',
+			'service': 'Software Developper',
+			'location': 'Albany, NY',
 			'description': 'I can offer ...',
-			'rate': 4.5,
-			'numOfRate': 34,
-			'avgRates': 40,
+			'rate': 4.8,
+			'numOfRate': 180,
+			'avgRates': 50,
 			'isHour': False,
-			'imgUrls': 'https://img.freepik.com/free-vector/golden-bird-logo-design_1195-336.jpg?size=338&ext=jpg',
+			'imgUrls': 'https://www.joc.com/sites/default/files/field_feature_image/Software%20development%20concept.jpg',
 			'profilePic': '',
 		},
 		{	'name': 'Pankti Satishkumar Bardolia',
@@ -84,28 +84,6 @@ def index(request):
 			'imgUrls': 'https://www.plm.automation.siemens.com/media/global/en/is-820219790-640x360_tcm27-49149.jpg',
 			'profilePic': '',
 		},
-		{	'name': 'William Dahl',
-			'service': 'Software Developper',
-			'location': 'Albany, NY',
-			'description': 'I can offer ...',
-			'rate': 4.8,
-			'numOfRate': 180,
-			'avgRates': 50,
-			'isHour': False,
-			'imgUrls': 'https://cdn.nextgov.com/media/img/upload/2018/12/04/120418softwaredevNG/860x394.jpg',
-			'profilePic': '',
-		},
-		{	'name': 'Musa Aghayev',
-			'service': 'Software Developper',
-			'location': 'Albany, NY',
-			'description': 'I can offer ...',
-			'rate': 4.8,
-			'numOfRate': 180,
-			'avgRates': 50,
-			'isHour': False,
-			'imgUrls': 'https://www.joc.com/sites/default/files/field_feature_image/Software%20development%20concept.jpg',
-			'profilePic': '',
-		},
 		{	'name': 'Jogn Bradburn',
 			'service': 'Software Developper',
 			'location': 'Albany, NY',
@@ -117,13 +95,49 @@ def index(request):
 			'imgUrls': 'https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2017/08/code-1839406_1920-796x531.jpg',
 			'profilePic': '',
 		},
-		
+		{	'name': 'Jerrison Chang-Sundin',
+			'service': 'Logo Design',
+			'location': 'Troy, NY',
+			'description': 'I can offer ...',
+			'rate': 4.5,
+			'numOfRate': 34,
+			'avgRates': 40,
+			'isHour': False,
+			'imgUrls': 'https://img.freepik.com/free-vector/golden-bird-logo-design_1195-336.jpg?size=338&ext=jpg',
+			'profilePic': '',
+		},
+		{	'name': 'William Dahl',
+			'service': 'Software Developper',
+			'location': 'Albany, NY',
+			'description': 'I can offer ...',
+			'rate': 4.8,
+			'numOfRate': 180,
+			'avgRates': 50,
+			'isHour': False,
+			'imgUrls': 'https://cdn.nextgov.com/media/img/upload/2018/12/04/120418softwaredevNG/860x394.jpg',
+			'profilePic': '',
+		},
 	]
-	
+	dummy_premiumpuser=[
+		{
+			'Urls': 'https://tutoredify.edublogs.org/files/2015/11/Academic-English-1evwjnm.jpg',
+			'Service': 'Online English Tutoring',
+		},
+		{
+			'Urls': 'https://www.cuelogic.com/wp-content/uploads/2019/05/Custom-Software-Development.jpg',
+			'Service': 'Software Engineering',
+		},
+		{
+			'Urls': 'https://www.brwnpaperbag.com/wp-content/uploads/2018/08/freelance-illustraiton-1.jpg',
+			'Service': 'Freelance Illustration',
+		},
+	]
+
 	context = {
 		'pUsers': pUsers,
 		'gUser': gUser,
-		'dummyList': dummy_normalprouser
+		'dummyList': dummy_normalpuser,
+		'dummyPremiumList': dummy_premiumpuser,
 	}
 	return render(request, 'RateMyServices/index.html', context)
 
