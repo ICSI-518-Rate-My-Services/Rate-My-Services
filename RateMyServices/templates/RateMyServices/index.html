@@ -13,12 +13,12 @@
 			{% endfor %}
 		</ol>
 		<div class="carousel-inner">
-			<div class="carousel-item active" style="background: url({{dummyPremiumList.0.Urls}}) no-repeat; height: 500px; background-size: cover;">
+			<div class="carousel-item active" style="background: url({{dummyPremiumList.0.Urls}}) no-repeat; height: 500px; background-size: cover; background-position: center;">
 				<!-- <img src="{{dummyPremiumList.0.Urls}}" class="d-block w-100" alt="..."> -->
 				<h1 class="text-center mt-4 text-secondary" style="height: 100%;">{{dummyPremiumList.0.Service}}</h1>
 			</div>
 			{% for i in dummyPremiumList|slice:"1:" %}
-			<div class="carousel-item" style="background: url({{i.Urls}}) no-repeat; height: 500px; background-size: cover;">
+			<div class="carousel-item" style="background: url({{i.Urls}}) no-repeat; height: 500px; background-size: cover; background-position: center;">
 				<!-- <img src="i.Urls" class="d-block w-100" alt="..."> -->
 				<h1 class="text-center mt-4 text-secondary">{{i.Service}}</h1>
 			</div>
