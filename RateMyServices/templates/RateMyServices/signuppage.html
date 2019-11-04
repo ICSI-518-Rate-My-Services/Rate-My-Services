@@ -3,7 +3,7 @@
 
 {% block content%}
 <body>
-    <p>sign up page</p>
+    <h3 class="text-center mb-3">Sign up</h3>
     <form action="" method="POST"> {% csrf_token %}
         {% for i in form.hidden_fields %}
         {{ i }}
@@ -17,7 +17,53 @@
         </div>
         {% endif %}
         
-        {% for field in form.visible_fields %}
+        <div class="form-row">
+            <div class="col-sm-12 col-md-6 form-group">
+              <input id="{{ form.first_name.id_for_label }}" name="{{ form.first_name.name }}" type="text" class="form-control"  placeholder="First name" required="" value="{{ form.first_name.value|default:'' }}" />
+      
+            </div>
+            <div class="col-sm-12 col-md-6 form-group">
+              <input id="{{ form.last_name.id_for_label }}" name="{{ form.last_name.name }}" type="text" class="form-control" placeholder="Last name" required=""  value="{{ form.last_name.value|default:'' }}" />  
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-12">
+                <label for="{{form.email.id_for_label}}">Email: </label>
+                <input type="text" id="{{form.email.id_for_label}}" name="{{form.email.name}}" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-row my-2">
+            <div class="col-12 col-md-6">
+                <label for="{{form.password1.id_for_label}}">Password: </label>
+                <input type="password" id="{{form.password1.id_for_label}}" name="{{form.password1.name}}" class="form-control" required>
+            </div>
+            <div class="col-12 col-md-6">
+                <label for="{{form.password2.id_for_label}}">Confirm Password: </label>
+                <input type="password" id="{{form.password2.id_for_label}}" name="{{form.password2.name}}" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-12">
+                <label for="{{form.phone.id_for_label}}">Phone number: </label>
+                <input type="text" id="{{form.phone.id_for_label}}" name="{{form.phone.name}}" class="form-control" required>
+            </div>
+        </div>
+        <div class="mt-2">Address</div>
+        <div class="form-row">
+            <div class="col-sm-6 col-md-3 form-group">
+                <input type="text" id="{{form.street.id_for_label}}" name="{{form.street.name}}" class="form-control" required placeholder="Street">
+            </div>
+            <div class="col-sm-6 col-md-3 form-group">
+                <input type="text" id="{{form.city.id_for_label}}" name="{{form.city.name}}" class="form-control" required placeholder="City">
+            </div>
+            <div class="col-sm-6 col-md-3 form-group">
+                <input type="text" id="{{form.state.id_for_label}}" name="{{form.state.name}}" class="form-control" required placeholder="State">
+            </div>
+            <div class="col-sm-6 col-md-3 form-group">
+                <input type="text" id="{{form.zips.id_for_label}}" name="{{form.zips.name}}" class="form-control" required placeholder="Zip Code">
+            </div>
+        </div>
+        <!-- {% for field in form.visible_fields %}
         <div class="form-group">
             {{ field.label_tag }}
             {{ field }}
@@ -25,8 +71,10 @@
             <small class="form-text text-muted">{{ field.help_text }}</small>
             {% endif %}
         </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-success">Sign up</button>
+        {% endfor %} -->
+        <div class="d-flex float-right ">
+            <button type="submit" class="btn btn-success">Sign up</button>
+        </div>
     </form>
 </body>
 {% endblock%}
