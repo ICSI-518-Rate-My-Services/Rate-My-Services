@@ -61,9 +61,69 @@ def rate(request, professionaluser_id, generaluser_id, service_id):
 def index(request): 
 	pUsers = ProfessionalUser.objects.all()
 	gUser = User.objects.get(id=1) #id = 2 : for testing purposes
+	dummy_normalprouser= [
+		{	'name': 'Jerrison Chang-Sundin',
+			'service': 'Logo Design',
+			'location': 'Troy, NY',
+			'description': 'I can offer ...',
+			'rate': 4.5,
+			'numOfRate': 34,
+			'avgRates': 40,
+			'isHour': False,
+			'imgUrls': '',
+			'profilePic': '',
+		},
+		{	'name': 'Pankti Satishkumar Bardolia',
+			'service': 'Software Developper',
+			'location': 'Albany, NY',
+			'description': 'I can offer ...',
+			'rate': 4.8,
+			'numOfRate': 151,
+			'avgRates': 50,
+			'isHour': False,
+			'imgUrls': '',
+			'profilePic': '',
+		},
+		{	'name': 'William Dahl',
+			'service': 'Software Developper',
+			'location': 'Albany, NY',
+			'description': 'I can offer ...',
+			'rate': 4.8,
+			'numOfRate': 180,
+			'avgRates': 50,
+			'isHour': False,
+			'imgUrls': '',
+			'profilePic': '',
+		},
+		{	'name': 'Musa Aghayev',
+			'service': 'Software Developper',
+			'location': 'Albany, NY',
+			'description': 'I can offer ...',
+			'rate': 4.8,
+			'numOfRate': 180,
+			'avgRates': 50,
+			'isHour': False,
+			'imgUrls': '',
+			'profilePic': '',
+		},
+		{	'name': 'Jogn Bradburn',
+			'service': 'Software Developper',
+			'location': 'Albany, NY',
+			'description': 'I can offer ...',
+			'rate': 4.8,
+			'numOfRate': 169,
+			'avgRates': 50,
+			'isHour': False,
+			'imgUrls': '',
+			'profilePic': '',
+		},
+		
+	]
+	
 	context = {
 		'pUsers': pUsers,
-		'gUser': gUser
+		'gUser': gUser,
+		'dummyList': dummy_normalprouser
 	}
 	return render(request, 'RateMyServices/index.html', context)
 
