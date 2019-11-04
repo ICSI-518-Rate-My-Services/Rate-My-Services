@@ -36,9 +36,42 @@
 		</div>
 	</form>
 
+	<div class="row flex-row overflow-auto">
 	{% if services %}
-		{% for p in services %}
-			
+		{% for i in services %}
+			<div class="col">
+				<div class="card m-2" style="width: 20rem;">
+					<!-- <img src="{{i.imgUrls}}" class="card-img-top" alt="ad images" style="height: 200px; background-color: lightgray;"> -->
+					<div class="card-body">
+						<div class="row">
+							<div class="col-2">
+								<!-- <img class="rounded-circle" height="45px" width="45px" src="" alt="" style="background-color: beige;"> -->
+								<i class="fa fa-user-circle fa-3x"></i>
+							</div>
+							<div class="col-10 pl-4">
+								<h5 class="card-title mb-2 text-success">{{i.service}}</h5>
+								<h6 class="mb-0">{{i.provider.generalUserID.first_name}} {{i.provider.generalUserID.last_name}}</h6>
+								<h6 class="text-muted font-italic"> {{i.provider.title}}</h6>
+							</div>
+						</div>
+						<div class="d-flex justify-content-end">
+								<p class="my-0 small">{{i.provider.generalUserID.city}}, {{i.provider.generalUserID.state}}</p>
+								<!-- <p class="my-0 small">518-000-0000</p>
+								<p class="my-0 small">abc@gmail.com</p> -->
+						</div>
+						<div class="d-flex justify-content-center">
+							<p class="card-text my-5">"{{i.description}}"</p>
+						</div>
+						<div class="d-flex justify-content-between">
+							<p><strong>Rate: </strong> {{i.avg_rating}} ()</p>
+							<p><strong>Avg rates: </strong>${{i.rate}}/hr</p>
+						</div>
+						<a href="{% url 'RateMyServices:professional_profile' i.id %}" class="btn btn-sm btn-success float-right">View Profile</a>
+					</div>
+				</div>
+			</div>
+			{% endfor %}	
+		<!-- {% for p in services %}
 			<div class="match-card">
 				<div class="puser-container">
 					<i class="fa fa-user-circle fa-3x"></i>
@@ -63,9 +96,9 @@
 				</div>
 			<div>
 		{% endfor %}
-		
+		 -->
 	{% else %}
 		<p>No Services Avialable<p>
 	{% endif %}
-
+	</div>
 {% endblock %}

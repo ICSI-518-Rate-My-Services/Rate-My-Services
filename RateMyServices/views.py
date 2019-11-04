@@ -108,7 +108,7 @@ def index(request):
 		},
 		{	'name': 'William Dahl',
 			'service': 'Software Developper',
-			'location': 'Albany, NY',
+			'location': 'Altamont, NY',
 			'description': 'I can offer ...',
 			'rate': 4.8,
 			'numOfRate': 180,

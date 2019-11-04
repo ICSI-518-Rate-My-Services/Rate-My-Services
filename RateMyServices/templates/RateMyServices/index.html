@@ -62,40 +62,51 @@
 						<p><strong>Rate: </strong> {{i.rate}} ({{i.numOfRate}})</p>
 						<p><strong>Avg rates: </strong>${{i.avgRates}}/hr</p>
 					</div>
-					<a href="#" class="btn btn-success float-right">See details</a>
+					<a href="#" class="btn btn-sm btn-success float-right">View Profile</a>
 				</div>
 			</div>
 		</div>
 		{% endfor %}
 	</div>
 </div>
-<h3 class="pl-3 pt-3">Some popular search:</h3>
-	{% if pUsers %}
-		{% for p in pUsers %}
-			<div class="match-card" >
-				<div class="puser-container">
-					<i class="fa fa-user-circle fa-3x"></i>
-					<div class="puser-text">
-						<a href="{% url 'RateMyServices:professional_profile' p.id %}"><p>{{p.generalUserID.first_name}} {{p.generalUserID.last_name}}</p></a>
-						<h3>{{p.title}}</h3>
-					</div>
-				
-					<div class="contact-info">
-						<p>{{p.generalUserID.city}}, {{p.generalUserID.state}}</p>
-						<p>{{p.generalUserID.phone}}</p>
-						<p>{{p.generalUserID.email}}</p>
-					</div>
-					<div class="description">
-						<p>"{{p.description}}"</p>
-					</div>
-					<div class="rating">
-						<p>{{p.num_rating}}(# of reviews)</p>
+<div class="container-fluid mt-3">
+		<h4 class="text-muted">Some popular search:</h4>
+		<div class="row flex-row flex-nowrap overflow-auto">
+			{% if pUsers %}
+			{% for i in pUsers %}
+			<div class="col">
+				<div class="card mx-2" style="width: 20rem;">
+					<!-- <img src="{{i.imgUrls}}" class="card-img-top" alt="ad images" style="height: 200px; background-color: lightgray;"> -->
+					<div class="card-body">
+						<div class="row">
+							<div class="col-2">
+								<!-- <img class="rounded-circle" height="45px" width="45px" src="" alt="" style="background-color: beige;"> -->
+								<i class="fa fa-user-circle fa-3x"></i>
+							</div>
+							<div class="col-10 pl-4">
+								<h5 class="card-title mb-2 text-success">{{i.service_set.all.0.service}}</h5>
+								<h6 class="mb-0">{{i.generalUserID.first_name}} {{i.generalUserID.last_name}}</h6>
+								<h6 class="text-muted font-italic"> {{i.title}}</h6>
+							</div>
+						</div>
+						<div class="d-flex justify-content-end">
+								<p class="my-0 small">{{i.generalUserID.city}}, {{i.generalUserID.state}}</p>
+								<!-- <p class="my-0 small">518-000-0000</p>
+								<p class="my-0 small">abc@gmail.com</p> -->
+						</div>
+						<div class="d-flex justify-content-center">
+							<p class="card-text my-5">"{{i.description}}"</p>
+						</div>
+						<div class="d-flex justify-content-between">
+							<p><strong>Rate: </strong> {{i.avg_rating}} ()</p>
+							<p><strong>Avg rates: </strong>${{i.service_set.all.0.rate}}/hr</p>
+						</div>
+						<a href="{% url 'RateMyServices:professional_profile' i.id %}" class="btn btn-sm btn-success float-right">View Profile</a>
 					</div>
 				</div>
 			</div>
-		{% endfor %}
-		
-	{% else %}
-		<p>No users are available.<p>
-	{% endif %}
+			{% endfor %}
+			{% endif %}
+		</div>
+	</div>
 {% endblock %}
