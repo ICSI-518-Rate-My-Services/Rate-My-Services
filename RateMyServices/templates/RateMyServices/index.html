@@ -35,13 +35,14 @@
 		{% for i in dummyList %}
 		<div class="col">
 			<div class="card mx-2" style="width: 20rem;">
-				<img src="" class="card-img-top" alt="ad images" style="height: 200px; background-color: lightgray;">
+				<img src="{{i.imgUrls}}" class="card-img-top" alt="ad images" style="height: 200px; background-color: lightgray;">
 				<div class="card-body">
 					<div class="row">
 						<div class="col-2">
-							<img class="rounded-circle" height="45px" width="45px" src="" alt="" style="background-color: beige;">
+							<!-- <img class="rounded-circle" height="45px" width="45px" src="" alt="" style="background-color: beige;"> -->
+							<i class="fa fa-user-circle fa-3x"></i>
 						</div>
-						<div class="col-10">
+						<div class="col-10 pl-4">
 							<h5 class="card-title mb-2 text-success">{{i.service}}</h5>
 							<h6 class="text-muted">{{i.name}}</h6>
 						</div>
