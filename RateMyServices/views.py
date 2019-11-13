@@ -206,6 +206,27 @@ def login(request):
 	return render(request, 'registration/login.html')
 '''
 
+def my_profile(request):
+	editable = True
+	if request.user.is_authenticated:
+		if request.user.is_professional:
+			puser_id = request.user.professionaluser_set.all()[0].id
+			pUser = get_object_or_404(ProfessionalUser, id = puser_id)
+			context = {
+				'pUser': pUser,
+				'editable' : editable,
+			}
+			return render (request, 'RateMyServices/professional_profile.html', context)
+		else:
+			guser_id = request.user.id
+			gUser = get_object_or_404(User, id = guser_id)
+			context = {
+				'gUser': gUser,
+				'editable' : editable,
+			}
+			return render (request, 'RateMyServices/general_profile.html', context)
+	
+
 def general_profile(request, generaluser_id):
 	gUser = get_object_or_404(User, id=generaluser_id)
 

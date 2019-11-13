@@ -14,15 +14,14 @@ urlpatterns = [
 	path('<int:generaluser_id>/search/filter', views.filter, name='filter'),
 	path('<int:professionaluser_id>&<int:generaluser_id>/', views.user_profile, name='user_profile'),
 	path('<int:professionaluser_id>&<int:generaluser_id>/rate/', views.rate, name='rate'),
-	# Default Login/Logout views until we make something more unique.
-	###
+	# userprofile
 	path('login', auth_views.LoginView.as_view(), name='login'),
 	path('logout', auth_views.LogoutView.as_view(), name='logout'),
-	#path('signup', views.SignUp.as_view(), name='signup'),
 	path('signup', views.signup_view , name='signup_view'),
-	###
+	path('MyProfile', views.my_profile, name='my_profile'),
 	path('general_profile/<int:generaluser_id>/', views.general_profile, name='general_profile'),
 	path('professional_profile/<int:professionaluser_id>/', views.professional_profile, name='professional_profile'),
+
 	path('becomeProUser/<int:generaluser_id>/', views.becomeProUser, name='becomeProUser'),
 	path('addProUser/<int:generaluser_id>/', views.addProUser, name="addProUser"),
 	path('addService/<int:generaluser_id>/', views.addService, name='addService'),
