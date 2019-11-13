@@ -66,18 +66,22 @@
 					<th>{{ pUser.generalUserID.street }}</th>
 				</tr>
 				<tr style="padding: 30px">
-						<th>Zip</th>
-						<th>{{ pUser.generalUserID.zips }}</th>
+					<th>Zip</th>
+					<th>{{ pUser.generalUserID.zips }}</th>
 				</tr>
-
+				{% if editable%}
+				<tr style="padding: 30px">
+					<td colspan="2">
+						<a href="" class="btn btn-outline-dark mt-1" style="width: 100%;"> edit</a>
+					</td>
+				</tr>
+				{% endif %}
+				
 			</table>
-			{% if editable%}
-			<a href="" class="btn btn-dark"> edit</a>
-			{% endif %}
         </div>
-            <hr>
+            <!-- <hr> -->
         <div>
-			<h3 align="center">Services Provided</h3>
+			<!-- <h3 class="px-3 pt-3 text-muted font-italic">Services Provided</h3> -->
 			
 			{% include "RateMyServices/pp_service_block.html" %}
             <!-- <table cellspacing="20" align="center" style="font-size: 20px">
