@@ -7,20 +7,13 @@
 <div class="container-fluid px-0" style="height: 500px;background-color: lightgray;">
 	<div id="PremiumpuserAds" class="carousel slide" data-ride="carousel" style="height: 100%;">
 		<ol class="carousel-indicators btm-3">
-			<li data-target="#PremiumpuserAds" data-slide-to="0" class="active"></li>
-			{% for i in dummyPremiumList|slice:"1:" %}
-			<li data-target="#PremiumpuserAds" data-slide-to="{{forloop.counter}}"></li>
+			{% for i in dummyPremiumList %}
+			<li data-target="#PremiumpuserAds" data-slide-to="{{forloop.counter0}}" {% if not forloop.counter0 %} class="active" {% endif %}></li>
 			{% endfor %}
 		</ol>
 		<div class="carousel-inner">
-			<div class="carousel-item active" style="background: url({{dummyPremiumList.0.Urls}}) no-repeat; height: 500px; background-size: cover; background-position: center;">
-				<!-- <img src="{{dummyPremiumList.0.Urls}}" class="d-block w-100" alt="..."> -->
-				<div class="d-flex justify-content-center">
-					<h1 class="mt-4 text-secondary rounded px-2" style="background-color: rgba(255, 255, 255, 0.6)">{{dummyPremiumList.0.Service}}</h1>
-				</div>
-			</div>
-			{% for i in dummyPremiumList|slice:"1:" %}
-			<div class="carousel-item" style="background: url({{i.Urls}}) no-repeat; height: 500px; background-size: cover; background-position: center;">
+			{% for i in dummyPremiumList %}
+			<div class="carousel-item {% if not forloop.counter0 %} active {% endif %}" style="background: url({{i.Urls}}) no-repeat; height: 500px; background-size: cover; background-position: center;">
 				<!-- <img src="i.Urls" class="d-block w-100" alt="..."> -->
 				<div class="d-flex justify-content-center">
 					<h1 class="mt-4 text-secondary rounded px-2" style="background-color: rgba(255, 255, 255, 0.6)">{{i.Service}}</h1>
@@ -98,8 +91,8 @@
 							<p class="card-text my-5">"{{i.description}}"</p>
 						</div>
 						<div class="d-flex justify-content-between">
-							<p><strong>Rate: </strong> {{i.avg_rating}} ()</p>
-							<p><strong>Avg rates: </strong>${{i.service_set.all.0.rate}}/hr</p>
+							<p><strong>Rate: </strong> {{i.avg_rating}} ({{i.rating_set.all.count}})</p>
+							<p><strong>Avg price: </strong>${{i.service_set.all.0.rate}}/hr</p>
 						</div>
 						<a href="{% url 'RateMyServices:professional_profile' i.id %}" class="btn btn-sm btn-success float-right">View Profile</a>
 					</div>

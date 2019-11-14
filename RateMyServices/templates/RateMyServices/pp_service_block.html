@@ -1,0 +1,85 @@
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    {% for i in pUser.service_set.all %}
+        <a class="nav-item nav-link {% if not forloop.counter0 %} active {% endif %}" 
+            id="nav-{{forloop.counter0}}-tab" href="#nav-{{forloop.counter0}}" data-toggle="tab" role="tab" aria-controls="nav-{{forloop.counter0}}" 
+            aria-selected="{% if not forloop.counter0 %}true {% else %} false {% endif %}"
+            ><h4 class="px-3">{{i.service}}</h4>
+        </a>
+    {% endfor %}
+    </div>
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+    {% for i in pUser.service_set.all %}
+        <div class="tab-pane fade {% if not forloop.counter0 %}show active{% endif %} p-3" 
+            id="nav-{{forloop.counter0}}" role="tabpanel" aria-labelledby="nav-{{forloop.counter0}}-tab">
+            <div class="py-4">
+                <p>
+                    {{i.description}}
+                </p>
+            </div>
+            <div class="">
+                <p> <strong> Price: </strong>${{i.rate}} {% if i.isHour %} /hr {% else %} (Standard price) {% endif %}</p>
+            </div>
+            <hr>
+            <h4 class="text-muted">Reviews</h4>
+            {% for j in i.rating_set.all %}
+                {% if j.description != '' %}
+                <div class="media p-3">
+                    <div class="d-flex flex-column" style="width: 100px;">
+                        <div class="mx-auto"><i class="fa fa-user-circle fa-3x"></i></div>
+                        <div><p class="text-center"> <small>{{j.rater.first_name}} {{j.rater.last_name}} </small></p></div>
+                    </div>
+                    <div class="media-body pl-3">
+                        <p>{{j.description}}</p>
+                        <p>{{j.rating}}</p>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+            
+            <!-- only others can leave rate or hire you -->
+            {% if request.user.id != pUser.generalUserID.id%}
+            <div class="d-flex float-right pb-3">
+                <!-- <a href="" class="btn btn-outline-success mx-2">reviews</a> -->
+                <button type="button" class="btn btn-outline-success mx-2" data-toggle="modal" data-target="#giverateModal{{forloop.counter0}}">Rate this service!</button>
+                <a href="" class="btn btn-success mx-2">Hire!</a>
+            </div>
+
+            <div class="modal fade" id="giverateModal{{forloop.counter0}}" tabindex="-1" role="dialog" aria-labelledby="giverateModal{{forloop.counter0}}Label" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="giverateModal{{forloop.counter0}}Label">Rate This Service</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mb-0"><strong>Service:</strong> {{i.service}}</p> 
+                        <small class="text-muted mt-1">by {{i.provider}}</small>
+                        <p></p>
+                        <label for="rating">How many stars would you like to give {{pUser.generalUserID.first_name}} {{pUser.generalUserID.last_name}}?</label>
+                        <select type="number" class="form-control" id="rating" name="rating">
+                            <option value="5" selected="selected">5</option>
+                            <option value="4">4</option>
+                            <option value="3">3</option>
+                            <option value="2">2</option>
+                            <option value="1">1</option>
+                        </select>
+                        <label for="description">Would you like to wirte a review?</label>
+                        <textarea type="text-area" class="form-control" id="description" name="description" rows="4"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-success">Give Rate!</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

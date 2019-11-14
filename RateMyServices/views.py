@@ -206,14 +206,37 @@ def login(request):
 	return render(request, 'registration/login.html')
 '''
 
-def general_profile(request, generaluser_id):
+def my_profile(request):
+	editable = True
+	if request.user.is_authenticated:
+		if request.user.is_professional:
+			puser_id = request.user.professionaluser_set.all()[0].id
+			return professional_profile(request, puser_id, editable)
+		else:
+			guser_id = request.user.id
+			return general_profile(guser_id, guser_id, editable)
+	else:
+		message = 'The action you try to do requires log in, please log in and precede.'
+		context = {
+			'message': message,
+		}
+		return HttpResponseRedirect(reverse('RateMyServices:login'))
+
+def general_profile(request, generaluser_id, editable=False):
 	gUser = get_object_or_404(User, id=generaluser_id)
+	context = {
+		'gUser': gUser,
+		'editable': editable,
+	}
+	return render(request, 'RateMyServices/general_profile.html', context)
 
-	return render(request, 'RateMyServices/general_profile.html', {'gUser': gUser})
-
-def professional_profile(request, professionaluser_id):
+def professional_profile(request, professionaluser_id, editable=False):
 	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
-	return render(request, 'RateMyServices/professional_profile.html', {'pUser': pUser})
+	context = {
+		'pUser': pUser,
+		'editable': editable,
+	}
+	return render(request, 'RateMyServices/professional_profile.html', context)
 
 def hire_service(request, professionaluser_id, generaluser_id, service_id):
 	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
