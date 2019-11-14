@@ -22,8 +22,26 @@
             <div class="">
                 <p> <strong> Price: </strong>${{i.rate}} {% if i.isHour %} /hr {% else %} (Standard price) {% endif %}</p>
             </div>
-            <div class="d-flex float-right">
-                <a href="" class="btn btn-outline-success mx-2">reviews</a>
+            <hr>
+            <h4 class="text-muted">Reviews</h4>
+            {% for j in i.rating_set.all %}
+                {% if j.description != '' %}
+                <div class="media p-3">
+                    <div class="d-flex flex-column" style="width: 100px;">
+                        <div class="mx-auto"><i class="fa fa-user-circle fa-3x"></i></div>
+                        <div><p class="text-center"> <small>{{j.rater.first_name}} {{j.rater.last_name}} </small></p></div>
+                    </div>
+                    <div class="media-body pl-3">
+                        <p>{{j.description}}</p>
+                        <p>{{j.rating}}</p>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+            <!-- {% if not i.rating_set %} -->
+            <!-- {% endif%} -->
+            <div class="d-flex float-right pb-3">
+                <!-- <a href="" class="btn btn-outline-success mx-2">reviews</a> -->
                 <a href="" class="btn btn-outline-success mx-2">Rate this service!</a>
                 <a href="" class="btn btn-success mx-2">Hire!</a>
             </div>
