@@ -214,7 +214,7 @@ def my_profile(request):
 			return professional_profile(request, puser_id, editable)
 		else:
 			guser_id = request.user.id
-			return general_profile(guser_id, guser_id, editable)
+			return general_profile(request, guser_id, editable)
 	else:
 		message = 'The action you try to do requires log in, please log in and precede.'
 		context = {
