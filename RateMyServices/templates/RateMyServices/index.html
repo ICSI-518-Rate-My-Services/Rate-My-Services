@@ -91,7 +91,7 @@
 							<p class="card-text my-5">"{{i.description}}"</p>
 						</div>
 						<div class="d-flex justify-content-between">
-							<p><strong>Rate: </strong> {{i.avg_rating}} ({{i.rating_set.all.count}})</p>
+							<p><strong>Rate: </strong> {{i.avg_rating|floatformat:2}} ({{i.rating_set.all.count}})</p>
 							<p><strong>Avg price: </strong>${{i.service_set.all.0.rate}}/hr</p>
 						</div>
 						<a href="{% url 'RateMyServices:professional_profile' i.id %}" class="btn btn-sm btn-success float-right">View Profile</a>
