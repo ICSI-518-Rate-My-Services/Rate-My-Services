@@ -30,7 +30,7 @@ def rate(request, professionaluser_id, generaluser_id, service_id):
 	gUser = get_object_or_404(User, id=generaluser_id)
 	service = get_object_or_404(Service, id=service_id)
 
-	if Transactions.objects.filter(buyer=gUser, provider=pUser, service=search).count() == 0:
+	if Transactions.objects.filter(buyer=gUser, provider=pUser, service=service).count() == 0:
 		verified = False
 
 	else:
@@ -56,7 +56,7 @@ def rate(request, professionaluser_id, generaluser_id, service_id):
 		service.avg_rating = new_rating
 		service.save()
 
-	return HttpResponseRedirect(reverse('RateMyServices:index'))
+	return HttpResponseRedirect(reverse('RateMyServices:professional_profile', args=(professionaluser_id,)))
 
 def index(request): 
 	pUsers = ProfessionalUser.objects.all()

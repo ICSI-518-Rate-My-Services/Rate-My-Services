@@ -49,44 +49,52 @@
 
             <div class="modal fade" id="giverateModal{{forloop.counter0}}" tabindex="-1" role="dialog" aria-labelledby="giverateModal{{forloop.counter0}}Label" aria-hidden="true">
                 <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="giverateModal{{forloop.counter0}}Label">Rate This Service</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    {% if request.user.is_authenticated %}
-                    <div class="modal-body">
-                        <p class="mb-0"><strong>Service:</strong> {{i.service}}</p> 
-                        <small class="text-muted mt-1">by {{i.provider}}</small>
-                        <p></p>
-                        <label for="rating">How many stars would you like to give {{pUser.generalUserID.first_name}} {{pUser.generalUserID.last_name}}?</label>
-                        <select type="number" class="form-control" id="rating" name="rating">
-                            <option value="5" selected="selected">5</option>
-                            <option value="4">4</option>
-                            <option value="3">3</option>
-                            <option value="2">2</option>
-                            <option value="1">1</option>
-                        </select>
-                        <label for="description">Would you like to wirte a review?</label>
-                        <textarea type="text-area" class="form-control" id="description" name="description" rows="4"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                      <button type="button" class="btn btn-success">Give Rate!</button>
-                    {% else %}
-                    <div class="modal-body" style="height: 250px;">
-                        <div class="d-flex align-items-center">
-                            <p>"This feature requires you to log in. Please log in and try again."</p>
+                <form action="{% url 'RateMyServices:rate' pUser.id request.user.id i.id%}" method="post">  
+                    {% csrf_token %}
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="giverateModal{{forloop.counter0}}Label">Rate This Service</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        {% if request.user.is_authenticated %}
+                        <div class="modal-body">
+                            <p class="mb-0"><strong>Service:</strong> {{i.service}}</p> 
+                            <small class="text-muted mt-1">by {{i.provider}}</small>
+                            <p></p>
+                            <div class="d-none">
+                                <input type="text" class="form-control" readonly name="rater" value="{{request.user}}">
+                                <input type="text" class="form-control" readonly name="provider" value="{{pUser}}">
+                                <input type="text" class="form-control" readonly name="service" value="{{i.service}}">
+                            </div>
+                            <label for="rating">How many stars would you like to give {{pUser.generalUserID.first_name}} {{pUser.generalUserID.last_name}}?</label>
+                            <select type="number" class="form-control" id="rating" name="rating">
+                                <option value="5" selected="selected">5</option>
+                                <option value="4">4</option>
+                                <option value="3">3</option>
+                                <option value="2">2</option>
+                                <option value="1">1</option>
+                            </select>
+                            <label for="description">Would you like to wirte a review?</label>
+                            <textarea type="text-area" class="form-control" id="description" name="description" rows="4"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Give Rate!</button>
+                        {% else %}
+                        <div class="modal-body" style="height: 250px;">
+                            <div class="d-flex align-items-center">
+                                <p>"This feature requires you to log in. Please log in and try again."</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Got it!</button>
+                        </div>
+                        {% endif %}
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Got it!</button>
-                    </div>
-                    {% endif %}
-                    </div>
-                  </div>
+                </form>
                 </div>
               </div>
 

@@ -13,7 +13,7 @@ urlpatterns = [
 	path('<int:generaluser_id>/search', views.search, name='search'),
 	path('<int:generaluser_id>/search/filter', views.filter, name='filter'),
 	path('<int:professionaluser_id>&<int:generaluser_id>/', views.user_profile, name='user_profile'),
-	path('<int:professionaluser_id>&<int:generaluser_id>/rate/', views.rate, name='rate'),
+	path('p=<int:professionaluser_id>&g=<int:generaluser_id>&i=<int:service_id>/rate/', views.rate, name='rate'),
 	# userprofile
 	path('login', auth_views.LoginView.as_view(), name='login'),
 	path('logout', auth_views.LogoutView.as_view(), name='logout'),
