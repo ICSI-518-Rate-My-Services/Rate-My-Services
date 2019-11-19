@@ -5,16 +5,16 @@
 {% block content%}
 	<form class="p-3" action="{% url 'RateMyServices:filter' gUser.id %}" method="post">
 		{%csrf_token%}
-		<div class="input-group">
+		<div class="mt-2 input-group">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Filter By Rating</span>
 			</div>
-			<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<div class="btn-group">
 				<button class="rounded-0 btn btn-outline-secondary" type="submit" name="rating" id="rating1" value="1">1+</button>
 				<button class="btn btn-outline-secondary" type="submit" name="rating" id="rating2" value="2">2+</button>
 				<button class="btn btn-outline-secondary" type="submit" name="rating" id="rating3" value="3">3+</button>
 				<button class="btn btn-outline-secondary" type="submit" name="rating" id="rating4" value="4">4+</button>
-				<button class="btn btn-outline-secondary" type="submit" name="rating" id="rating5" value="5">5</button>
+				<button class="rounded-0 btn btn-outline-secondary" type="submit" name="rating" id="rating5" value="5">5</button>
 			</div>
 		</div>
 		

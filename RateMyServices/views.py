@@ -189,9 +189,21 @@ def filter(request, generaluser_id):
 	serialize_list = request.session.get('services', None)
 	deserialize_list = serializers.deserialize("json", serialize_list )
 	services = [item.object for item in deserialize_list]
+	filtered_services = list()
 
-	#if 'rating' in request.POST:
+	if 'rating' in request.POST:
+		rating_value = int(request.POST['rating'])
+		for service in services:
+			if service.avg_rating >= rating_value:
+				filtered_services.append(service)
 
+	elif 'rate' in request.POST:
+		rate_value = int(request.POST['rate'])
+		for service in services:
+			if service.rate <= rate_value:
+				filtered_services.append(service)
+
+	services = filtered_services
 
 	context = {
 		'services': services,
