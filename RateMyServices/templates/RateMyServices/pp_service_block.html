@@ -11,33 +11,38 @@
 </nav>
 
 <div class="tab-content" id="nav-tabContent">
-    {% for i in pUser.service_set.all %}
+    {% for i in serviceWithReviews %}
         <div class="tab-pane fade {% if not forloop.counter0 %}show active{% endif %} p-3" 
             id="nav-{{forloop.counter0}}" role="tabpanel" aria-labelledby="nav-{{forloop.counter0}}-tab">
             <div class="py-4">
                 <p>
-                    {{i.description}}
+                    {{i.0.description}}
                 </p>
             </div>
             <div class="">
-                <p> <strong> Price: </strong>${{i.rate}} {% if i.isHour %} /hr {% else %} (Standard price) {% endif %}</p>
+                <p> <strong> Price: </strong>${{i.0.rate}} {% if i.0.isHour %} /hr {% else %} (Standard price) {% endif %}</p>
             </div>
             <hr>
             <h4 class="text-muted">Reviews</h4>
-            {% for j in i.rating_set.all %}
-                {% if j.description != '' %}
-                <div class="media p-3">
-                    <div class="d-flex flex-column" style="width: 100px;">
-                        <div class="mx-auto"><i class="fa fa-user-circle fa-3x"></i></div>
-                        <div><p class="text-center"> <small>{{j.rater.first_name}} {{j.rater.last_name}} </small></p></div>
+            {% if i.1|length %}
+                {% for j in i.1 %}
+                    <div class="media p-3">
+                        <div class="d-flex flex-column" style="width: 100px;">
+                            <div class="mx-auto"><i class="fa fa-user-circle fa-3x"></i></div>
+                            <div><p class="text-center"> <small>{{j.rater.first_name}} {{j.rater.last_name}} </small></p></div>
+                        </div>
+                        <div class="media-body pl-3">
+                            <p>{{j.description}}</p>
+                            <p>{{j.rating}}</p>
+                        </div>
                     </div>
-                    <div class="media-body pl-3">
-                        <p>{{j.description}}</p>
-                        <p>{{j.rating}}</p>
-                    </div>
+                    
+                {% endfor %}
+            {% else %}
+                <div class="p-3">
+                    <p>There is no comment yet. Do you want to write a review?</p>
                 </div>
-                {% endif %}
-            {% endfor %}
+            {% endif %}
             
             <!-- only others can leave rate or hire you -->
             {% if request.user.id != pUser.generalUserID.id%}
@@ -49,7 +54,7 @@
 
             <div class="modal fade" id="giverateModal{{forloop.counter0}}" tabindex="-1" role="dialog" aria-labelledby="giverateModal{{forloop.counter0}}Label" aria-hidden="true">
                 <div class="modal-dialog" role="document">
-                <form action="{% url 'RateMyServices:rate' pUser.id request.user.id i.id%}" method="post">  
+                <form action="{% url 'RateMyServices:rate' %}" method="post">  
                     {% csrf_token %}
                     <div class="modal-content">
                         <div class="modal-header">
@@ -60,13 +65,13 @@
                         </div>
                         {% if request.user.is_authenticated %}
                         <div class="modal-body">
-                            <p class="mb-0"><strong>Service:</strong> {{i.service}}</p> 
-                            <small class="text-muted mt-1">by {{i.provider}}</small>
+                            <p class="mb-0"><strong>Service:</strong> {{i.0.service}}</p> 
+                            <small class="text-muted mt-1">by {{i.0.provider}}</small>
                             <p></p>
                             <div class="d-none">
-                                <input type="text" class="form-control" readonly name="rater" value="{{request.user}}">
-                                <input type="text" class="form-control" readonly name="provider" value="{{pUser}}">
-                                <input type="text" class="form-control" readonly name="service" value="{{i.service}}">
+                                <!-- <input type="text" class="form-control" readonly name="rater" value="{{request.user}}"> -->
+                                <input type="text" class="form-control" readonly name="provider" value="{{pUser.id}}">
+                                <input type="text" class="form-control" readonly name="service" value="{{i.0.id}}">
                             </div>
                             <label for="rating">How many stars would you like to give {{pUser.generalUserID.first_name}} {{pUser.generalUserID.last_name}}?</label>
                             <select type="number" class="form-control" id="rating" name="rating">

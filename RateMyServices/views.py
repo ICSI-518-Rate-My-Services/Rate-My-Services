@@ -25,10 +25,10 @@ def user_profile(request, professionaluser_id, generaluser_id):
 	gUser = get_object_or_404(User, id=generaluser_id)
 	return render(request, 'RateMyServices/user_profile.html', {'pUser': pUser, 'gUser': gUser})
 
-def rate(request, professionaluser_id, generaluser_id, service_id):
-	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
-	gUser = get_object_or_404(User, id=generaluser_id)
-	service = get_object_or_404(Service, id=service_id)
+def rate(request):
+	pUser = get_object_or_404(ProfessionalUser, id=request.POST['provider'])
+	gUser = get_object_or_404(User, id=request.user.id)
+	service = get_object_or_404(Service, id=request.POST['service'])
 
 	if Transactions.objects.filter(buyer=gUser, provider=pUser, service=service).count() == 0:
 		verified = False
@@ -56,7 +56,7 @@ def rate(request, professionaluser_id, generaluser_id, service_id):
 		service.avg_rating = new_rating
 		service.save()
 
-	return HttpResponseRedirect(reverse('RateMyServices:professional_profile', args=(professionaluser_id,)))
+	return HttpResponseRedirect(reverse('RateMyServices:professional_profile', args=(pUser.id,)))
 
 def index(request): 
 	pUsers = ProfessionalUser.objects.all()
@@ -232,9 +232,20 @@ def general_profile(request, generaluser_id, editable=False):
 
 def professional_profile(request, professionaluser_id, editable=False):
 	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
+	nonEmptyReviewList = [] #a collection of nonempty review list for the professional user
+	for i in pUser.service_set.all():
+		tempList =[] #a list of nonempty review object for a single service
+		for j in i.rating_set.exclude(description=''):
+			tempList.append(j)
+		nonEmptyReviewList.append(tempList)
+
+	finalList = zip(pUser.service_set.all(),nonEmptyReviewList) 
+	# e.g. [(serviceObj, nonEmptyreviewList for that service), ...]
+	
 	context = {
 		'pUser': pUser,
 		'editable': editable,
+		'serviceWithReviews': finalList,
 	}
 	return render(request, 'RateMyServices/professional_profile.html', context)
 
