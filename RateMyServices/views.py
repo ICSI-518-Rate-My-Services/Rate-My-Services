@@ -261,11 +261,12 @@ def professional_profile(request, professionaluser_id, editable=False):
 	}
 	return render(request, 'RateMyServices/professional_profile.html', context)
 
-def hire_service(request, professionaluser_id, generaluser_id, service_id):
-	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
-	gUser = get_object_or_404(User, id=generaluser_id)
-	service = get_object_or_404(Service, id=service_id)
+def hire_service(request):
+	pUser = get_object_or_404(ProfessionalUser, id=request.POST['provider'])
+	gUser = get_object_or_404(User, id=request.user.id)
+	service = get_object_or_404(Service, id=request.POST['service'])
 	pUser.transaction_set.create(buyer=gUser, provider=pUser, service=service)
+	return HttpResponseRedirect(reverse('RateMyServices:professional_profile', args=(pUser.id,)))
 
 def addServicePage(request, generaluser_id):
 	gUser = get_object_or_404(User, id=generaluser_id)

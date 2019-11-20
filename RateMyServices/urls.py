@@ -25,5 +25,6 @@ urlpatterns = [
 	path('becomeProUser/<int:generaluser_id>/', views.becomeProUser, name='becomeProUser'),
 	path('addProUser/<int:generaluser_id>/', views.addProUser, name="addProUser"),
 	path('addService/<int:generaluser_id>/', views.addService, name='addService'),
-	path('addServicePage/<int:generaluser_id>/', views.addServicePage, name='addServicePage')
+	path('addServicePage/<int:generaluser_id>/', views.addServicePage, name='addServicePage'),
+	path('hire/', views.hire_service, name='hire')
 ]

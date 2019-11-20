@@ -21,7 +21,7 @@
 			</div>
 			
 			<div class="d-none d-md-block"> <!-- search bar -->
-				<form class="input-group" action="{% url 'RateMyServices:search' gUser.id%}" method="post">
+				<form class="input-group" action="{% url 'RateMyServices:search' gUser.id %}" method="post">
 					{% csrf_token %}
 					<input class="rounded-left form-control w-25" type="text" placeholder="Search services or ..." name="search">
 					<input class="form-control" type="text" placeholder="City" name="city">

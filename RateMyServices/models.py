@@ -50,10 +50,12 @@ class Rating(models.Model):
 	def __str__(self):
 		return self.rater.first_name + ", " + self.provider.generalUserID.first_name + ", " + str(self.rating)
 
-class Transactions(models.Model):
+class Transaction(models.Model):
 	buyer = models.ForeignKey(User, on_delete=models.CASCADE)
 	provider = models.ForeignKey(ProfessionalUser, on_delete=models.CASCADE)
 	service = models.ForeignKey(Service, on_delete=models.CASCADE)
+	def __str__(self):
+		return self.buyer.first_name + ", " + self.provider.generalUserID.first_name + ", " + self.service.service
 
 class Advertisment(models.Model):
 	provider = models.ForeignKey(ProfessionalUser, on_delete=models.CASCADE)
