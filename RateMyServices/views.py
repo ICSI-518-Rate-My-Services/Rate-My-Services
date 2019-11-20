@@ -281,9 +281,10 @@ def addService(request, generaluser_id):
 		pUser.service_set.create(service=request.POST['service'], rate=request.POST['rate'], description=request.POST['description'], isHour=False)
 		
 	if request.POST['submit'] == 'service':
-		return render(request,'RateMyServices/addServices.html', {'gUser': gUser})
+		return HttpResponseRedirect(reverse('RateMyServices:addServicePage', args=(gUser.id,)))
 	else:
-		return render(request, 'RateMyServices/professional_profile.html', {'pUser': pUser})
+		return HttpResponseRedirect(reverse('RateMyServices:professional_profile', args=(pUser.id,)))
+
 
 def becomeProUser(request, generaluser_id):
 	gUser = get_object_or_404(User, id=generaluser_id)
