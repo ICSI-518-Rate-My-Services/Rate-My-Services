@@ -175,6 +175,43 @@
                 </div>
             </div>
 
+            {% else %}
+            <div class="d-flex float-right pb-3">
+                    <!-- <a href="" class="btn btn-outline-success mx-2">reviews</a> -->
+                <button type="button" class="btn btn-danger mx-2" data-toggle="modal" data-target="#deleteModal{{forloop.counter0}}">Delete</button>
+            </div>
+
+            <div class="modal fade" id="deleteModal{{forloop.counter0}}" tabindex="-1" role="dialog" aria-labelledby="deleteModal{{forloop.counter0}}Label" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <form action="{% url 'RateMyServices:deleteService' %}" method="post">
+                        {% csrf_token %}
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModal{{forloop.counter0}}Label">Delete This Service?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="mb-0"><strong>Service:</strong> {{i.0.service}}</p> 
+                                <small class="text-muted mt-1">by {{i.0.provider}}</small>
+                                <p></p>
+                                <div class="d-none">
+                                    <input type="text" class="form-control" readonly name="provider" value="{{pUser.id}}">
+                                    <input type="text" class="form-control" readonly name="service" value="{{i.0.id}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="delete">Are you sure you would like to delete this service?</label>
+                                    <button id="delete" type="submit" class="btn btn-danger btn-lg btn-info btn-block">
+                                        <span id="delete-button">Delete</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             {% endif %}
         </div>
     {% endfor %}
