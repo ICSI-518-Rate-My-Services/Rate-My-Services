@@ -30,7 +30,7 @@ def rate(request):
 	gUser = get_object_or_404(User, id=request.user.id)
 	service = get_object_or_404(Service, id=request.POST['service'])
 
-	if Transactions.objects.filter(buyer=gUser, provider=pUser, service=service).count() == 0:
+	if Transaction.objects.filter(buyer=gUser, provider=pUser, service=service).count() == 0:
 		verified = False
 
 	else:

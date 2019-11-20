@@ -34,6 +34,9 @@
                         <div class="media-body pl-3">
                             <p>{{j.description}}</p>
                             <p>{{j.rating}}</p>
+                            {% if j.verified %}
+                            <p>*</p>
+                            {% endif %}
                         </div>
                     </div>
                     
@@ -50,76 +53,6 @@
                 <!-- <a href="" class="btn btn-outline-success mx-2">reviews</a> -->
                 <button type="button" class="btn btn-outline-success mx-2" data-toggle="modal" data-target="#giverateModal{{forloop.counter0}}">Rate this service!</button>
                 <button type="button" class="btn btn-success mx-2" data-toggle="modal" data-target="#hireModal{{forloop.counter0}}">Hire!</button>
-            </div>
-
-            <div class="modal fade" id="hireModal{{forloop.counter0}}" tabindex="-1" role="dialog" aria-labelledby="hireModal{{forloop.counter0}}Label" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <form action="{% url 'RateMyServices:hire' %}" method="post">
-                        {% csrf_token %}
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="hireModal{{forloop.counter0}}Label">Hire This Service</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            {% if request.user.is_authenticated %}
-                            <div class="modal-body">
-                                <p class="mb-0"><strong>Service:</strong> {{i.0.service}}</p> 
-                                <small class="text-muted mt-1">by {{i.0.provider}}</small>
-                                <p></p>
-                                <div class="d-none">
-                                    <!-- <input type="text" class="form-control" readonly name="rater" value="{{request.user}}"> -->
-                                    <input type="text" class="form-control" readonly name="provider" value="{{pUser.id}}">
-                                    <input type="text" class="form-control" readonly name="service" value="{{i.0.id}}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="name">Name on card</label>
-                                    <input type="text" class="form-control" id="name" name="name" required>
-                                    <span class="invalid-feedback">Enter the name as shown on credit card</span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="card">Card number</label>
-                                    <input type="tel" class="form-control" id="card" name="card" required pattern="[0-9]{16}"></input>
-                                    <span class="invalid-feedback">Enter a valid 16 digit card number</span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label for="exp">Expiration</label>
-                                            <input id="exp" name="exp" type="tel" class="form-control" required placeholder="MM / YY">
-                                            <span class="invalid-feedback">Enter the expiration date</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <label for="code">Security code</label>
-                                        <input id="code" name="code" type="tel" class="form-control" required>
-                                        <span class="invalid-feedback order-last">Enter the 3-digit code on back</span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="zip">Postal code</label>
-                                    <input id="zip" name="zip" type="text" class="form-control" value="" data-val="true" data-val-required="Please enter the ZIP/Postal code">
-                                    <span class="help-block" data-valmsg-for="zip" data-valmsg-replace="true"></span>
-                                </div>
-                                <div>
-                                    <button id="pay" type="submit" class="btn btn-lg btn-info btn-block">
-                                        <span id="pay-button">Pay</span>
-                                    </button>
-                                </div>
-                            {% else %}
-                            <div class="modal-body" style="height: 250px;">
-                                <div class="d-flex align-items-center">
-                                    <p>"This feature requires you to log in. Please log in and try again."</p>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Got it!</button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </form>
-                </div>
             </div>
 
             <div class="modal fade" id="giverateModal{{forloop.counter0}}" tabindex="-1" role="dialog" aria-labelledby="giverateModal{{forloop.counter0}}Label" aria-hidden="true">
@@ -171,7 +104,76 @@
                     </div>
                 </form>
                 </div>
-              </div>
+            </div>
+
+            <div class="modal fade" id="hireModal{{forloop.counter0}}" tabindex="-1" role="dialog" aria-labelledby="hireModal{{forloop.counter0}}Label" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <form action="{% url 'RateMyServices:hire' %}" method="post">
+                        {% csrf_token %}
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="hireModal{{forloop.counter0}}Label">Hire This Service</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            {% if request.user.is_authenticated %}
+                            <div class="modal-body">
+                                <p class="mb-0"><strong>Service:</strong> {{i.0.service}}</p> 
+                                <small class="text-muted mt-1">by {{i.0.provider}}</small>
+                                <p></p>
+                                <div class="d-none">
+                                    <input type="text" class="form-control" readonly name="provider" value="{{pUser.id}}">
+                                    <input type="text" class="form-control" readonly name="service" value="{{i.0.id}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Name on card</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                    <span class="invalid-feedback">Enter the name as shown on credit card</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="card">Card number</label>
+                                    <input type="tel" class="form-control" id="card" name="card" required pattern="[0-9]{16}"></input>
+                                    <span class="invalid-feedback">Enter a valid 16 digit card number</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="exp">Expiration</label>
+                                            <input id="exp" name="exp" type="tel" class="form-control" required placeholder="MM / YY">
+                                            <span class="invalid-feedback">Enter the expiration date</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="code">Security code</label>
+                                        <input id="code" name="code" type="tel" class="form-control" required>
+                                        <span class="invalid-feedback order-last">Enter the 3-digit code on back</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="zip">Postal code</label>
+                                    <input id="zip" name="zip" type="text" class="form-control" value="" data-val="true" data-val-required="Please enter the ZIP/Postal code">
+                                    <span class="help-block" data-valmsg-for="zip" data-valmsg-replace="true"></span>
+                                </div>
+                                <div>
+                                    <button id="pay" type="submit" class="btn btn-lg btn-info btn-block">
+                                        <span id="pay-button">Pay</span>
+                                    </button>
+                                </div>
+                            {% else %}
+                            <div class="modal-body" style="height: 250px;">
+                                <div class="d-flex align-items-center">
+                                    <p>"This feature requires you to log in. Please log in and try again."</p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Got it!</button>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
 
             {% endif %}
         </div>
