@@ -283,13 +283,12 @@ def addService(request, generaluser_id):
 	if request.POST['submit'] == 'service':
 		return HttpResponseRedirect(reverse('RateMyServices:addServicePage', args=(gUser.id,)))
 	else:
-		return HttpResponseRedirect(reverse('RateMyServices:professional_profile', args=(pUser.id,)))
+		return HttpResponseRedirect(reverse('RateMyServices:my_profile'))
 
 def delete_service(request):
 	service = get_object_or_404(Service, id=request.POST['service'])
-	pUser = get_object_or_404(ProfessionalUser, id=request.POST['provider'])
 	Service.objects.filter(id=service.id).delete()
-	return HttpResponseRedirect(reverse('RateMyServices:professional_profile', args=(pUser.id,)))
+	return HttpResponseRedirect(reverse('RateMyServices:my_profile'))
 
 
 def becomeProUser(request, generaluser_id):

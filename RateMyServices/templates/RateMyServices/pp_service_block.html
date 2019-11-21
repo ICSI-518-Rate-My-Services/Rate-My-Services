@@ -7,6 +7,9 @@
             ><h4 class="px-3">{{i.service}}</h4>
         </a>
     {% endfor %}
+    {% if editable %}
+        <a class="nav-item nav-link" id="nav-addService-tab"  href="{% url 'RateMyServices:addServicePage' request.user.id %}"><h4 class="px-3">+</h4></a>
+    {% endif %}
     </div>
 </nav>
 
