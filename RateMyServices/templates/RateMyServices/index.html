@@ -90,9 +90,13 @@
 						<div class="d-flex justify-content-center">
 							<p class="card-text my-5">"{{i.description}}"</p>
 						</div>
-						<div class="d-flex justify-content-between">
-							<p><strong>Rate: </strong> {{i.avg_rating|floatformat:2}} ({{i.rating_set.all.count}})</p>
-							<p><strong>Avg price: </strong>${{i.service_set.all.0.rate}}/hr</p>
+						<div class="d-flex align-items-center">
+							<p class="my-auto"> {{i.avg_rating|floatformat:2}} </p>
+							<span style="color: #ffc72d; font-size: 0.8rem;">
+								<i class="fa fa-star fa-2x"></i>
+							</span>
+							<p class="my-auto mr-auto"> ({{i.rating_set.all.count}})</p>
+							<p class="my-auto my-auto"> <strong>Avg price: </strong>${{i.service_set.all.0.rate}}/hr</p>
 						</div>
 						<a href="{% url 'RateMyServices:professional_profile' i.id %}" class="btn btn-sm btn-success float-right">View Profile</a>
 					</div>

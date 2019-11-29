@@ -4,12 +4,6 @@
 .header-container{
     background-color: darkgray;
 } */
-
-img.logo {
-    height: 35px;
-    width: auto;
-}
-
 .logo-section {
     justify-self: end;
 }

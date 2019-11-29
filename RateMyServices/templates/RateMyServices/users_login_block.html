@@ -1,12 +1,12 @@
 {% load static %}
 {% if request.user.first_name == None %}
     <!-- <div class="form-row"> -->
-        <div class="btn-group">
-            <form class="d-inline" action="{% url 'RateMyServices:login' %}" method="post">
+        <div class="btn-group d-flex d-inline">
+            <form class="mr-1" action="{% url 'RateMyServices:login' %}" method="post">
                 {% csrf_token %}
                 <button class="btn btn-success btn-sm" type="submit">Log in</button>
             </form>
-            <form class="d-inline" action="{% url 'RateMyServices:signup_view' %}" method="post">
+            <form class="" action="{% url 'RateMyServices:signup_view' %}" method="post">
                 {% csrf_token %}
                 <button class="btn btn-outline-success btn-sm" type="submit">Sign up</button>
             </form>
@@ -27,14 +27,18 @@
         </button>
 
         <div class="dropdown-menu dropdown-menu-right px-0 py-1">
-            <a class="dropdown-item" href="{% url 'RateMyServices:my_profile' %}"> View My Profile </a>
+            <a class="dropdown-item" href="{% url 'RateMyServices:my_profile' %}">
+                <span style="color: gray;" class="mr-2"><i class="fa fa-address-card fa-1x"></i></span>View My Profile </a>
             {% if request.user.is_professional %}
-                <a class="dropdown-item" href="{% url 'RateMyServices:addServicePage' request.user.id %}">Add Services</a>
+                <a class="dropdown-item" href="{% url 'RateMyServices:addServicePage' request.user.id %}">
+                    <span style="color: gray;" class="mr-2"><i class="fa fa-plus fa-1x"></i></span>Add Services</a>
             {% else %}
-                <a class="dropdown-item" href="{% url 'RateMyServices:becomeProUser' request.user.id %}">Become a Professional User</a>
+                <a class="dropdown-item" href="{% url 'RateMyServices:becomeProUser' request.user.id %}">
+                    <span style="color: gray;" class="mr-2"><i class="fa fa-briefcase fa-1x"></i></span>Become a Professional User</a>
             {% endif %}
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{% url 'RateMyServices:logout' %}">Log out</a>
+            <a class="dropdown-item" href="{% url 'RateMyServices:logout' %}">
+                <span style="color: gray;" class="mr-2"><i class="fa fa-sign-out fa-1x"></i></span>Log out</a>
         </div>
     </div>
     <!-- <form action="{% url 'RateMyServices:logout' %}" method="post">
