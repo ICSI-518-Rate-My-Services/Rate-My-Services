@@ -32,14 +32,20 @@
                     <div class="media p-3">
                         <div class="d-flex flex-column" style="width: 100px;">
                             <div class="mx-auto"><i class="fa fa-user-circle fa-3x"></i></div>
-                            <div><p class="text-center"> <small>{{j.rater.first_name}} {{j.rater.last_name}} </small></p></div>
+                            <p class="text-center mt-1 mb-0">{{j.rater.first_name}} {{j.rater.last_name}}</p>
+                            {% if j.verified %}
+                            <span class="mx-auto" style="color: rgb(53, 172, 53);">
+                                <p class="my-auto"><i class="fa fa-check-square-o"></i><small>verified</small></p>
+                            </span>
+                            {% endif %}
                         </div>
                         <div class="media-body pl-3">
-                            <p>{{j.description}}</p>
-                            <p>{{j.rating}}</p>
-                            {% if j.verified %}
-                            <p>*</p>
-                            {% endif %}
+                            {% with ''|center:j.rating as range %}
+                            {% for q in range %}
+                            <i class="fa fa-star" style="color: #ffc72d;"></i>
+                            {% endfor %}
+                            {% endwith %}
+                            <p class="mt-2">{{j.description}}</p>
                         </div>
                     </div>
                     <hr>
