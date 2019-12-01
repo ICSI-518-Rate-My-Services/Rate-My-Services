@@ -14,10 +14,13 @@
 		<script src="https://use.fontawesome.com/c2ffd95238.js"></script>  
         <link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/css/style.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/css/general_profile.css' %}">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 		
 	</head>
 	<body>
-		<div class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+		<div class="navbar navbar-expand-md navbar-dark bg-dark sticky-top ">
 			<h6><a href="/" class="btn btn-outline-success btn-sm text-docration-none">Home (go back)</a></h6>
 		</div>
 		{% if error_message %}
@@ -35,64 +38,116 @@
 			</div> 
 			<h1>{{ gUser.first_name }} {{ gUser.last_name }}</h1>
 			<p>{{ gUser.city }}, {{ gUser.state }}</p> 
-		</div>
-
-		<div style="align-content: center">	
-			<div class="tab-content" id="nav-editInfo">
-				<div class="tab-pane fade show active p-3" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab" data-target="#info">
-					<table cellspacing="20" align="center" style="font-size: 20px">
-						<tr style="padding: 30px">
-						<th>Email</th>
-						<th>{{ gUser.email }}</th>
-						</tr>
-						<tr style="padding: 30px">
-							<th style="padding-right: 60px">State</th>
-							<th>{{ gUser.state }}</th>
-						</tr>
-						<tr style="padding: 30px">
-							<th>City</th>
-							<th>{{ gUser.city }}</th>
-						</tr>
-						<tr style="padding: 30px">
-							<th>Street</th>
-							<th>{{ gUser.street }}</th>
-						</tr>
-						<tr style="padding: 30px">
-								<th>Zip</th>
-								<th>{{ gUser.zips }}</th>
-						</tr>
-					</table>
-					<button type="button" class="btn btn-outline-dark mt-1" data-target="#editInfo">Edit</button>
-				</div>
-			</div>
-
-			<div class="tab-content" id="nav-editInfo">
-				<div class="tab-pane fade show active p-3" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab" data-target="#info">
-					<table cellspacing="20" align="center" style="font-size: 20px">
-						<tr style="padding: 30px">
-							<th>Email</th>
-							<th>{{ gUser.email }}</th>
-						</tr>
-						<tr style="padding: 30px">
-							<th style="padding-right: 60px">State</th>
-							<th>{{ gUser.state }}</th>
-						</tr>
-						<tr style="padding: 30px">
-							<th>City</th>
-							<th>{{ gUser.city }}</th>
-						</tr>
-						<tr style="padding: 30px">
-							<th>Street</th>
-							<th>{{ gUser.street }}</th>
-						</tr>
-						<tr style="padding: 30px">
-							<th>Zip</th>
-							<th>{{ gUser.zips }}</th>
-						</tr>
-					</table>
-					<button type="button" class="btn btn-outline-dark mt-1" data-target="#editInfo">Edit</button>
-				</div>
+			<div>
+				<form method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					{{ form.as_p }}
+					<button type="submit">Upload</button>
+				  </form>
 			</div>
 		</div>
+		<div id="userInformation" class="carousel" data-interval="false">
+			<!-- data-interval="false" makes it don't automatically rotate the slides -->
+			<!-- I also remove the transition so that it fit the needs here -->
+                <div class="carousel-inner">
+					<!-- static page; index:0 -->
+					<div class="carousel-item active">
+						<div style="align-content: center">
+							<table cellspacing="20" align="center" style="font-size: 20px">
+								<tr>
+									<th>Email</th>
+									<th>{{ gUser.email }}</th>
+								</tr>
+								<tr style="padding: 30px">
+									<th style="padding-right: 60px">State</th>
+									<th>{{ gUser.state }}</th>
+								</tr>
+								<tr style="padding: 30px">
+									<th>City</th>
+									<th>{{ gUser.city }}</th>
+								</tr>
+								<tr style="padding: 30px">
+									<th>Street</th>
+									<th>{{ gUser.street }}</th>
+								</tr>
+								<tr style="padding: 30px">
+									<th>Zip</th>
+									<th>{{ gUser.zips }}</th>
+								</tr>
+								{% if editable%}
+								<tr style="padding: 30px">
+									<td colspan="2">
+										<button class="btn btn-outline-dark mt-1 w-100" data-target="#userInformation" data-slide-to="1">Edit</button>
+									</td>
+								</tr>
+								{% endif %}
+								
+							</table>
+						</div>
+					</div>
+					<!-- editing page; index:1 -->
+					{% if editable %}
+                    <div class="carousel-item" >
+						<div style="align-content: center">
+							
+							<form action="{% url 'RateMyServices:updateUserInfo' %}" method="POST">
+								{% csrf_token %}
+							<table cellspacing="20" align="center" style="font-size: 20px">
+								<tr>
+									<td colspan="2">
+										<div class="alert alert-info">
+											<small>Please fill in the fields that you want to make changes</small>
+										</div>
+									</td>
+								</tr>
+								<tr style="padding: 30px">
+									<th>Email</th>
+									<th>
+										<input class="form-control form-control-sm" type="text" name="email" placeholder="{{gUser.email}}">
+									</th>
+								</tr>
+								<tr style="padding: 30px">
+									<th style="padding-right: 60px">State</th>
+									<th>
+										<input class="form-control form-control-sm" type="text" name="state" placeholder="{{gUser.state}}">
+									</th>
+								</tr>
+								<tr style="padding: 30px">
+									<th>City</th>
+									<th>
+										<input class="form-control form-control-sm" type="text" name="city" placeholder="{{gUser.city}}">
+									</th>
+								</tr>
+								<tr style="padding: 30px">
+									<th>Street</th>
+									<th>
+										<input class="form-control form-control-sm" type="text" name="street" placeholder="{{gUser.street}}">
+									</th>
+								</tr>
+								<tr style="padding: 30px">
+									<th>Zip</th>
+									<th>
+										<input class="form-control form-control-sm" type="text" name="zips" placeholder="{{gUser.zips}}">
+									</th>
+								</tr>
+								
+								<tr style="padding: 30px">
+									<td colspan="2">
+										<div class="d-flex">
+											<button class="btn btn-outline-dark mt-1 mr-1 flex-fill" data-target="#userInformation" data-slide-to="0">Cancel</button>
+											<button class="btn btn-success mt-1 ml-1 flex-fill" type="submit">Save Change</button>
+										</div>
+									</td>
+								</tr>
+							</table>
+							</form>
+						</div>
+					</div>
+					{% endif %}
+                </div>
+			</div>
 	</body>
 </html>
+
+
+
