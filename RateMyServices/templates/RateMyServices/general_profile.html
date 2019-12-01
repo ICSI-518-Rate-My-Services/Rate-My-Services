@@ -36,32 +36,63 @@
 			<h1>{{ gUser.first_name }} {{ gUser.last_name }}</h1>
 			<p>{{ gUser.city }}, {{ gUser.state }}</p> 
 		</div>
-		<div style="align-content: center">
-			
-			<table cellspacing="20" align="center" style="font-size: 20px">
-				<tr style="padding: 30px">
-				  <th>Email</th>
-				  <th>{{ gUser.email }}</th>
-				</tr>
-				<tr style="padding: 30px">
-					<th style="padding-right: 60px">State</th>
-					<th>{{ gUser.state }}</th>
-				</tr>
-				<tr style="padding: 30px">
-					<th>City</th>
-					<th>{{ gUser.city }}</th>
-				</tr>
-				<tr style="padding: 30px">
-					<th>Street</th>
-					<th>{{ gUser.street }}</th>
-				</tr>
-				<tr style="padding: 30px">
-						<th>Zip</th>
-						<th>{{ gUser.zips }}</th>
-				</tr>
 
-				 
-			</table>
+		<div style="align-content: center">	
+			<div class="tab-content" id="nav-editInfo">
+				<div class="tab-pane fade show active p-3" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab" data-target="#info">
+					<table cellspacing="20" align="center" style="font-size: 20px">
+						<tr style="padding: 30px">
+						<th>Email</th>
+						<th>{{ gUser.email }}</th>
+						</tr>
+						<tr style="padding: 30px">
+							<th style="padding-right: 60px">State</th>
+							<th>{{ gUser.state }}</th>
+						</tr>
+						<tr style="padding: 30px">
+							<th>City</th>
+							<th>{{ gUser.city }}</th>
+						</tr>
+						<tr style="padding: 30px">
+							<th>Street</th>
+							<th>{{ gUser.street }}</th>
+						</tr>
+						<tr style="padding: 30px">
+								<th>Zip</th>
+								<th>{{ gUser.zips }}</th>
+						</tr>
+					</table>
+					<button type="button" class="btn btn-outline-dark mt-1" data-target="#editInfo">Edit</button>
+				</div>
+			</div>
+
+			<div class="tab-content" id="nav-editInfo">
+				<div class="tab-pane fade show active p-3" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab" data-target="#info">
+					<table cellspacing="20" align="center" style="font-size: 20px">
+						<tr style="padding: 30px">
+							<th>Email</th>
+							<th>{{ gUser.email }}</th>
+						</tr>
+						<tr style="padding: 30px">
+							<th style="padding-right: 60px">State</th>
+							<th>{{ gUser.state }}</th>
+						</tr>
+						<tr style="padding: 30px">
+							<th>City</th>
+							<th>{{ gUser.city }}</th>
+						</tr>
+						<tr style="padding: 30px">
+							<th>Street</th>
+							<th>{{ gUser.street }}</th>
+						</tr>
+						<tr style="padding: 30px">
+							<th>Zip</th>
+							<th>{{ gUser.zips }}</th>
+						</tr>
+					</table>
+					<button type="button" class="btn btn-outline-dark mt-1" data-target="#editInfo">Edit</button>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

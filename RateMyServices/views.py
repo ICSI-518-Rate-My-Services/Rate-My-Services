@@ -326,3 +326,24 @@ def signup_view(request):
 		'form': form,
 	}
 	return render(request, 'RateMyServices/signuppage.html', context)
+
+def update_user_info(request):
+	gUser = get_object_or_404(User, id=request.user.id)
+	if 'email' in request.POST:
+		gUser.email = request.POST['email']
+
+	if 'state' in request.POST:
+		gUser.state = request.POST['state']
+	
+	if 'city' in request.POST:
+		gUser.city = request.POST['city']
+
+	if 'street' in request.POST:
+		gUser.street = request.POST['street']
+	
+	if 'zip' in request.POST:
+		gUser.zips = request.POST['zip']
+
+	gUser.save()
+	return HttpResponseRedirect(reverse('RateMyServices:my_profile'))
+
