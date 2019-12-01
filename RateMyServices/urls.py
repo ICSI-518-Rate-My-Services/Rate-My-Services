@@ -27,5 +27,6 @@ urlpatterns = [
 	path('addService/<int:generaluser_id>/', views.addService, name='addService'),
 	path('addServicePage/<int:generaluser_id>/', views.addServicePage, name='addServicePage'),
 	path('hire/', views.hire_service, name='hire'),
-	path('deleteService/', views.delete_service, name='deleteService')
+	path('deleteService/', views.delete_service, name='deleteService'),
+	path('editInfo/', views.update_user_info, name='updateUserInfo')
 ]

@@ -329,20 +329,20 @@ def signup_view(request):
 
 def update_user_info(request):
 	gUser = get_object_or_404(User, id=request.user.id)
-	if 'email' in request.POST:
+	if request.POST['email'] != '':
 		gUser.email = request.POST['email']
 
-	if 'state' in request.POST:
+	if request.POST['state'] != '':
 		gUser.state = request.POST['state']
 	
-	if 'city' in request.POST:
+	if request.POST['city'] != '':
 		gUser.city = request.POST['city']
 
-	if 'street' in request.POST:
+	if request.POST['street'] != '':
 		gUser.street = request.POST['street']
 	
-	if 'zip' in request.POST:
-		gUser.zips = request.POST['zip']
+	if request.POST['zips'] != '':
+		gUser.zips = request.POST['zips']
 
 	gUser.save()
 	return HttpResponseRedirect(reverse('RateMyServices:my_profile'))
