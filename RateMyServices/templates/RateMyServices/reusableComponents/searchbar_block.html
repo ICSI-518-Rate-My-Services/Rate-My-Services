@@ -1,0 +1,9 @@
+<form class="input-group" action="{% url 'RateMyServices:search' gUser.id %}" method="post">
+    {% csrf_token %}
+    <input class="rounded-left form-control w-25" type="text" placeholder="Search services or ..." name="search">
+    <input class="form-control" type="text" placeholder="City" name="city">
+    <input class="form-control" type="text" placeholder="State" name="state">
+    <div class="input-group-append">
+        <button class="btn btn-success" type="submit">GO!</button>
+    </div>
+</form>
