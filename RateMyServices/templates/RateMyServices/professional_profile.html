@@ -91,7 +91,7 @@
                     <div class="carousel-item" >
 						<div style="align-content: center">
 							
-							<form action="" method="">
+							<form action="{% url 'RateMyServices:updateUserInfo' %}" method="POST">
 								{% csrf_token %}
 							<table cellspacing="20" align="center" style="font-size: 20px">
 								<tr>
