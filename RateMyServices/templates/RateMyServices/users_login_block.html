@@ -32,6 +32,9 @@
             {% if request.user.is_professional %}
                 <a class="dropdown-item" href="{% url 'RateMyServices:addServicePage' request.user.id %}">
                     <span style="color: gray;" class="mr-2"><i class="fa fa-plus fa-1x"></i></span>Add Services</a>
+                <a href="" class="dropdown-item disabled">
+                    <span style="color: gray;" class=""><i class="fa fa-diamond"></i></span> Upgrade to Premium
+                </a>
             {% else %}
                 <a class="dropdown-item" href="{% url 'RateMyServices:becomeProUser' request.user.id %}">
                     <span style="color: gray;" class="mr-2"><i class="fa fa-briefcase fa-1x"></i></span>Become a Professional User</a>

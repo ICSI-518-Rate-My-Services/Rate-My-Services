@@ -17,13 +17,17 @@
     {% for i in serviceWithReviews %}
         <div class="tab-pane fade {% if not forloop.counter0 %}show active{% endif %} p-3" 
             id="nav-{{forloop.counter0}}" role="tabpanel" aria-labelledby="nav-{{forloop.counter0}}-tab">
-            <div class="py-4">
-                <p>
-                    {{i.0.description}}
-                </p>
-            </div>
-            <div class="">
-                <p> <strong> Price: </strong>${{i.0.rate}} {% if i.0.isHour %} /hr {% else %} (Standard price) {% endif %}</p>
+            <div class="py-4 d-flex ">
+                {% if editable %}
+                <div class="d-flex flex-column px-4">
+                    <i class="fa fa-picture-o fa-9x" style="font-size: 20rem; color: gray;"></i>
+                    <p class="btn btn-outline-secondary">add some picture!</p>
+                </div>
+                {% endif %}
+                <div class="d-flex flex-column">
+                    <p class="my-auto py-4">{{i.0.description}}</p>
+                    <p class="mt-auto"> <strong> Price: </strong>${{i.0.rate}} {% if i.0.isHour %} /hr {% else %} (Standard price) {% endif %}</p>
+                </div>
             </div>
             <hr>
             <h4 class="text-muted">Reviews</h4>
@@ -40,7 +44,7 @@
                             {% endif %}
                         </div>
                         <div class="media-body pl-3">
-                            {% with ''|center:j.rating as range %}
+                            {% with range=''|center:j.rating  %}
                             {% for q in range %}
                             <i class="fa fa-star" style="color: #ffc72d;"></i>
                             {% endfor %}
@@ -85,14 +89,23 @@
                                 <input type="text" class="form-control" readonly name="service" value="{{i.0.id}}">
                             </div>
                             <label for="rating">How many stars would you like to give {{pUser.generalUserID.first_name}} {{pUser.generalUserID.last_name}}?</label>
-                            <select type="number" class="form-control" id="rating" name="rating">
+                            <!-- <select type="number" class="form-control" id="rating" name="rating">
                                 <option value="5" selected="selected">5</option>
                                 <option value="4">4</option>
                                 <option value="3">3</option>
                                 <option value="2">2</option>
                                 <option value="1">1</option>
-                            </select>
-                            <label for="description">Would you like to wirte a review?</label>
+                            </select> -->
+                            <div class="rating my-0 py-0">
+                                <!-- reference: https://bootsnipp.com/snippets/qr6zz#comments -->
+                                <input type="radio" id="star5" name="rating" value="5" /><label for="star5">5 stars</label>
+                                <input type="radio" id="star4" name="rating" value="4" /><label for="star4">4 stars</label>
+                                <input type="radio" id="star3" name="rating" value="3" /><label for="star3">3 stars</label>
+                                <input type="radio" id="star2" name="rating" value="2" /><label for="star2">2 stars</label>
+                                <input type="radio" id="star1" name="rating" value="1" /><label for="star1">1 star</label>
+                            </div>
+                            <div style="height: 4.3rem;"></div>
+                            <label for="description" class="d-block">Would you like to wirte a review?</label>
                             <textarea type="text-area" class="form-control" id="description" name="description" rows="4"></textarea>
                         </div>
                         <div class="modal-footer">
