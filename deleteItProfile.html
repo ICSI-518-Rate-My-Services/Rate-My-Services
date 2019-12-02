@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% load static %}
+		<title>{% block title %}{% endblock %}</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" type="image/png" href="{% static 'RateMyServices/images/favicon.ico' %}"/>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+		<script src="https://use.fontawesome.com/c2ffd95238.js"></script>  
+        <link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/css/style.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/css/general_profile.css' %}">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		
+	</head>
+	<body>
+		<div class="navbar navbar-expand-md navbar-dark bg-dark sticky-top ">
+			<h6><a href="/" class="btn btn-outline-success btn-sm text-docration-none">Home (go back)</a></h6>
+		</div>
+		{% if error_message %}
+		<p>
+			<strong>
+				{{ error_message }}
+			</strong>
+		</p>
+		{% endif %}
+
+		<!--Profile Picture and Username-->
+		<div class="jumbotron jumbotron-fluid text-center">
+			<div>
+				<i class="fa fa-user-circle fa-5x"></i>
+			</div> 
+			<h1>{{ pUser.generalUserID.first_name }} {{ pUser.generalUserID.last_name }}</h1>
+			<p>{{ pUser.generalUserID.city }}, {{ pUser.generalUserID.state }}</p> 
+			<div>
+				<form method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					{{ form.as_p }}
+					<button type="submit">Upload</button>
+					<button type="submit" class="open-button" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Edit Profile</button>
+				  </form>
+			</div>
+		</div>
+		<!-- EDIT PROFILE -->
+		<div class="collapse" id="collapseExample">
+				<div class="card card-body">
+				<form action="" method="POST"> {% csrf_token %}
+					{% for i in form.hidden_fields %}
+					{{ i }}
+					{% endfor %}
+					
+					{% if form.non_field_errors %}
+					<div class="alert alert-danger" role="alert">
+						{% for error in form.non_field_errors %}
+						{{ error }}
+						{% endfor %}
+					</div>
+					{% endif %}
+					
+					<div class="form-row">
+						<div class="col-sm-12 col-md-6 form-group">
+						<input id="{{ form.first_name.id_for_label }}" name="{{ form.first_name.name }}" type="text" class="form-control"  placeholder="First name" required="" value="{{ form.first_name.value|default:'' }}" />
+				
+						</div>
+						<div class="col-sm-12 col-md-6 form-group">
+						<input id="{{ form.last_name.id_for_label }}" name="{{ form.last_name.name }}" type="text" class="form-control" placeholder="Last name" required=""  value="{{ form.last_name.value|default:'' }}" />  
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-12">
+							<label for="{{form.email.id_for_label}}">Email: </label>
+							<input type="text" id="{{form.email.id_for_label}}" name="{{form.email.name}}" class="form-control" required>
+						</div>
+					</div>
+					<div class="form-row my-2">
+						<div class="col-12 col-md-6">
+							<label for="{{form.password1.id_for_label}}">Password: </label>
+							<input type="password" id="{{form.password1.id_for_label}}" name="{{form.password1.name}}" class="form-control" required>
+						</div>
+						<div class="col-12 col-md-6">
+							<label for="{{form.password2.id_for_label}}">Confirm Password: </label>
+							<input type="password" id="{{form.password2.id_for_label}}" name="{{form.password2.name}}" class="form-control" required>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-12">
+							<label for="{{form.phone.id_for_label}}">Phone number: </label>
+							<input type="text" id="{{form.phone.id_for_label}}" name="{{form.phone.name}}" class="form-control" required>
+						</div>
+					</div>
+					<div class="mt-2">Address</div>
+					<div class="form-row">
+						<div class="col-sm-6 col-md-3 form-group">
+							<input type="text" id="{{form.street.id_for_label}}" name="{{form.street.name}}" class="form-control" required placeholder="Street">
+						</div>
+						<div class="col-sm-6 col-md-3 form-group">
+							<input type="text" id="{{form.city.id_for_label}}" name="{{form.city.name}}" class="form-control" required placeholder="City">
+						</div>
+						<div class="col-sm-6 col-md-3 form-group">
+							<input type="text" id="{{form.state.id_for_label}}" name="{{form.state.name}}" class="form-control" required placeholder="State">
+						</div>
+						<div class="col-sm-6 col-md-3 form-group">
+							<input type="text" id="{{form.zips.id_for_label}}" name="{{form.zips.name}}" class="form-control" required placeholder="Zip Code">
+						</div>
+					</div>
+					<!-- {% for field in form.visible_fields %}
+					<div class="form-group">
+						{{ field.label_tag }}
+						{{ field }}
+						{% if field.help_text %}
+						<small class="form-text text-muted">{{ field.help_text }}</small>
+						{% endif %}
+					</div>
+					{% endfor %} -->
+					<div class="d-flex float-right ">
+						<button type="submit" class="btn btn-success">Sign up</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+
+
+
+		<div id="userInformation" class="carousel" data-interval="false">
+			<!-- data-interval="false" makes it don't automatically rotate the slides -->
+			<!-- I also remove the transition so that it fit the needs here -->
+                <div class="carousel-inner">
+					<!-- static page; index:0 -->
+					<div class="carousel-item active">
+						<div style="align-content: center">
+							<table cellspacing="20" align="center" style="font-size: 20px">
+								<tr>
+									<th>Email</th>
+									<th>{{ pUser.generalUserID.email }}</th>
+								</tr>
+								<tr style="padding: 30px">
+									<th style="padding-right: 60px">State</th>
+									<th>{{ pUser.generalUserID.state }}</th>
+								</tr>
+								<tr style="padding: 30px">
+									<th>City</th>
+									<th>{{ pUser.generalUserID.city }}</th>
+								</tr>
+								<tr style="padding: 30px">
+									<th>Street</th>
+									<th>{{ pUser.generalUserID.street }}</th>
+								</tr>
+								<tr style="padding: 30px">
+									<th>Zip</th>
+									<th>{{ pUser.generalUserID.zips }}</th>
+								</tr>
+								{% if editable%}
+								<tr style="padding: 30px">
+									<td colspan="2">
+										<button class="btn btn-outline-dark mt-1 w-100" data-target="#userInformation" data-slide-to="1">Edit</button>
+									</td>
+								</tr>
+								{% endif %}
+								
+							</table>
+						</div>
+					</div>
+					<!-- editing page; index:1 -->
+					{% if editable %}
+                    <div class="carousel-item" >
+						<div style="align-content: center">
+							
+							<form action="" method="">
+								{% csrf_token %}
+							<table cellspacing="20" align="center" style="font-size: 20px">
+								<tr>
+									<td colspan="2">
+										<div class="alert alert-info">
+											<small>Please fill in the fields that you want to make changes</small>
+										</div>
+									</td>
+								</tr>
+								<tr style="padding: 30px">
+									<th>Email</th>
+									<th>
+										<input class="form-control form-control-sm" type="text" name="email" placeholder="{{pUser.generalUserID.email}}">
+									</th>
+								</tr>
+								<tr style="padding: 30px">
+									<th style="padding-right: 60px">State</th>
+									<th>
+										<input class="form-control form-control-sm" type="text" name="state" placeholder="{{pUser.generalUserID.state}}">
+									</th>
+								</tr>
+								<tr style="padding: 30px">
+									<th>City</th>
+									<th>
+										<input class="form-control form-control-sm" type="text" name="city" placeholder="{{pUser.generalUserID.city}}">
+									</th>
+								</tr>
+								<tr style="padding: 30px">
+									<th>Street</th>
+									<th>
+										<input class="form-control form-control-sm" type="text" name="street" placeholder="{{pUser.generalUserID.street}}">
+									</th>
+								</tr>
+								<tr style="padding: 30px">
+									<th>Zip</th>
+									<th>
+										<input class="form-control form-control-sm" type="text" name="zips" placeholder="{{pUser.generalUserID.zips}}">
+									</th>
+								</tr>
+								
+								<tr style="padding: 30px">
+									<td colspan="2">
+										<div class="d-flex">
+											<button class="btn btn-outline-dark mt-1 mr-1 flex-fill" data-target="#userInformation" data-slide-to="0">Cancel</button>
+											<button class="btn btn-success mt-1 ml-1 flex-fill" type="submit">Save Change</button>
+										</div>
+									</td>
+								</tr>
+							</table>
+							</form>
+						</div>
+					</div>
+					{% endif %}
+                </div>
+            
+			</div>
+			
+		<!-- Service Block starts here -->
+		<div class="mt-5">
+			<!-- <h3 class="px-3 pt-3 text-muted font-italic">Services Provided</h3> -->
+
+			{% include "RateMyServices/pp_service_block.html" %}
+
+		</div>
+	</body>
+	
+</html>
+
+
+
+

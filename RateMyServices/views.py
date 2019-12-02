@@ -18,6 +18,9 @@ from django.shortcuts import render
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
+#Edit User Details
+from accounts.forms import UserChangeForm
+
 
 # Create your views here.
 def user_profile(request, professionaluser_id, generaluser_id):
@@ -326,3 +329,15 @@ def signup_view(request):
 		'form': form,
 	}
 	return render(request, 'RateMyServices/signuppage.html', context)
+
+# Edit User Details
+def editUser_view(request):
+	form = UserChangeForm(request.POST or None)
+	if form.is_valid():
+		form.save()
+		return redirect('/RateMyServices/professional_profile.html')
+		
+	context = {
+		'form': form,
+	}
+	return render(request, 'RateMyServices/edit_profile.html', context)

@@ -39,9 +39,16 @@
 				<form method="post" enctype="multipart/form-data">
 					{% csrf_token %}
 					{{ form.as_p }}
-					<button type="submit">Upload</button>
-					<button type="submit" class="open-button" onclick="openForm()">Edit Profile</button>
-				  </form>
+					<!-- <button type="submit">Upload</button> -->
+					{% if request.user.is_professional %}
+					<a  class="btn btn-info" href="{% url 'RateMyServices:my_profile' %}" role="button" aria-expanded="false" aria-controls="collapseExample">Upload DP</a>
+					{% endif %}
+					{% if request.user.is_professional %}
+					<a  class="btn btn-info" href="{% url 'RateMyServices:my_profile' %}" role="button" aria-expanded="false" aria-controls="collapseExample">Edit Profile</a>
+						<!-- {% if request.user.pUser.generalUserID == pUser.generalUserID %} -->
+						<!-- {% endif %}	 -->
+					{% endif %}
+					</form>
 			</div>
 		</div>
 		<div id="userInformation" class="carousel" data-interval="false">
@@ -156,6 +163,7 @@
 	</body>
 	
 </html>
+
 
 
 
