@@ -7,7 +7,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" type="image/png" href="{% static 'RateMyServices/images/favicon.ico' %}"/>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 		<script src="https://use.fontawesome.com/c2ffd95238.js"></script>  
         <link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/css/style.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'RateMyServices/css/general_profile.css' %}">
@@ -46,12 +45,9 @@
 					{{ form.as_p }}
 					<!-- <button type="submit">Upload</button> -->
 					{% if request.user.is_professional %}
-					<a  class="btn btn-info" href="{% url 'RateMyServices:my_profile' %}" role="button" aria-expanded="false" aria-controls="collapseExample">Upload DP</a>
-					{% endif %}
-					{% if request.user.is_professional %}
-					<a  class="btn btn-info" href="{% url 'RateMyServices:my_profile' %}" role="button" aria-expanded="false" aria-controls="collapseExample">Edit Profile</a>
-						<!-- {% if request.user.pUser.generalUserID == pUser.generalUserID %} -->
-						<!-- {% endif %}	 -->
+					<input type="file" name="profile_image" id="profile_image">
+					<button class="btn btn-info" type="submit">Upload Profile Image</button>
+					<!-- <a class="btn btn-info" type="submit">Upload DP</a> -->
 					{% endif %}
 					</form>
 			</div>

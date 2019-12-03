@@ -226,6 +226,14 @@ def my_profile(request):
 	if request.user.is_authenticated:
 		if request.user.is_professional:
 			puser_id = request.user.professionaluser_set.all()[0].id
+			if request.method == 'POST':
+				uploaded_file = request.FILES['profile_image']
+				# fs = FileSystemStorage()
+				# file_name = 'profile_pic' + str(request.user.id)
+				# name = fs.save(file_name, uploaded_file)
+				request.user.profile_image = uploaded_file
+				request.user.save()
+				# print(uploaded_file.name)
 			return professional_profile(request, puser_id, editable)
 		else:
 			guser_id = request.user.id
@@ -360,4 +368,3 @@ def update_user_info(request):
 
 	gUser.save()
 	return HttpResponseRedirect(reverse('RateMyServices:my_profile'))
-
