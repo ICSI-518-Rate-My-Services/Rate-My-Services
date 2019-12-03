@@ -2,11 +2,6 @@ li a {
 	color: green;
 }
 
-body {
-	background: white url("images/background.gif") no-repeat;
-}
-
-
 /* Font size */
 .size-12{
 	font-size: 12px;
