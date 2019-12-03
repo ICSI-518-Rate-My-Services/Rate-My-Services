@@ -42,7 +42,7 @@
 					{{ form.as_p }}
 					<!-- <button type="submit">Upload</button> -->
 					{% if request.user.is_professional %}
-					<a  class="btn btn-info" href="{% url 'RateMyServices:my_profile' %}" role="button" aria-expanded="false" aria-controls="collapseExample">Upload DP</a>
+					<a  class="btn btn-info" href="{% url 'RateMyServices:my_profile' %}" >Upload DP</a>
 					{% endif %}
 					{% if request.user.is_professional %}
 					<a  class="btn btn-info" href="{% url 'RateMyServices:my_profile' %}" role="button" aria-expanded="false" aria-controls="collapseExample">Edit Profile</a>
