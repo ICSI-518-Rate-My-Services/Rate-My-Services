@@ -31,4 +31,5 @@ urlpatterns = [
 
 	# URL FOR EDIT USER
 	path('professional_profile/<int:professionaluser_id>/edit_profile/',views.editUser_view, name='editProfile'),
+	path('editInfo/', views.update_user_info, name='updateUserInfo')
 ]

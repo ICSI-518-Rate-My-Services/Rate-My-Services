@@ -341,3 +341,23 @@ def editUser_view(request):
 		'form': form,
 	}
 	return render(request, 'RateMyServices/edit_profile.html', context)
+def update_user_info(request):
+	gUser = get_object_or_404(User, id=request.user.id)
+	if request.POST['email'] != '':
+		gUser.email = request.POST['email']
+
+	if request.POST['state'] != '':
+		gUser.state = request.POST['state']
+	
+	if request.POST['city'] != '':
+		gUser.city = request.POST['city']
+
+	if request.POST['street'] != '':
+		gUser.street = request.POST['street']
+	
+	if request.POST['zips'] != '':
+		gUser.zips = request.POST['zips']
+
+	gUser.save()
+	return HttpResponseRedirect(reverse('RateMyServices:my_profile'))
+
