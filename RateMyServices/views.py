@@ -226,17 +226,20 @@ def my_profile(request):
 	if request.user.is_authenticated:
 		if request.user.is_professional:
 			puser_id = request.user.professionaluser_set.all()[0].id
-			if request.method == 'POST':
+			if request.method == 'POST' and request.FILES.get('profile_image', False):
+				# check if users did select files
 				uploaded_file = request.FILES['profile_image']
-				# fs = FileSystemStorage()
-				# file_name = 'profile_pic' + str(request.user.id)
-				# name = fs.save(file_name, uploaded_file)
+				request.user.profile_image.delete()
 				request.user.profile_image = uploaded_file
 				request.user.save()
-				# print(uploaded_file.name)
 			return professional_profile(request, puser_id, editable)
 		else:
 			guser_id = request.user.id
+			if request.method == 'POST' and request.FILES.get('profile_image', False):
+				uploaded_file = request.FILES['profile_image']
+				request.user.profile_image.delete()
+				request.user.profile_image = uploaded_file
+				request.user.save()
 			return general_profile(request, guser_id, editable)
 	else:
 		message = 'The action you try to do requires log in, please log in and precede.'

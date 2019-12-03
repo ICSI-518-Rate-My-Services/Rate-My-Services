@@ -69,12 +69,17 @@
 			{% for i in pUsers %}
 			<div class="col">
 				<div class="card mx-2" style="width: 20rem;">
-					<!-- <img src="{{i.imgUrls}}" class="card-img-top" alt="ad images" style="height: 200px; background-color: lightgray;"> -->
 					<div class="card-body">
 						<div class="row">
 							<div class="col-2">
-								<!-- <img class="rounded-circle" height="45px" width="45px" src="" alt="" style="background-color: beige;"> -->
-								<i class="fa fa-user-circle fa-3x"></i>
+								{% if i.generalUserID.profile_image %}
+								<div class="rounded-circle mr-2" style="background: url({{i.generalUserID.profile_image.url}}) no-repeat; height: 50px; width: 50px; background-size: cover; background-position: center;"></div>
+								<!-- <img class="rounded-circle mr-2" src="{{ request.user.profile_image.url }}" style="height: 45px; width: auto;"> -->
+								{% else %}
+								<div>
+									<i class="fa fa-user-circle fa-3x"></i>
+								</div> 
+								{% endif %}
 							</div>
 							<div class="col-10 pl-4">
 								<h5 class="card-title mb-2 text-success">{{i.service_set.all.0.service}}</h5>
