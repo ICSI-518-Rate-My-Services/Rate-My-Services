@@ -103,6 +103,7 @@ class User(AbstractBaseUser):
     zips        = models.CharField(max_length=5,null=True,blank=False)
     street      = models.CharField(max_length=100,null=True,blank=False)
     phone       = models.CharField(max_length=12,null=True,blank=False)
+    profile_image = models.ImageField(upload_to='profile_pics/', blank=True)
 
     # notice the absence of a "Password field", that's built in.
 

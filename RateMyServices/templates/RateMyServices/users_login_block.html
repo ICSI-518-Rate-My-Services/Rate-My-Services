@@ -15,7 +15,14 @@
 {% else %}
     <div class="btn-group">
         <button type="button" class="btn btn-outline-secondary p-1 dropdown-toggle d-flex align-items-center" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img class="rounded-circle mr-2" height="45px" width="45px" src="{% static 'RateMyServices/images/profile_dumy.jpg' %}" alt=""/>
+            {% if request.user.profile_image %}
+            <div class="rounded-circle mr-2" style="background: url({{request.user.profile_image.url}}) no-repeat; height: 50px; width: 50px; background-size: cover; background-position: center;"></div>
+            <!-- <img class="rounded-circle mr-2" src="{{ request.user.profile_image.url }}" style="height: 45px; width: auto;"> -->
+			{% else %}
+			<div>
+				<i class="fa fa-user-circle fa-3x mr-2"></i>
+			</div> 
+			{% endif %}
             <div class="d-flex flex-column mr-2">
                 <div class="mb-1 p-0 text-nowrap overflow-hidden">{{request.user.get_full_name}}</div>
                 {% if request.user.is_professional %}

@@ -31,9 +31,13 @@
 
 		<!--Profile Picture and Username-->
 		<div class="jumbotron jumbotron-fluid text-center">
+			{% if pUser.generalUserID.profile_image %}
+            <div class="rounded-circle mx-auto" style="background: url({{pUser.generalUserID.profile_image.url}}) no-repeat; height: 200px; width: 200px; background-size: cover; background-position: center;"></div>
+			{% else %}
 			<div>
 				<i class="fa fa-user-circle fa-5x"></i>
 			</div> 
+			{% endif %}
 			<h1>{{ pUser.generalUserID.first_name }} {{ pUser.generalUserID.last_name }}</h1>
 			<p>{{ pUser.generalUserID.city }}, {{ pUser.generalUserID.state }}</p> 
 			<div>
