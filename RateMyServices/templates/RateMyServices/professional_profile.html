@@ -44,7 +44,7 @@
 					{% csrf_token %}
 					{{ form.as_p }}
 					<!-- <button type="submit">Upload</button> -->
-					{% if request.user.is_professional %}
+					{% if editable %}
 					<input type="file" name="profile_image" id="profile_image">
 					<button class="btn btn-info" type="submit">Upload Profile Image</button>
 					<!-- <a class="btn btn-info" type="submit">Upload DP</a> -->
