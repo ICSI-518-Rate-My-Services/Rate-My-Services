@@ -43,11 +43,9 @@
 				<form method="post" enctype="multipart/form-data">
 					{% csrf_token %}
 					{{ form.as_p }}
-					<!-- <button type="submit">Upload</button> -->
 					{% if editable %}
 					<input type="file" name="profile_image" id="profile_image">
 					<button class="btn btn-info" type="submit">Upload Profile Image</button>
-					<!-- <a class="btn btn-info" type="submit">Upload DP</a> -->
 					{% endif %}
 					</form>
 			</div>
