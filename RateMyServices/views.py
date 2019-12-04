@@ -295,10 +295,12 @@ def upgrade_plans(request):
 	pUser = get_object_or_404(ProfessionalUser, id=request.user.professionaluser_set.all()[0].id)
 	if request.method == 'POST' and request.POST['premiumtype']=='Diamond':
 		pUser.isDiamond = True
+		pUser.isPlatinum = False
 		pUser.save()
 		return HttpResponseRedirect(reverse('RateMyServices:index'))
 	elif request.method == 'POST' and request.POST['premiumtype']=='Platinum':
 		pUser.isPlatinum = True
+		pUser.isDiamond = False
 		pUser.save()
 		return HttpResponseRedirect(reverse('RateMyServices:index'))
 		

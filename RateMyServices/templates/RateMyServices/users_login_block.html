@@ -17,7 +17,6 @@
         <button type="button" class="btn btn-outline-secondary p-1 dropdown-toggle d-flex align-items-center" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {% if request.user.profile_image %}
             <div class="rounded-circle mr-2" style="background: url({{request.user.profile_image.url}}) no-repeat; height: 50px; width: 50px; background-size: cover; background-position: center;"></div>
-            <!-- <img class="rounded-circle mr-2" src="{{ request.user.profile_image.url }}" style="height: 45px; width: auto;"> -->
 			{% else %}
 			<div>
 				<i class="fa fa-user-circle fa-3x mr-2"></i>
@@ -26,7 +25,11 @@
             <div class="d-flex flex-column mr-2">
                 <div class="mb-1 p-0 text-nowrap overflow-hidden">{{request.user.get_full_name}}</div>
                 {% if request.user.is_professional %}
-                    <div class="badge badge-pill badge-warning mr-auto" style="font-size: 9px;">professional user</div>
+                <div class="badge badge-pill badge-warning mr-auto" style="font-size: 9px;">professional user
+                        {% if request.user.professionaluser_set.all.0.isDiamond or request.user.professionaluser_set.all.0.isPlatinum %}
+                        <i class="fa fa-diamond" style="font-size: 1em;"></i>
+                        {% endif %}
+                </div>
                 {% else %}
                     <div class="badge badge-pill badge-success mr-auto" style="font-size: 9px;">general user</div>
                 {% endif %}
