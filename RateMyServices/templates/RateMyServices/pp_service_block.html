@@ -55,7 +55,13 @@
                 {% for j in i.1 %}
                     <div class="media p-3">
                         <div class="d-flex flex-column" style="width: 100px;">
-                            <div class="mx-auto"><i class="fa fa-user-circle fa-3x"></i></div>
+                            <div class="mx-auto">
+                                {% if j.rater.profile_image %}
+                                <div class="rounded-circle mr-2" style="background: url({{j.rater.profile_image.url}}) no-repeat; height: 50px; width: 50px; background-size: cover; background-position: center;"></div>
+                                {% else %}
+                                <i class="fa fa-user-circle fa-3x"></i>
+                                {% endif %}
+                            </div>
                             <p class="text-center mt-1 mb-0">{{j.rater.first_name}} {{j.rater.last_name}}</p>
                             {% if j.verified %}
                             <span class="mx-auto" style="color: rgb(53, 172, 53);">
