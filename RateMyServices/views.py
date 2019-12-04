@@ -194,6 +194,8 @@ def my_profile(request):
 		else:
 			guser_id = request.user.id
 			uploadProfileImage(request.user)
+			uploadServiceImage()
+			deleteServiceImage()
 			return general_profile(request, guser_id, editable)
 	else:
 		message = 'The action you try to do requires log in, please log in and precede.'

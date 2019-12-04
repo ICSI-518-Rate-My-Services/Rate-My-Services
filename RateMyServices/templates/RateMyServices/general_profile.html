@@ -33,6 +33,28 @@
 
 		<!--Profile Picture and Username-->
 		<div class="jumbotron jumbotron-fluid text-center">
+			{% if gUser.profile_image %}
+            <div class="rounded-circle mx-auto" style="background: url({{gUser.profile_image.url}}) no-repeat; height: 200px; width: 200px; background-size: cover; background-position: center;"></div>
+			{% else %}
+			<div>
+				<i class="fa fa-user-circle fa-5x"></i>
+			</div> 
+			{% endif %}
+			<h1>{{ gUser.first_name }} {{ gUser.last_name }}</h1>
+			<p>{{ gUser.city }}, {{ gUser.state }}</p> 
+			<div>
+				{% if editable %}
+				<form method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					<input type="file" name="profile_image" id="profile_image">
+					<button class="btn btn-info" type="submit">Upload Profile Image</button>
+				</form>
+				{% endif %}
+			</div>
+		</div>
+
+
+		<!-- <div class="jumbotron jumbotron-fluid text-center">
 			<div>
 				<i class="fa fa-user-circle fa-5x"></i>
 			</div> 
@@ -45,7 +67,7 @@
 					<button type="submit">Upload</button>
 				  </form>
 			</div>
-		</div>
+		</div> -->
 		<div id="userInformation" class="carousel" data-interval="false">
 			<!-- data-interval="false" makes it don't automatically rotate the slides -->
 			<!-- I also remove the transition so that it fit the needs here -->
