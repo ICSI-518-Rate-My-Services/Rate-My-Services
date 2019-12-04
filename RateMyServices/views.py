@@ -63,6 +63,7 @@ def rate(request):
 
 def index(request): 
 	pUsers = ProfessionalUser.objects.all()
+	serviceList = Service.objects.all()
 	gUser = User.objects.get(id=1) #id = 2 : for testing purposes
 	dummy_normalpuser= [
 		{	'name': 'Musa Aghayev',
@@ -138,6 +139,7 @@ def index(request):
 		'gUser': gUser,
 		'dummyList': dummy_normalpuser,
 		'dummyPremiumList': dummy_premiumpuser,
+		'serviceList': serviceList,
 	}
 	return render(request, 'RateMyServices/index.html', context)
 
