@@ -236,6 +236,11 @@ def my_profile(request):
 			serviceObj.image.delete()
 			serviceObj.image = uploaded_file
 			serviceObj.save()
+	def deleteServiceImage():
+		if request.method == 'POST' and request.POST.get('delete_photo',False):
+			serviceObj = get_object_or_404(Service, id=request.POST['service_id'])
+			serviceObj.image.delete()
+			serviceObj.save()
 
 	editable = True
 	if request.user.is_authenticated:
@@ -243,6 +248,7 @@ def my_profile(request):
 			puser_id = request.user.professionaluser_set.all()[0].id
 			uploadProfileImage(request.user)
 			uploadServiceImage()
+			deleteServiceImage()
 			return professional_profile(request, puser_id, editable)
 		else:
 			guser_id = request.user.id
