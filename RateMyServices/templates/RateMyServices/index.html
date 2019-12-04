@@ -7,16 +7,16 @@
 <div class="container-fluid px-0" style="height: 500px;background-color: lightgray;">
 	<div id="PremiumpuserAds" class="carousel slide" data-ride="carousel" style="height: 100%;">
 		<ol class="carousel-indicators btm-3">
-			{% for i in dummyPremiumList %}
+			{% for i in diamondList %}
 			<li data-target="#PremiumpuserAds" data-slide-to="{{forloop.counter0}}" {% if not forloop.counter0 %} class="active" {% endif %}></li>
 			{% endfor %}
 		</ol>
 		<div class="carousel-inner">
-			{% for i in dummyPremiumList %}
-			<div class="carousel-item {% if not forloop.counter0 %} active {% endif %}" style="background: url({{i.Urls}}) no-repeat; height: 500px; background-size: cover; background-position: center;">
+			{% for i in diamondList %}
+			<div class="carousel-item {% if not forloop.counter0 %} active {% endif %}" style="background: url({{i.image.url}}) no-repeat; height: 500px; background-size: cover; background-position: center;">
 				<!-- <img src="i.Urls" class="d-block w-100" alt="..."> -->
 				<div class="d-flex justify-content-center">
-					<h1 class="mt-4 text-secondary rounded px-2" style="background-color: rgba(255, 255, 255, 0.6)">{{i.Service}}</h1>
+					<a href="{% url 'RateMyServices:professional_profile' i.provider.id %}"><h1 class="mt-4 text-secondary rounded px-2" style="background-color: rgba(255, 255, 255, 0.6)">{{i.service}}</h1></a>
 				</div>
 			</div>
 			{% endfor %}
