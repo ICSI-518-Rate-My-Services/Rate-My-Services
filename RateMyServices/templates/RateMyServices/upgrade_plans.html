@@ -1,0 +1,27 @@
+{% extends "RateMyServices/base.html" %}
+
+{% block title %} Upgrade Your Plans! {% endblock %}
+
+{% block content %}
+<div class="p-3">
+    <div>
+        <h2 class="text-center">Become a Premium Member</h2>
+        <h4>Why you should become Premium Member:</h4>
+        <ul>
+            <li>better exposure</li>
+        </ul>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="d-flex flex-column">
+            <div>
+                <input type="radio" name="premiumtype" value="Diamond" id="Diamond" required><label for="Diamond">Become a Diamond Member!</label>
+            </div>
+            <div>
+                <input type="radio" name="premiumtype" value="Platinum" id="Platinum"><label for="Platinum">Become a Platinum Member!</label>
+            </div>
+            <button class="btn btn-success">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -288,6 +288,23 @@ def professional_profile(request, professionaluser_id, editable=False):
 	}
 	return render(request, 'RateMyServices/professional_profile.html', context)
 
+def upgrade_plans(request):
+	gUser = User.objects.get(id=1) #id = 2 : for testing purposes
+	pUser = get_object_or_404(ProfessionalUser, id=request.user.professionaluser_set.all()[0].id)
+	if request.method == 'POST' and request.POST['premiumtype']=='Diamond':
+		pUser.isDiamond = True
+		pUser.save()
+		return HttpResponseRedirect(reverse('RateMyServices:index'))
+	elif request.method == 'POST' and request.POST['premiumtype']=='Platinum':
+		pUser.isPlatinum = True
+		pUser.save()
+		return HttpResponseRedirect(reverse('RateMyServices:index'))
+		
+	context = {
+		'gUser': gUser,
+	}
+	return render(request, 'RateMyServices/upgrade_plans.html', context)
+
 def hire_service(request):
 	pUser = get_object_or_404(ProfessionalUser, id=request.POST['provider'])
 	gUser = get_object_or_404(User, id=request.user.id)

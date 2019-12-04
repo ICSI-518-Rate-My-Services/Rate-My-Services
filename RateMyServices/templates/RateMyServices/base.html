@@ -40,7 +40,7 @@
 			</div>
 			<div class="d-flex"> <!-- search bar for small screen -->
 				<div class="d-md-none col-12 header-search">
-					<form class="input-group" action="{% url 'RateMyServices:search' gUser.id%}" method="post">
+					<form class="input-group" action="{% url 'RateMyServices:search' gUser.id %}" method="post">
 						{% csrf_token %}
 						<input class="rounded-left form-control w-25" type="text" placeholder="Search services or ..." name="search">
 						<input class="middle form-control" type="text" placeholder="City" name="city">
