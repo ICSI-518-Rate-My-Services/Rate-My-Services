@@ -28,37 +28,8 @@
 <div class="container-fluid mt-3">
 	<h4 class="text-muted">Promoted Ads</h4>
 	<div class="row flex-row flex-nowrap overflow-auto">
-		{% for i in dummyList %}
-		<div class="col">
-			<div class="card mx-2" style="width: 20rem;">
-				<img src="{{i.imgUrls}}" class="card-img-top" alt="ad images" style="height: 200px; background-color: lightgray;">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-2">
-							<!-- <img class="rounded-circle" height="45px" width="45px" src="" alt="" style="background-color: beige;"> -->
-							<i class="fa fa-user-circle fa-3x"></i>
-						</div>
-						<div class="col-10 pl-4">
-							<h5 class="card-title mb-2 text-success">{{i.service}}</h5>
-							<h6 class="text-muted">{{i.name}}</h6>
-						</div>
-					</div>
-					<div class="d-flex justify-content-end">
-							<p class="my-0 small">{{i.location}}</p>
-							<!-- <p class="my-0 small">518-000-0000</p>
-							<p class="my-0 small">abc@gmail.com</p> -->
-					</div>
-					<div class="d-flex justify-content-center">
-						<p class="card-text my-5">"{{i.description}}"</p>
-					</div>
-					<div class="d-flex justify-content-between">
-						<p><strong>Rate: </strong> {{i.rate}} ({{i.numOfRate}})</p>
-						<p><strong>Avg rates: </strong>${{i.avgRates}}/hr</p>
-					</div>
-					<a href="#" class="btn btn-sm btn-success float-right">View Profile</a>
-				</div>
-			</div>
-		</div>
+		{% for i in platinumList %}
+			{% include 'RateMyServices/reusableComponents/platinum_matchcards.html' %}
 		{% endfor %}
 	</div>
 </div>

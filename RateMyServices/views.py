@@ -62,9 +62,16 @@ def rate(request):
 	return HttpResponseRedirect(reverse('RateMyServices:professional_profile', args=(pUser.id,)))
 
 def index(request): 
+	gUser = User.objects.get(id=1) #id = 2 : for testing purposes
 	pUsers = ProfessionalUser.objects.all()
 	serviceList = Service.objects.all()
-	gUser = User.objects.get(id=1) #id = 2 : for testing purposes
+	platinumList = []
+	diamondList = []
+	for service in serviceList:
+		if service.provider.isPlatinum:
+			platinumList.append(service)
+		if service.provider.isDiamond:
+			diamondList.append(service)
 	dummy_normalpuser= [
 		{	'name': 'Musa Aghayev',
 			'service': 'Software Developper',
@@ -140,6 +147,8 @@ def index(request):
 		'dummyList': dummy_normalpuser,
 		'dummyPremiumList': dummy_premiumpuser,
 		'serviceList': serviceList,
+		'platinumList': platinumList,
+		'diamondList': diamondList,
 	}
 	return render(request, 'RateMyServices/index.html', context)
 

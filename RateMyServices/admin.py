@@ -38,7 +38,7 @@ class ProfessionalUserAdmin(admin.ModelAdmin):
 		return obj.generalUserID.email
 	get_email.short_description = 'email'
 
-	list_display = ('get_full_name','get_email','title')
+	list_display = ('get_full_name','get_email','title','isDiamond','isPlatinum')
 	# search_fields = ('get_email','get_full_name')
 
 
