@@ -40,14 +40,13 @@
 			<h1>{{ pUser.generalUserID.first_name }} {{ pUser.generalUserID.last_name }}</h1>
 			<p>{{ pUser.generalUserID.city }}, {{ pUser.generalUserID.state }}</p> 
 			<div>
+				{% if editable %}
 				<form method="post" enctype="multipart/form-data">
 					{% csrf_token %}
-					{{ form.as_p }}
-					{% if editable %}
 					<input type="file" name="profile_image" id="profile_image">
 					<button class="btn btn-info" type="submit">Upload Profile Image</button>
-					{% endif %}
-					</form>
+				</form>
+				{% endif %}
 			</div>
 		</div>
 		<div id="userInformation" class="carousel" data-interval="false">

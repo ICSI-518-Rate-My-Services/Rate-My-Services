@@ -18,12 +18,24 @@
         <div class="tab-pane fade {% if not forloop.counter0 %}show active{% endif %} p-3" 
             id="nav-{{forloop.counter0}}" role="tabpanel" aria-labelledby="nav-{{forloop.counter0}}-tab">
             <div class="py-4 d-flex ">
-                {% if editable %}
                 <div class="d-flex flex-column px-4">
+                {% if editable %}
+                <form method="post" enctype="multipart/form-data" class="d-flex flex-column" style="width: 300px;">
+					{% csrf_token %}
+                    <input type="file" name="service_image" id="service_image">
+                    <input class="d-none" type="text" name="service_id" id="service_id" value="{{i.0.id}}" readonly>
+                    <button class="btn btn-info" type="submit">Upload Profile Image</button>
+                </form>
+                {% if not i.0.image %}
                     <i class="fa fa-picture-o fa-9x" style="font-size: 20rem; color: gray;"></i>
-                    <p class="btn btn-outline-secondary">add some picture!</p>
+                {% endif %}
+                {% endif %}
+                {% if i.0.image %}
+                <div class="p-1" style="border: 10px;">
+                    <div style="background:url({{i.0.image.url}}); height: 300px; width: 300px; background-size: cover; background-position: center;"></div>    
                 </div>
                 {% endif %}
+                </div>
                 <div class="d-flex flex-column">
                     <p class="my-auto py-4">{{i.0.description}}</p>
                     <p class="mt-auto"> <strong> Price: </strong>${{i.0.rate}} {% if i.0.isHour %} /hr {% else %} (Standard price) {% endif %}</p>

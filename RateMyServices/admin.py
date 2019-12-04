@@ -10,6 +10,11 @@ class ServiceInline(admin.TabularInline):
 class ServiceAdmin(admin.ModelAdmin):
 	model = Service
 	list_display = ('provider','service','rate')
+	fieldsets = (
+		( None ,{'fields':('provider','service','rate','description','isHour')}),
+		('Media',{'fields':('image',)}),
+		('Reviews',{'fields':('avg_rating',)})
+	)
 
 class RatingAdmin(admin.ModelAdmin):
 	model = Rating

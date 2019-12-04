@@ -222,24 +222,31 @@ def login(request):
 '''
 
 def my_profile(request):
+	def uploadProfileImage(userObj):
+		if request.method == 'POST' and request.FILES.get('profile_image',False):
+			# check if users did select files
+			uploaded_file = request.FILES['profile_image']
+			userObj.profile_image.delete()
+			userObj.profile_image = uploaded_file
+			userObj.save()
+	def uploadServiceImage():
+		if request.method == 'POST' and request.FILES.get('service_image',False):
+			uploaded_file = request.FILES['service_image']
+			serviceObj = get_object_or_404(Service, id=request.POST['service_id'])
+			serviceObj.image.delete()
+			serviceObj.image = uploaded_file
+			serviceObj.save()
+
 	editable = True
 	if request.user.is_authenticated:
 		if request.user.is_professional:
 			puser_id = request.user.professionaluser_set.all()[0].id
-			if request.method == 'POST' and request.FILES.get('profile_image', False):
-				# check if users did select files
-				uploaded_file = request.FILES['profile_image']
-				request.user.profile_image.delete()
-				request.user.profile_image = uploaded_file
-				request.user.save()
+			uploadProfileImage(request.user)
+			uploadServiceImage()
 			return professional_profile(request, puser_id, editable)
 		else:
 			guser_id = request.user.id
-			if request.method == 'POST' and request.FILES.get('profile_image', False):
-				uploaded_file = request.FILES['profile_image']
-				request.user.profile_image.delete()
-				request.user.profile_image = uploaded_file
-				request.user.save()
+			uploadProfileImage(request.user)
 			return general_profile(request, guser_id, editable)
 	else:
 		message = 'The action you try to do requires log in, please log in and precede.'
