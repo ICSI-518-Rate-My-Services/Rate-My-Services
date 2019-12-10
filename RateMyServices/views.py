@@ -157,7 +157,7 @@ def login(request):
 	return render(request, 'registration/login.html')
 '''
 
-def my_profile(request):
+def my_profile(request, service_id=None):
 	def uploadProfileImage(userObj):
 		if request.method == 'POST' and request.FILES.get('profile_image',False):
 			# check if users did select files
@@ -177,7 +177,27 @@ def my_profile(request):
 			serviceObj = get_object_or_404(Service, id=request.POST['service_id'])
 			serviceObj.image.delete()
 			serviceObj.save()
-
+	def updateServiceInfo():
+		isUpdateServiceInfo = False
+		checkList = ['service','description','rate','isHour']
+		for i in checkList:
+			if request.POST.get(i,False):
+				isUpdateServiceInfo= True
+		if request.method == 'POST' and isUpdateServiceInfo:
+			service = get_object_or_404(Service, id=request.POST['service_id'])
+			if request.POST['service']:
+				service.updateName(request.POST['service'])
+			if request.POST['description']:
+				service.updateDescription(request.POST['description'])
+			if request.POST['rate']:
+				service.updatePrice(request.POST['rate'])
+			if request.POST.get('isHour',False):
+				service.updateIsHour(True)
+			else:
+				service.updateIsHour(False)
+	
+	if request.method == 'POST' and request.POST.get('service_id',False):
+		service_id = int(request.POST['service_id'])
 	editable = True
 	if request.user.is_authenticated:
 		if request.user.is_professional:
@@ -185,12 +205,11 @@ def my_profile(request):
 			uploadProfileImage(request.user)
 			uploadServiceImage()
 			deleteServiceImage()
-			return professional_profile(request, puser_id, editable=editable)
+			updateServiceInfo()
+			return professional_profile(request, puser_id,service_id=service_id, editable=editable)
 		else:
 			guser_id = request.user.id
 			uploadProfileImage(request.user)
-			uploadServiceImage()
-			deleteServiceImage()
 			return general_profile(request, guser_id, editable)
 	else:
 		message = 'The action you try to do requires log in, please log in and precede.'
@@ -351,9 +370,8 @@ def update_user_info(request):
 	return HttpResponseRedirect(reverse('RateMyServices:my_profile'))
 
 def update_service_info(request):
-	service = get_object_or_404(Service, id=request.POST['service_id'])
-	checkList = ['service','description','isHour', 'rate']
-	attributeList = [service.service , service.description, service.isHour , service.rate]
+	service_id = int(request.POST['service_id'])
+	service = get_object_or_404(Service, id=service_id)
 	if request.POST['service']:
 		service.updateName(request.POST['service'])
 	if request.POST['description']:
@@ -365,4 +383,4 @@ def update_service_info(request):
 	else:
 		service.updateIsHour(False)
 
-	return HttpResponseRedirect(reverse('RateMyServices:my_profile'))
+	return redirect('my_profile')
