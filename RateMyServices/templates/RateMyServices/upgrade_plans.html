@@ -1,11 +1,21 @@
 {% extends "RateMyServices/base.html" %}
 
-{% block title %} Upgrade Your Plans! {% endblock %}
+{% block title %} 
+    {% if request.user.professionaluser_set.all.0.isDiamond or request.user.professionaluser_set.all.0.isPlatinum %}
+        Manage My Plan
+    {% else %}
+        Upgrade Your Plans! 
+    {% endif %}
+{% endblock %}
 
 {% block content %}
 <div class="p-3">
     <div>
+        {% if request.user.professionaluser_set.all.0.isDiamond or request.user.professionaluser_set.all.0.isPlatinum %}
+        <h2 class="text-center">Manage My Plan</h2>
+        {% else %}
         <h2 class="text-center">Become a Premium Member</h2>
+        {% endif %}
         <h4>Why you should become Premium Member:</h4>
         <ul>
             <li>Be the First to be noticed!</li>
