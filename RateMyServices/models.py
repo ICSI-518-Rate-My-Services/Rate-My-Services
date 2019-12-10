@@ -40,8 +40,12 @@ class Service(models.Model):
 	description = models.CharField(max_length=200, default='')
 	isHour = models.BooleanField(default=False)
 	image = models.ImageField(upload_to='service_pics/',blank=True)
+	hireCount = models.PositiveIntegerField(default=0)
 	def __str__(self):
 		return self.service + ": " + self.provider.generalUserID.first_name + " " + self.provider.generalUserID.last_name + ", " + str(self.rate)
+	
+	def addOneHireCount(self):
+		self.hireCount += 1
 
 class Rating(models.Model):
 	rater = models.ForeignKey(User, on_delete=models.CASCADE)

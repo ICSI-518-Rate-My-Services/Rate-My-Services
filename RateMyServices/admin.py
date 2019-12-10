@@ -11,7 +11,7 @@ class ServiceAdmin(admin.ModelAdmin):
 	model = Service
 	list_display = ('provider','service','rate')
 	fieldsets = (
-		( None ,{'fields':('provider','service','rate','description','isHour')}),
+		( None ,{'fields':('provider','service','rate','description','isHour','hireCount')}),
 		('Media',{'fields':('image',)}),
 		('Reviews',{'fields':('avg_rating',)})
 	)

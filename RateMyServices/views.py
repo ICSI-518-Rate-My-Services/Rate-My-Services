@@ -64,7 +64,7 @@ def rate(request):
 def index(request): 
 	gUser = User.objects.get(id=1) #id = 2 : for testing purposes
 	pUsers = ProfessionalUser.objects.all()
-	serviceList = Service.objects.all()
+	serviceList = Service.objects.order_by('-hireCount')[:10]
 	platinumList = []
 	diamondList = []
 	for service in serviceList:
@@ -260,6 +260,8 @@ def hire_service(request):
 	pUser = get_object_or_404(ProfessionalUser, id=request.POST['provider'])
 	gUser = get_object_or_404(User, id=request.user.id)
 	service = get_object_or_404(Service, id=request.POST['service'])
+	service.addOneHireCount()
+	service.save()
 	pUser.transaction_set.create(buyer=gUser, provider=pUser, service=service)
 	return HttpResponseRedirect(reverse('RateMyServices:professional_profile', args=(pUser.id,)))
 
