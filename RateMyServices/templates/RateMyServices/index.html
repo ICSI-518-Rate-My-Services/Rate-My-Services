@@ -13,7 +13,10 @@
 		</ol>
 		<div class="carousel-inner">
 			{% for i in diamondList %}
-			<div class="carousel-item {% if not forloop.counter0 %} active {% endif %}" style="background: url({{i.image.url}}) no-repeat; height: 500px; background-size: cover; background-position: center;">
+			<div class="carousel-item {% if not forloop.counter0 %} active {% endif %}" 
+			{% if i.image %}
+			style="background: url({{i.image.url}}) no-repeat; height: 500px; background-size: cover; background-position: center;"
+			{% endif %}>
 				<!-- <img src="i.Urls" class="d-block w-100" alt="..."> -->
 				<div class="d-flex justify-content-center">
 					<a href="{% url 'RateMyServices:professional_profile' i.provider.id %}"><h1 class="mt-4 text-secondary rounded px-2" style="background-color: rgba(255, 255, 255, 0.6)">{{i.service}}</h1></a>
