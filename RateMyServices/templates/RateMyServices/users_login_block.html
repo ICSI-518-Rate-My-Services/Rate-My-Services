@@ -43,12 +43,14 @@
                 <a class="dropdown-item" href="{% url 'RateMyServices:addServicePage' request.user.id %}">
                     <span style="color: gray;" class="mr-2"><i class="fa fa-plus fa-1x"></i></span>Add Services</a>
                 {% if not request.user.professionaluser_set.all.0.isDiamond %}
+                {% if not request.user.professionaluser_set.all.0.isPlatinum %}
                 <a class="dropdown-item" href="{% url 'RateMyServices:becomePremium' %}">
                     <span style="color: gray;" class=""><i class="fa fa-diamond"></i></span> Upgrade to Premium
                 </a>
                 {% endif %}
+                {% endif %}
                 {% if request.user.professionaluser_set.all.0.isDiamond or request.user.professionaluser_set.all.0.isPlatinum %}
-                <a href="" class="dropdown-item disabled">
+                <a class="dropdown-item" href="{% url 'RateMyServices:becomePremium' %}">
                     Manage my plans
                 </a>
                 {% endif %}

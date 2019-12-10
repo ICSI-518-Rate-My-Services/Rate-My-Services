@@ -16,17 +16,28 @@
         {% csrf_token %}
         <div class="d-flex flex-column">
             <table width="50%">
+            {% if not request.user.professionaluser_set.all.0.isDiamond %}
             <tr>
                 <td><span>Appear On the Biggest Slider</span></td>
                 <td><span><input type="radio" name="premiumtype" value="Diamond" id="Diamond" required><label for="Diamond">Become a Diamond Member!</label></span></td>
             </tr>
+            {% endif %}
+            {% if not request.user.professionaluser_set.all.0.isPlatinum %}
             <tr>
                 <td><span>Appear On the Middle Slider</span></td>
                 <td><span><input type="radio" name="premiumtype" value="Platinum" id="Platinum"><label for="Platinum">Become a Platinum Member!</label></span></td>
             </tr>
+            {% endif %}
+            {% if request.user.professionaluser_set.all.0.isDiamond or request.user.professionaluser_set.all.0.isPlatinum %}
+            <tr>
+                <td><span>Think Twice Please!</span></td>
+                <td><span><input type="radio" name="premiumtype" value="noPremium" id="noPremium"><label for="noPremium">Cancel Premium Membership!</label></span></td>
+            </tr>
+            {% endif %}
             </table>
             <button class="btn btn-success">Submit</button>
         </div>
     </form>
 </div>
 {% endblock %}
+                
