@@ -98,7 +98,7 @@ def search(request, generaluser_id):
 	
 
 	else:
-		services = services.filter(service=request.POST['search'])
+		services = services.filter(service__icontains=request.POST['search'])
 
 		if len(request.POST['state']) != 0:
 			filtered_services = list()
