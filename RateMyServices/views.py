@@ -244,6 +244,11 @@ def upgrade_plans(request):
 		pUser.isDiamond = False
 		pUser.save()
 		return HttpResponseRedirect(reverse('RateMyServices:index'))
+	elif request.method == 'POST' and request.POST['premiumtype']=='noPremium':
+		pUser.isPlatinum = False
+		pUser.isDiamond = False
+		pUser.save()
+		return HttpResponseRedirect(reverse('RateMyServices:index'))
 		
 	context = {
 		'gUser': gUser,
