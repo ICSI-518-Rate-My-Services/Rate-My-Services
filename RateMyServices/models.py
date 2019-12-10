@@ -44,10 +44,10 @@ class Service(models.Model):
 	def __str__(self):
 		return self.service + ": " + self.provider.generalUserID.first_name + " " + self.provider.generalUserID.last_name + ", " + str(self.rate)
 	
-	def updateServiceName(self, newServiceName):
+	def updateName(self, newServiceName):
 		self.service = newServiceName
 		self.save()
-	def updateServiceDescription(self, newDescription):
+	def updateDescription(self, newDescription):
 		self.description = newDescription
 		self.save()
 	def updatePrice(self, newPrice):

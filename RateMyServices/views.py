@@ -355,15 +355,14 @@ def update_service_info(request):
 	checkList = ['service','description','isHour', 'rate']
 	attributeList = [service.service , service.description, service.isHour , service.rate]
 	if request.POST['service']:
-		service.service = request.POST['service']
+		service.updateName(request.POST['service'])
 	if request.POST['description']:
-		service.description = request.POST['description']
+		service.updateDescription(request.POST['description'])
 	if request.POST['rate']:
-		service.rate = request.POST['rate']
+		service.updatePrice(request.POST['rate'])
 	if request.POST.get('isHour',False):
-		service.isHour = True
+		service.updateIsHour(True)
 	else:
-		service.isHour = False
+		service.updateIsHour(False)
 
-	service.save()
 	return HttpResponseRedirect(reverse('RateMyServices:my_profile'))
