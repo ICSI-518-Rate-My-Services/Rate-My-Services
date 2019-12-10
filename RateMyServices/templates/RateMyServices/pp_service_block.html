@@ -124,11 +124,11 @@
                             </select> -->
                             <div class="rating my-0 py-0">
                                 <!-- reference: https://bootsnipp.com/snippets/qr6zz#comments -->
-                                <input type="radio" id="star5" name="rating" value="5" required/><label for="star5">5 stars</label>
-                                <input type="radio" id="star4" name="rating" value="4" /><label for="star4">4 stars</label>
-                                <input type="radio" id="star3" name="rating" value="3" /><label for="star3">3 stars</label>
-                                <input type="radio" id="star2" name="rating" value="2" /><label for="star2">2 stars</label>
-                                <input type="radio" id="star1" name="rating" value="1" /><label for="star1">1 star</label>
+                                <input type="radio" id="{{forloop.counter0}}star5" name="rating" value="5" required/><label for="{{forloop.counter0}}star5">5 stars</label>
+                                <input type="radio" id="{{forloop.counter0}}star4" name="rating" value="4" /><label for="{{forloop.counter0}}star4">4 stars</label>
+                                <input type="radio" id="{{forloop.counter0}}star3" name="rating" value="3" /><label for="{{forloop.counter0}}star3">3 stars</label>
+                                <input type="radio" id="{{forloop.counter0}}star2" name="rating" value="2" /><label for="{{forloop.counter0}}star2">2 stars</label>
+                                <input type="radio" id="{{forloop.counter0}}star1" name="rating" value="1" /><label for="{{forloop.counter0}}star1">1 star</label>
                             </div>
                             <div style="height: 4.3rem;"></div>
                             <label for="description" class="d-block">Would you like to wirte a review?</label>
