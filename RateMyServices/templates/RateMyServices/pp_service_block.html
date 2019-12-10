@@ -36,38 +36,77 @@
         {% endif %}
         p-3" 
             id="nav-{{forloop.counter0}}" role="tabpanel" aria-labelledby="nav-{{forloop.counter0}}-tab">
-            <div class="py-4 d-flex ">
-                <div class="d-flex flex-column px-4">
-                {% if editable %}
-                <form method="post" enctype="multipart/form-data" class="d-flex flex-column" style="width: 300px;">
-					{% csrf_token %}
-                    <input type="file" name="service_image" id="service_image">
-                    <input class="d-none" type="text" name="service_id" id="service_id" value="{{i.0.id}}" readonly>
-                    <button class="btn btn-info" type="submit">Upload Profile Image</button>
-                </form>
-                {% if not i.0.image %}
-                    <i class="fa fa-picture-o fa-9x" style="font-size: 20rem; color: gray;"></i>
-                {% endif %}
-                {% endif %}
-                {% if i.0.image %}
-                <div class="p-1" style="border: 10px;">
-                    <div style="background:url({{i.0.image.url}}); height: 300px; width: 300px; background-size: cover; background-position: center;"></div>    
-                </div>
-                {% if editable %}
-                <form method="POST">
-                    {% csrf_token %}
-                    <input type="checkbox" name="delete_photo" id="delete_photo"><label for="delete_photo">delete this photo?</label>
-                    <input class="d-none" type="text" name="service_id" id="service_id" value="{{i.0.id}}" readonly>
-                    <button class="btn btn-danger" type="submit">Delete Photo</button>
-                </form>
-                {% endif %}
-                {% endif %}
-                </div>
-                <div class="d-flex flex-column">
-                    <p class="my-auto py-4">{{i.0.description}}</p>
-                    <p class="mt-auto"> <strong> Price: </strong>${{i.0.rate}} {% if i.0.isHour %} /hr {% else %} (Standard price) {% endif %}</p>
+            <div id="serviceInformation{{forloop.counter0}}" class="carousel" data-interval="false">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="py-4 d-flex ">
+                                <div class="d-flex flex-column px-4">
+                                {% if i.0.image %}
+                                <div class="p-1" style="border: 10px;">
+                                    <div style="background:url({{i.0.image.url}}); height: 300px; width: 300px; background-size: cover; background-position: center;"></div>    
+                                </div>
+                                {% endif %}
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <p class="my-auto py-4">{{i.0.description}}</p>
+                                    <div>
+                                        <p class="mt-auto"> <strong> Price: </strong>${{i.0.rate}} {% if i.0.isHour %} /hr {% else %} (Standard price) {% endif %}</p>
+                                        {% if editable %}
+                                        <button class="btn btn-outline-dark w-100" data-target="#serviceInformation{{forloop.counter0}}" data-slide-to="1">Edit</button>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    {% if editable %}
+                    <div class="carousel-item">
+                        <div class="py-4 d-flex ">
+                            <div class="d-flex flex-column px-4">
+                            {% if editable %}
+                            <form method="post" enctype="multipart/form-data" class="d-flex flex-column" style="width: 300px;">
+                                {% csrf_token %}
+                                <input type="file" name="service_image" id="service_image">
+                                <input class="d-none" type="text" name="service_id" id="service_id" value="{{i.0.id}}" readonly>
+                                <button class="btn btn-info" type="submit">Upload Profile Image</button>
+                            </form>
+                            {% if not i.0.image %}
+                                <i class="fa fa-picture-o fa-9x" style="font-size: 20rem; color: gray;"></i>
+                            {% endif %}
+                            {% endif %}
+                            {% if i.0.image %}
+                            <div class="p-1" style="border: 10px;">
+                                <div style="background:url({{i.0.image.url}}); height: 300px; width: 300px; background-size: cover; background-position: center;"></div>    
+                            </div>
+                            {% if editable %}
+                            <form method="POST">
+                                {% csrf_token %}
+                                <input type="checkbox" name="delete_photo" id="delete_photo"><label for="delete_photo">delete this photo?</label>
+                                <input class="d-none" type="text" name="service_id" id="service_id" value="{{i.0.id}}" readonly>
+                                <button class="btn btn-danger" type="submit">Delete Photo</button>
+                            </form>
+                            {% endif %}
+                            {% endif %}
+                            </div>
+                            <div class="d-flex flex-column w-100 w-md-50">
+                                <form action="{% url 'RateMyServices:updateServiceInfo' %}" method="POST">
+                                {% csrf_token %}
+                                <input class="d-none" type="text" readonly name="service_id" value="{{i.0.id}}">
+                                <input class="form-control form-control-lg" type="text" name="service" id="{{i.0.id}}service" placeholder="{{i.0.service}}">
+                                <textarea class="form-control my-2 py-2" type="text-area" row="4" name="description" id="{{i.0.id}}description" placeholder="{{i.0.description}}"></textarea>
+                                <div>
+                                    <p class="mt-auto"> <strong> Price: </strong>$<input class="form-control d-inline" type="number" name="rate" id="{{i.0.id}}rate" placeholder="{{i.0.rate}}"><input type="checkbox" name="isHour" id="{{i.0.id}}isHour" value="True"><label for="{{i.0.id}}isHour">hourly rate?</label></p>
+                                    
+                                    <button class="btn btn-outline-dark" data-target="#serviceInformation{{forloop.counter0}}" data-slide-to="0">Cancel</button>
+                                    <button class="btn btn-success" type="submit">Save Change</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
+           
             <hr>
             <h4 class="text-muted">Reviews</h4>
             {% if i.1|length %}

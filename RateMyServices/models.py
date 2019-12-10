@@ -44,8 +44,21 @@ class Service(models.Model):
 	def __str__(self):
 		return self.service + ": " + self.provider.generalUserID.first_name + " " + self.provider.generalUserID.last_name + ", " + str(self.rate)
 	
+	def updateServiceName(self, newServiceName):
+		self.service = newServiceName
+		self.save()
+	def updateServiceDescription(self, newDescription):
+		self.description = newDescription
+		self.save()
+	def updatePrice(self, newPrice):
+		self.rate = newPrice
+		self.save()
+	def updateIsHour(self, newIsHour):
+		self.isHour = newIsHour
+		self.save()
 	def addOneHireCount(self):
 		self.hireCount += 1
+		self.save()
 
 class Rating(models.Model):
 	rater = models.ForeignKey(User, on_delete=models.CASCADE)

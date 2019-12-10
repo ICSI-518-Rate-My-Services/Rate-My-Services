@@ -349,3 +349,21 @@ def update_user_info(request):
 
 	gUser.save()
 	return HttpResponseRedirect(reverse('RateMyServices:my_profile'))
+
+def update_service_info(request):
+	service = get_object_or_404(Service, id=request.POST['service_id'])
+	checkList = ['service','description','isHour', 'rate']
+	attributeList = [service.service , service.description, service.isHour , service.rate]
+	if request.POST['service']:
+		service.service = request.POST['service']
+	if request.POST['description']:
+		service.description = request.POST['description']
+	if request.POST['rate']:
+		service.rate = request.POST['rate']
+	if request.POST.get('isHour',False):
+		service.isHour = True
+	else:
+		service.isHour = False
+
+	service.save()
+	return HttpResponseRedirect(reverse('RateMyServices:my_profile'))
