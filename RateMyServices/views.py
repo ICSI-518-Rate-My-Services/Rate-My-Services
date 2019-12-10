@@ -65,13 +65,8 @@ def index(request):
 	gUser = User.objects.get(id=1) #id = 2 : for testing purposes
 	pUsers = ProfessionalUser.objects.all()
 	serviceList = Service.objects.order_by('-hireCount')[:10]
-	platinumList = []
-	diamondList = []
-	for service in serviceList:
-		if service.provider.isPlatinum:
-			platinumList.append(service)
-		if service.provider.isDiamond:
-			diamondList.append(service)
+	platinumList = Service.objects.filter(provider__isPlatinum=True).order_by('-hireCount')[:10]
+	diamondList = Service.objects.filter(provider__isDiamond=True).order_by('-hireCount')[:10]
 
 	context = {
 		'pUsers': pUsers,
