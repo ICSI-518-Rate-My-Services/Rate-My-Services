@@ -19,7 +19,7 @@
 			{% endif %}>
 				<!-- <img src="i.Urls" class="d-block w-100" alt="..."> -->
 				<div class="d-flex justify-content-center">
-					<a href="{% url 'RateMyServices:professional_profile' i.provider.id %}"><h1 class="mt-4 text-secondary rounded px-2" style="background-color: rgba(255, 255, 255, 0.6)">{{i.service}}</h1></a>
+					<a href="{% url 'RateMyServices:professional_profile_service' i.provider.id i.id %}"><h1 class="mt-4 text-secondary rounded px-2" style="background-color: rgba(255, 255, 255, 0.6)">{{i.service}}</h1></a>
 				</div>
 			</div>
 			{% endfor %}

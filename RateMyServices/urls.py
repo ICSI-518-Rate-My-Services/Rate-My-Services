@@ -21,6 +21,7 @@ urlpatterns = [
 	path('MyProfile', views.my_profile, name='my_profile'),
 	path('general_profile/<int:generaluser_id>/', views.general_profile, name='general_profile'),
 	path('professional_profile/<int:professionaluser_id>/', views.professional_profile, name='professional_profile'),
+	path('professional_profile/<int:professionaluser_id>/<int:service_id>', views.professional_profile, name='professional_profile_service'),
 	path('upgrade_plans', views.upgrade_plans, name='becomePremium'),
 	path('becomeProUser/<int:generaluser_id>/', views.becomeProUser, name='becomeProUser'),
 	path('addProUser/<int:generaluser_id>/', views.addProUser, name="addProUser"),

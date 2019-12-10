@@ -1,7 +1,16 @@
 <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
     {% for i in pUser.service_set.all %}
-        <a class="nav-item nav-link {% if not forloop.counter0 %} active {% endif %}" 
+        <a class="nav-item nav-link 
+        {% if service_id == None %}
+            {% if not forloop.counter0 %} 
+            active 
+            {% endif %}
+        {% else %}
+            {% if i.id == service_id %}
+            active
+            {% endif %}
+        {% endif %}" 
             id="nav-{{forloop.counter0}}-tab" href="#nav-{{forloop.counter0}}" data-toggle="tab" role="tab" aria-controls="nav-{{forloop.counter0}}" 
             aria-selected="{% if not forloop.counter0 %}true {% else %} false {% endif %}"
             ><h4 class="px-3">{{i.service}}</h4>
@@ -15,7 +24,17 @@
 
 <div class="tab-content" id="nav-tabContent">
     {% for i in serviceWithReviews %}
-        <div class="tab-pane fade {% if not forloop.counter0 %}show active{% endif %} p-3" 
+        <div class="tab-pane fade 
+        {% if service_id == None %}
+            {% if not forloop.counter0 %} 
+            show active 
+            {% endif %}
+        {% else %}
+            {% if i.0.id == service_id %}
+            show active
+            {% endif %}
+        {% endif %}
+        p-3" 
             id="nav-{{forloop.counter0}}" role="tabpanel" aria-labelledby="nav-{{forloop.counter0}}-tab">
             <div class="py-4 d-flex ">
                 <div class="d-flex flex-column px-4">

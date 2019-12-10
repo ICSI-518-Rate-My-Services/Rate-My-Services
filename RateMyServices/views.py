@@ -190,7 +190,7 @@ def my_profile(request):
 			uploadProfileImage(request.user)
 			uploadServiceImage()
 			deleteServiceImage()
-			return professional_profile(request, puser_id, editable)
+			return professional_profile(request, puser_id, editable=editable)
 		else:
 			guser_id = request.user.id
 			uploadProfileImage(request.user)
@@ -212,7 +212,7 @@ def general_profile(request, generaluser_id, editable=False):
 	}
 	return render(request, 'RateMyServices/general_profile.html', context)
 
-def professional_profile(request, professionaluser_id, editable=False):
+def professional_profile(request, professionaluser_id, service_id=None, editable=False):
 	pUser = get_object_or_404(ProfessionalUser, id=professionaluser_id)
 	nonEmptyReviewList = [] #a collection of nonempty review list for the professional user
 	for i in pUser.service_set.all():
@@ -228,6 +228,7 @@ def professional_profile(request, professionaluser_id, editable=False):
 		'pUser': pUser,
 		'editable': editable,
 		'serviceWithReviews': finalList,
+		'service_id': service_id,
 	}
 	return render(request, 'RateMyServices/professional_profile.html', context)
 

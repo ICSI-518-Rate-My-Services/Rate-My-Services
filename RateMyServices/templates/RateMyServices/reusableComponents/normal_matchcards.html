@@ -33,6 +33,6 @@
             <p class="my-auto mr-auto"> ({{i.rating_set.all.count}})</p>
             <p class="my-auto"> <strong>Avg price: </strong>${{i.rate}} {% if i.isHour %}/hr{% endif %} </p>
         </div>
-        <a href="{% url 'RateMyServices:professional_profile' i.provider.id %}" class="btn btn-sm btn-success float-right">View Profile</a>
+        <a href="{% url 'RateMyServices:professional_profile_service' i.provider.id i.id %}" class="btn btn-sm btn-success float-right">View Profile</a>
     </div>
 </div>
