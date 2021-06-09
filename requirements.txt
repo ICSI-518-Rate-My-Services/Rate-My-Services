@@ -1,5 +1,5 @@
 cycler==0.10.0
-Django==2.2.6
+Django==2.2.22
 guppy3==3.0.6.post3
 kiwisolver==1.1.0
 matplotlib==3.1.1
